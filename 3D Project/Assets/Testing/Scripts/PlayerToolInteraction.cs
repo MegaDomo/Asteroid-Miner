@@ -52,6 +52,11 @@ public class PlayerToolInteraction : MonoBehaviour
         }
     }
 
+    public void SetTool(Tool tool)
+    {
+        selectedTool = tool;
+    }
+
     private void OnEnable()
     {
         interactAction.Enable();

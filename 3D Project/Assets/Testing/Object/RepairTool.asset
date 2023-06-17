@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RepairTool
   m_EditorClassIdentifier: 
   prefab: {fileID: 7304772250248528160, guid: 4b13d6970778c7046899258c86441f45, type: 3}
-  toolType: 0
+  toolType: 1

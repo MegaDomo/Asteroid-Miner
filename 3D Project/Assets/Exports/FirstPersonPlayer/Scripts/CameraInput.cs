@@ -12,6 +12,7 @@ public class CameraInput : MonoBehaviour
     public Transform playerBody;
 
     [Header("Attributes")]
+    public bool lockMouse = false;
     public float cameraSpeed = 1f;
 
     public InputAction cameraAction;
@@ -23,7 +24,8 @@ public class CameraInput : MonoBehaviour
 
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        if (lockMouse)
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update() => MoveCamera();

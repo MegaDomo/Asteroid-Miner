@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7168075688958770177}
-  - component: {fileID: 4017814025831462406}
-  - component: {fileID: 8419524237959282206}
   - component: {fileID: 322942836266829430}
   - component: {fileID: 5202011085658630787}
   - component: {fileID: 2646922854452392937}
   - component: {fileID: 7235380758787679683}
+  - component: {fileID: 4017814025831462406}
+  - component: {fileID: 8419524237959282206}
   m_Layer: 6
   m_Name: Loot
   m_TagString: Untagged
@@ -37,36 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4017814025831462406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8216205554135198445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b5ee47434901c468a368248b448ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interaction: {fileID: 8419524237959282206}
-  player: {fileID: 0}
-  floatSpeed: 350
-  pickUpRadius: 10
-  willFloatToPlayer: 1
-  isTrigger: 1
---- !u!114 &8419524237959282206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8216205554135198445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16235b3105fc0b9488a7956be85cfec6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &322942836266829430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -147,3 +117,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4017814025831462406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216205554135198445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b5ee47434901c468a368248b448ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interaction: {fileID: 8419524237959282206}
+  player: {fileID: 0}
+  floatSpeed: 350
+  pickUpRadius: 10
+  willFloatToPlayer: 1
+--- !u!114 &8419524237959282206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216205554135198445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16235b3105fc0b9488a7956be85cfec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

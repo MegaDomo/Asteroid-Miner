@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1884363277304610392}
-  - component: {fileID: -610146001450063920}
-  - component: {fileID: 8374114608235297719}
   - component: {fileID: 7210262728845881776}
   - component: {fileID: 4293085180907941402}
   - component: {fileID: -1824613259958596399}
   - component: {fileID: -7386449136464980270}
+  - component: {fileID: -610146001450063920}
+  - component: {fileID: 8374114608235297719}
   m_Layer: 0
   m_Name: LargeAsteroid
   m_TagString: Untagged
@@ -37,32 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
---- !u!114 &-610146001450063920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7979141116734320728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e3857b9b3f94424aa0e21f6c899bf07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropPrefab: {fileID: 2129212477646575413, guid: 9531026ec7eb7fe419b273c94016ede7, type: 3}
---- !u!114 &8374114608235297719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7979141116734320728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161b9aeb84df1744183c96bbb5db4b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToDrill: 1
 --- !u!33 &7210262728845881776
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -143,3 +117,29 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1979470939959176126, guid: 9f7e1d709185b974fa480c1a48b053b2, type: 3}
+--- !u!114 &-610146001450063920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979141116734320728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3857b9b3f94424aa0e21f6c899bf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPrefab: {fileID: 2129212477646575413, guid: 9531026ec7eb7fe419b273c94016ede7, type: 3}
+--- !u!114 &8374114608235297719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979141116734320728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161b9aeb84df1744183c96bbb5db4b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDrill: 1

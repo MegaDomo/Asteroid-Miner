@@ -46,4 +46,10 @@ public class AsteroidLoot : MonoBehaviour
     {
         interaction.interactAction -= PickUpLoot;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, pickUpRadius);
+    }
 }

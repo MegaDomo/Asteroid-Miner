@@ -32,9 +32,10 @@ public class AsteroidLoot : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider collider)
     {
-        PickUpLoot();
+        if (collider.gameObject.tag == "Player")
+            PickUpLoot();
     }
 
     private void OnEnable()

@@ -2435,14 +2435,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -7386449136464980270, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -610146001450063920, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
-      propertyPath: dropPrefab
-      value: 
-      objectReference: {fileID: 8216205554135198445, guid: 5be9908677cab454c9bdd624148ed517, type: 3}
     - target: {fileID: 1884363277304610392, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2490,10 +2482,6 @@ PrefabInstance:
     - target: {fileID: 7979141116734320728, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: m_Name
       value: LargeAsteroid
-      objectReference: {fileID: 0}
-    - target: {fileID: 7979141116734320728, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}

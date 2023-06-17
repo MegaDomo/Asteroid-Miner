@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7386449136464980270}
   - component: {fileID: -610146001450063920}
   - component: {fileID: 8374114608235297719}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LargeAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3857b9b3f94424aa0e21f6c899bf07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropPrefab: {fileID: 2129212477646575413, guid: 9531026ec7eb7fe419b273c94016ede7, type: 3}
+  dropPrefab: {fileID: 8216205554135198445, guid: 5be9908677cab454c9bdd624148ed517, type: 3}
 --- !u!114 &8374114608235297719
 MonoBehaviour:
   m_ObjectHideFlags: 0

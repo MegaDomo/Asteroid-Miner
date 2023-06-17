@@ -19,6 +19,9 @@ public class Asteroid : MonoBehaviour
 
     private void OnDestroy()
     {
-        spawnLoot();
+        if (gameObject.scene.isLoaded)
+        {
+            spawnLoot();
+        }
     }
 }

@@ -12,6 +12,8 @@ public class PlayerToolInteraction : MonoBehaviour
     public float interactRange;
     public InputAction interactAction;
 
+    private Tool selectedTool;
+
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
 
@@ -25,6 +27,13 @@ public class PlayerToolInteraction : MonoBehaviour
     }
 
     private void CheckForToolUse()
+    {
+        // Switch Case (Polymorphism) to check which tool method to use
+        if (selectedTool.toolType == Tool.ToolType.Drill)
+            Drill();
+    }
+
+    public void Drill()
     {
         if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
             interactRange, LayerMask.GetMask("Drillable")))
@@ -43,7 +52,6 @@ public class PlayerToolInteraction : MonoBehaviour
             drillingTime = 0f;
         }
     }
-
 
     private void OnEnable()
     {

@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class DrillableSurface : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Attributes")]
+    public float timeToDrill = 2.5f;
 
-    // Update is called once per frame
-    void Update()
+    public void CompleteDrilling()
     {
-        
+        // Drop Interactables
+        Destroy(gameObject);
     }
 }

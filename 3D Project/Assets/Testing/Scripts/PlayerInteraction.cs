@@ -37,7 +37,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            inRangeForInteractable = true;
+            inRangeForInteractable = false;
         }
     }
 

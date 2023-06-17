@@ -404,6 +404,77 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
+--- !u!1 &257991144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7979141116734320728, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
+  m_PrefabInstance: {fileID: 257991143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &257991145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257991144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161b9aeb84df1744183c96bbb5db4b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &257991146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257991144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2788f166f88133f4f8f19d8224a1c1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &257991147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257991144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3857b9b3f94424aa0e21f6c899bf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &257991148
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257991144}
+  serializedVersion: 2
+  m_Mass: 3.5
+  m_Drag: 1.06
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &257991149
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257991144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1979470939959176126, guid: 9f7e1d709185b974fa480c1a48b053b2, type: 3}
 --- !u!1 &325568574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,24 +1611,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1312524535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc2ba8c57b100c4592af2a03b235d9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 24feb1098f326e842b96030ef2849070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drillAction:
-    m_Name: Drill
+  playerCam: {fileID: 2059760811}
+  interactRange: 3
+  interactAction:
+    m_Name: Interact
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 8e3d7521-94d0-4faf-abaf-45a2f2e89c87
+    m_Id: d013e83b-8654-4e83-a9d7-aa56105833ab
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 93271897-9364-4f82-8884-2976e93302f1
+      m_Id: 4275bdf9-0d6d-4b9c-ba52-99149aef642d
       m_Path: <Mouse>/leftButton
       m_Interactions: Hold
       m_Processors: 
       m_Groups: 
-      m_Action: Drill
+      m_Action: Interact
       m_Flags: 0
     m_Flags: 0
 --- !u!1 &1337846790
@@ -2679,6 +2752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManager: {fileID: 11400000, guid: a8d1e36ebbbbe4243ba988556d5b7b92, type: 2}
   playerBody: {fileID: 1312524536}
+  lockMouse: 0
   cameraSpeed: 1.6
   cameraAction:
     m_Name: Camera
@@ -2855,7 +2929,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100624944}
-  m_LocalRotation: {x: 0.113933936, y: 0.00000000844237, z: -0.0000000016556876, w: 0.9934884}
+  m_LocalRotation: {x: 0.113933936, y: -0.000000008442369, z: 0.0000000016556871, w: 0.9934884}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

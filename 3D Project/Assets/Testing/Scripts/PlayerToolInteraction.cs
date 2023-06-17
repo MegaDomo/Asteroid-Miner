@@ -26,8 +26,6 @@ public class PlayerToolInteraction : MonoBehaviour
 
     private void CheckForToolUse()
     {
-        Debug.DrawRay(playerCam.position, playerCam.forward * interactRange, Color.blue, 0.01f);
-
         if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
             interactRange, LayerMask.GetMask("Drillable")))
         {

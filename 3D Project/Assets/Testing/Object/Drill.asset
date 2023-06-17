@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff7d94148524864d80624ec4cb91ee3, type: 3}
   m_Name: Drill
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 404877263013123773, guid: 6854e9f7668a9dc459043d0791fe20ef, type: 3}
   toolType: 0

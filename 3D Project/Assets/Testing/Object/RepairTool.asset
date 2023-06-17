@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff7d94148524864d80624ec4cb91ee3, type: 3}
   m_Name: RepairTool
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 7304772250248528160, guid: 4b13d6970778c7046899258c86441f45, type: 3}
   toolType: 0

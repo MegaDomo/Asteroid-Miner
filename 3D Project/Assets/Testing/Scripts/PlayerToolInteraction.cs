@@ -11,8 +11,7 @@ public class PlayerToolInteraction : MonoBehaviour
     [Header("Attributes")]
     public float interactRange;
     public InputAction interactAction;
-
-    private Tool selectedTool;
+    public Tool selectedTool;
 
     private bool inRangeForInteractable;
     private RaycastHit interactHit;

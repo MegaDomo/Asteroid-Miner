@@ -15,6 +15,7 @@ public class PlayerToolManager : MonoBehaviour
 
     private void Awake()
     {
+        toolInteraction = GetComponent<PlayerToolInteraction>();
         hotbarKeys[0].performed += ctx => { Hotbar1(ctx); };
         hotbarKeys[1].performed += ctx => { Hotbar2(ctx); };
     }

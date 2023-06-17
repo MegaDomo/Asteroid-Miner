@@ -10,6 +10,7 @@ public class DrillableSurface : MonoBehaviour
     public void CompleteDrilling()
     {
         // Drop Interactables
-        Destroy(gameObject);
+        Asteroid asteroid = GetComponent<Asteroid>();
+        asteroid.DestroyAsteroid();
     }
 }

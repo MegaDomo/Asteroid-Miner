@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class AsteroidProperties : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Attributes")]
+    public float timeToDrill = 2.5f;
 }

@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropPrefab: {fileID: 8216205554135198445, guid: 5be9908677cab454c9bdd624148ed517, type: 3}
-  toolInteraction: {fileID: 3073376967489480682}
   asteroidProperties: {fileID: 1765170278330923303}
+  toolInteraction: {fileID: 3073376967489480682}
 --- !u!114 &1765170278330923303
 MonoBehaviour:
   m_ObjectHideFlags: 0

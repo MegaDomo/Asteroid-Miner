@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e7fcf6276ef5a7409c999a325896a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 11400000, guid: a8d1e36ebbbbe4243ba988556d5b7b92, type: 2}
+  playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
   playerBody: {fileID: 1319878046957758055}
   lockMouse: 0
   cameraSpeed: 1.6
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9caa0f7dc74dd45959231d93c0a22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 11400000, guid: a8d1e36ebbbbe4243ba988556d5b7b92, type: 2}
+  playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
   cam: {fileID: 1319878046076770868}
   controller: {fileID: 1319878046957758054}
   rb: {fileID: 1319878046957758051}

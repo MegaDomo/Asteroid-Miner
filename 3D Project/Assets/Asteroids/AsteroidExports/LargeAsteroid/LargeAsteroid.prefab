@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: -1824613259958596399}
   - component: {fileID: -7386449136464980270}
   - component: {fileID: -610146001450063920}
-  - component: {fileID: 8374114608235297719}
+  - component: {fileID: 1765170278330923303}
+  - component: {fileID: 3073376967489480682}
   m_Layer: 7
   m_Name: LargeAsteroid
   m_TagString: Untagged
@@ -130,7 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropPrefab: {fileID: 8216205554135198445, guid: 5be9908677cab454c9bdd624148ed517, type: 3}
---- !u!114 &8374114608235297719
+  toolInteraction: {fileID: 3073376967489480682}
+  asteroidProperties: {fileID: 1765170278330923303}
+--- !u!114 &1765170278330923303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +142,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7979141116734320728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 161b9aeb84df1744183c96bbb5db4b10, type: 3}
+  m_Script: {fileID: 11500000, guid: 2788f166f88133f4f8f19d8224a1c1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeToDrill: 1
+--- !u!114 &3073376967489480682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979141116734320728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845791cd3b4176a47bbc69aef85d0e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolType: 0

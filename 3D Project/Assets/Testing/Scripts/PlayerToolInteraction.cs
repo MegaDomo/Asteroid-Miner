@@ -32,14 +32,40 @@ public class PlayerToolInteraction : MonoBehaviour
 
     private void CheckForToolUse()
     {
+        Debug.Log("Checking for Use");
+        if (selectedTool == null) Debug.Log("Tool is Null");
+        if (selectedTool != null) Debug.Log("Tool is NOT Null");
         // Switch Case (Polymorphism) to check which tool method to use
-        if (selectedTool != null && selectedTool.toolType == Tool.ToolType.Drill)
-            Drill();
+        if (selectedTool != null)
+        {
+            if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
+            interactRange, LayerMask.GetMask("ToolInteractable")))
+            {
+                Debug.Log("RayCast Hit something");
+                inRangeForInteractable = true;
+                drillingTime += Time.deltaTime;
+                Debug.Log("Drilling/Interacting");
+                ToolInteraction toolInteraction = interactHit.transform.GetComponent<ToolInteraction>();
+
+                // Wrong Tool
+                if (selectedTool.toolType != toolInteraction.toolType)
+                    return;
+                Debug.Log("Passed the tooltype check");
+                float timeToDrill = toolInteraction.GetTimeToFinish();
+                Debug.Log(timeToDrill + ", Test for func");
+                if (drillingTime >= timeToDrill)
+                    toolInteraction.ToolInteractionComplete();
+            }
+            else
+            {
+                inRangeForInteractable = false;
+                drillingTime = 0f;
+            }
+        }
     }
 
     public void Drill()
     {
-        
         if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
             interactRange, LayerMask.GetMask("Drillable")))
         {

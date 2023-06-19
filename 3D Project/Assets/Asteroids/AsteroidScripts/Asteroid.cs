@@ -6,8 +6,10 @@ public class Asteroid : MonoBehaviour
 {
     [Header("Unity References")]
     public GameObject dropPrefab;
+    public AsteroidProperties asteroidProperties;
+    public ToolInteraction toolInteraction;
 
-    public void DestroyAsteroid()
+    public void CompleteDrilling()
     {
         Destroy(gameObject);
     }
@@ -17,11 +19,28 @@ public class Asteroid : MonoBehaviour
         Instantiate(dropPrefab, transform.position, transform.rotation);
     }
 
+    public float GetTimeToCompleteDrilling()
+    {
+        return asteroidProperties.timeToDrill;
+    }
+
     private void OnDestroy()
     {
         if (gameObject.scene.isLoaded)
         {
             spawnLoot();
         }
+    }
+
+    private void OnEnable()
+    {
+        toolInteraction.toolInteractAction += CompleteDrilling;
+        toolInteraction.timeToFinishAction += GetTimeToCompleteDrilling;
+    }
+
+    private void OnDisable()
+    {
+        toolInteraction.toolInteractAction -= CompleteDrilling;
+        toolInteraction.timeToFinishAction -= GetTimeToCompleteDrilling;
     }
 }

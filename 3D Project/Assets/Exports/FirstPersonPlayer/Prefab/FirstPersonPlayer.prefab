@@ -198,7 +198,6 @@ GameObject:
   - component: {fileID: 1319878046957758050}
   - component: {fileID: 1319878046957758048}
   - component: {fileID: 1319878046957758367}
-  - component: {fileID: 1319878046957758366}
   m_Layer: 0
   m_Name: FirstPersonPlayer
   m_TagString: Player
@@ -471,54 +470,7 @@ MonoBehaviour:
       m_Action: Interact
       m_Flags: 0
     m_Flags: 0
---- !u!114 &1319878046957758366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1319878046957758056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c1bbe5c63062d4c81e8aad3c199bad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tools:
-  - {fileID: 11400000, guid: d6da59e260684ad4ca2190c5656d4e23, type: 2}
-  - {fileID: 11400000, guid: 7e29ceca911544b45bbf327a390ba4eb, type: 2}
-  hotbarKeys:
-  - m_Name: Element 0
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 42f90ca9-48f9-47eb-958b-b81336231724
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 3279f34c-6f31-4a3e-8abd-4ca58e344e74
-      m_Path: <Keyboard>/1
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Element 0
-      m_Flags: 0
-    m_Flags: 0
-  - m_Name: Input Action
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ec6a5bad-010b-41ee-a6b3-89c2913330ba
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 4173b452-9fac-4e3d-a3f4-1cea3ed7122d
-      m_Path: <Keyboard>/2
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Input Action
-      m_Flags: 0
-    m_Flags: 0
+  selectedTool: {fileID: 0}
 --- !u!1 &1319878048059581592
 GameObject:
   m_ObjectHideFlags: 0

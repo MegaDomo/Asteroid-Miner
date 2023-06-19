@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class VehicleDropOff : MonoBehaviour
 {
-    [Header("Unity References")]
-    public Transform playerDropOff;
-
     [Header("Scriptable References")]
     public PlayerManager playerManager;
+
+    [Header("Unity References")]
+    public Transform playerDropOff;
 
     private Transform player;
 

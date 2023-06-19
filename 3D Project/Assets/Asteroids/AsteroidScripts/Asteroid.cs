@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IToolInteraction
 {
     [Header("Unity References")]
     public GameObject dropPrefab;
     public AsteroidProperties asteroidProperties;
     public ToolInteraction toolInteraction;
 
-    public void CompleteDrilling()
-    {
-        Destroy(gameObject);
-    }
-
     private void spawnLoot()
     {
         Instantiate(dropPrefab, transform.position, transform.rotation);
     }
 
-    public float GetTimeToCompleteDrilling()
+    public void CompleteInteraction()
+    {
+        Destroy(gameObject);
+    }
+
+    public float GetCompletionTime()
     {
         return asteroidProperties.timeToDrill;
     }
@@ -34,13 +34,13 @@ public class Asteroid : MonoBehaviour
 
     private void OnEnable()
     {
-        toolInteraction.toolInteractAction += CompleteDrilling;
-        toolInteraction.timeToFinishAction += GetTimeToCompleteDrilling;
+        toolInteraction.toolInteractAction += CompleteInteraction;
+        toolInteraction.timeToFinishAction += GetCompletionTime;
     }
 
     private void OnDisable()
     {
-        toolInteraction.toolInteractAction -= CompleteDrilling;
-        toolInteraction.timeToFinishAction -= GetTimeToCompleteDrilling;
+        toolInteraction.toolInteractAction -= CompleteInteraction;
+        toolInteraction.timeToFinishAction -= GetCompletionTime;
     }
 }

@@ -35,7 +35,7 @@ public class PlayerToolInteraction : MonoBehaviour
         Debug.Log("Checking for Use");
         if (selectedTool == null) Debug.Log("Tool is Null");
         if (selectedTool != null) Debug.Log("Tool is NOT Null");
-        // Switch Case (Polymorphism) to check which tool method to use
+
         if (selectedTool != null)
         {
             if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
@@ -47,13 +47,13 @@ public class PlayerToolInteraction : MonoBehaviour
                 Debug.Log("Drilling/Interacting");
                 ToolInteraction toolInteraction = interactHit.transform.GetComponent<ToolInteraction>();
 
-                // Wrong Tool
+                // Checking if the Tools Match
                 if (selectedTool.toolType != toolInteraction.toolType)
                     return;
                 Debug.Log("Passed the tooltype check");
-                float timeToDrill = toolInteraction.GetTimeToFinish();
-                Debug.Log(timeToDrill + ", Test for func");
-                if (drillingTime >= timeToDrill)
+                float interactTime = toolInteraction.GetTimeToFinish();
+                Debug.Log(interactTime + ", Test for func");
+                if (drillingTime >= interactTime)
                     toolInteraction.ToolInteractionComplete();
             }
             else
@@ -91,6 +91,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
         if (tool == null)
             return;
+            
 
         selectedTool = tool;
         toolObj = Instantiate(selectedTool.prefab, toolPoint.position, Quaternion.identity);

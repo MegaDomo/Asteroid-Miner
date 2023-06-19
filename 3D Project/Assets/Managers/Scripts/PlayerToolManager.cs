@@ -17,6 +17,9 @@ public class PlayerToolManager : ScriptableObject
 
     public void Hotbar1(InputAction.CallbackContext context)
     {
+        Debug.Log("Hotbar1");
+        if (toolInteraction == null) Debug.Log("toolInteraction == null");
+        if (tools[0] == null) Debug.Log("tools[0] == null");
         toolInteraction.SetTool(tools[0]);
     }
 

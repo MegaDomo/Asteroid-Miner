@@ -59,12 +59,8 @@ public class ShipControls2 : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(x, z) * Mathf.Rad2Deg;
-            /*if (!isFreeLooking)
-                targetAngle += shipCam.transform.eulerAngles.y;
-            else
-                targetAngle += transform.eulerAngles.y;
-*/
-            targetAngle += transform.eulerAngles.y;
+            
+            targetAngle += rb.transform.localRotation.eulerAngles.y;
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             rb.AddForce(dir * shipSpeed, ForceMode.Force);

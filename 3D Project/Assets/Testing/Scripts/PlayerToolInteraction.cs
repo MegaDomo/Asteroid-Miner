@@ -13,10 +13,12 @@ public class PlayerToolInteraction : MonoBehaviour
     public float interactRange;
     public InputAction interactAction;
 
+    [Header("Debugging")]
+    public Tool selectedTool;
+
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
 
-    private Tool selectedTool;
     private GameObject toolObj;
 
     private bool drillingFinished;

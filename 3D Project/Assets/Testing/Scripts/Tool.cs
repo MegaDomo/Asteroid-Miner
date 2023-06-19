@@ -7,4 +7,6 @@ public class Tool : ScriptableObject
 
     public GameObject prefab;
     public ToolType toolType = ToolType.Drill;
+
+    public virtual void ToolInteraction() { }
 }

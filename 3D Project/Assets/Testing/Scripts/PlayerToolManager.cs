@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "PlayerToolManager", menuName = "Managers/PlayerToolManager")]
-public class PlayerToolManager : ScriptableObject
+public class PlayerToolManager : MonoBehaviour
 {
     [Header("Tools")]
     public List<Tool> tools = new List<Tool>();
@@ -15,11 +14,16 @@ public class PlayerToolManager : ScriptableObject
     private Transform player;
     private PlayerToolInteraction toolInteraction;
 
+    private void Awake()
+    {
+        toolInteraction = GetComponent<PlayerToolInteraction>();
+
+        hotbarKeys[0].performed += ctx => { Hotbar1(ctx); };
+        hotbarKeys[1].performed += ctx => { Hotbar2(ctx); };
+    }
+
     public void Hotbar1(InputAction.CallbackContext context)
     {
-        Debug.Log("Hotbar1");
-        if (toolInteraction == null) Debug.Log("toolInteraction == null");
-        if (tools[0] == null) Debug.Log("tools[0] == null");
         toolInteraction.SetTool(tools[0]);
     }
 
@@ -32,12 +36,6 @@ public class PlayerToolManager : ScriptableObject
     {
         foreach (InputAction action in hotbarKeys)
             action.Enable();
-
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        toolInteraction = player.GetComponent<PlayerToolInteraction>();
-
-        hotbarKeys[0].performed += ctx => { Hotbar1(ctx); };
-        hotbarKeys[1].performed += ctx => { Hotbar2(ctx); };
     }
 
     private void OnDisable()

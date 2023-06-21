@@ -10,6 +10,7 @@ public class DockTractorBeam : MonoBehaviour
     [Header("Attributes")]
     public float pullStrength = 1f;
 
+    private bool isDocked;
     private Rigidbody rb;
 
     private void OnTriggerEnter(Collider collider)
@@ -26,9 +27,22 @@ public class DockTractorBeam : MonoBehaviour
 
             // Stops Spasms when on center
             if (dir.magnitude <= 0.1f)
+            {
+                isDocked = true;
                 return;
+            }
+            else
+            {
+                isDocked = false;
+            }
+                
 
             rb.AddForce(dir.normalized * pullStrength, ForceMode.Force);
         }
+    }
+
+    public bool IsDocked()
+    {
+        return isDocked;
     }
 }

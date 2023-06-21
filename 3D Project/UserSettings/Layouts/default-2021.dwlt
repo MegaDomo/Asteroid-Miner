@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 149
+  controlID: 2036
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,12 +140,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 244
+    width: 242
     height: 947
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 50
+  controlID: 1915
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -163,7 +163,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 244
+    width: 242
     height: 632
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
@@ -189,7 +189,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 632
-    width: 244
+    width: 242
     height: 315
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
@@ -215,14 +215,14 @@ MonoBehaviour:
   - {fileID: 13}
   m_Position:
     serializedVersion: 2
-    x: 244
+    x: 242
     y: 0
-    width: 1206
+    width: 1208
     height: 947
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 2037
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -242,12 +242,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1206
+    width: 1208
     height: 757
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 2038
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -265,10 +265,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 808
+    width: 272
     height: 757
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -289,12 +289,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 808
+    x: 272
     y: 0
-    width: 398
+    width: 936
     height: 757
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -317,10 +317,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 757
-    width: 1206
+    width: 1208
     height: 190
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -372,9 +372,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 244
+    x: 242
     y: 73
-    width: 806
+    width: 270
     height: 736
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -386,11 +386,11 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 806, y: 715}
+  m_TargetSize: {x: 270, y: 715}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_EnterPlayModeBehavior: 0
+  m_EnterPlayModeBehavior: 1
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
@@ -401,8 +401,8 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -403
-    m_HBaseRangeMax: 403
+    m_HBaseRangeMin: -135
+    m_HBaseRangeMax: 135
     m_VBaseRangeMin: -357.5
     m_VBaseRangeMax: 357.5
     m_HAllowExceedBaseRangeMin: 1
@@ -422,23 +422,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 806
+      width: 270
       height: 715
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 403, y: 357.5}
+    m_Translation: {x: 135, y: 357.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -403
+      x: -135
       y: -357.5
-      width: 806
+      width: 270
       height: 715
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 806, y: 736}
+  m_LastWindowPixelSize: {x: 270, y: 736}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -466,7 +466,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 73
-    width: 243
+    width: 241
     height: 611
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -475,23 +475,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: bc6c0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 08f5ffff16fbffff
+      m_SelectedIDs: 02fbffff
+      m_LastClickedID: -1278
+      m_ExpandedIDs: 02fbffff16fbffff965f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Astroids2
-        m_OriginalName: Astroids2
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -2788
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -523,7 +523,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 705
-    width: 243
+    width: 241
     height: 294
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -542,22 +542,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Exports/Asteroids/AsteroidScripts
+    - Assets/Exports/Player/Tools/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\DrewH926\Downloads\Ejorus Entertainment\GitHub\Asteroid-Miner\3D
-    Project
+  m_LastProjectPath: C:\Users\abcji\EELLC Unity\Asteroid-Miner\3D Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: fc5e0000
     m_LastClickedID: 24316
-    m_ExpandedIDs: 00000000d25f0000d45f0000d65f0000d85f0000da5f0000dc5f0000
+    m_ExpandedIDs: ffffffff0000000006600000f6600000f8600000fa600000fc600000fe60000000610000026100000461000006610000086100000a6100000c6100000e6100001061000012610000146100001661000018610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -582,24 +581,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 280}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000d25f0000d45f0000d65f0000da5f0000dc5f000034600000b86c0000
+    m_ExpandedIDs: ffffffff0000000006600000f6600000f8600000fa600000fc600000fe60000000610000026100000461000006610000086100000a6100000c6100000e6100001061000012610000146100001661000018610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Asteroid
-      m_OriginalName: Asteroid
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 27836
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -661,9 +660,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1052
+    x: 514
     y: 73
-    width: 396
+    width: 934
     height: 736
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -899,9 +898,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 29.9083, y: 2.1984398, z: -11.496643}
+    m_Target: {x: 107.07736, y: -8.247504, z: -15.044304}
     speed: 2
-    m_Value: {x: 29.9083, y: 2.1984398, z: -11.496643}
+    m_Value: {x: 107.07736, y: -8.247504, z: -15.044304}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -948,13 +947,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.07706968, y: 0.9223604, z: -0.2502111, w: 0.28410304}
+    m_Target: {x: -0.19431598, y: -0.40687692, z: 0.089021616, w: -0.8881296}
     speed: 2
-    m_Value: {x: 0.07706935, y: 0.9223565, z: -0.25021002, w: 0.2841018}
+    m_Value: {x: -0.1941816, y: -0.40820736, z: 0.0893127, w: -0.8875154}
   m_Size:
-    m_Target: 1.9996902
+    m_Target: 31.84263
     speed: 2
-    m_Value: 1.9996902
+    m_Value: 30.471416
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -999,9 +998,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 244
+    x: 242
     y: 830
-    width: 1204
+    width: 1206
     height: 169
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:

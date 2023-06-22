@@ -33,10 +33,12 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(cam.position, cam.forward, out interactHit,
             interactDetectRange, LayerMask.GetMask("Interactable")))
         {
+            interactUI.SetActive(true);
             inRangeForInteractable = true;
         }
         else
         {
+            interactUI.SetActive(false);
             inRangeForInteractable = false;
         }
     }

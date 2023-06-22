@@ -5,7 +5,8 @@ public enum MovementMode { GravityMode, SpaceMode }
 
 public class FirstPersonPlayerMovement : MonoBehaviour
 {
-    [Header("Scriptable Object")]
+    [Header("File References")]
+    public InputActionMap inputActionMap;
     public PlayerManager playerManager;
 
     [Header("Unity References")]
@@ -36,9 +37,11 @@ public class FirstPersonPlayerMovement : MonoBehaviour
     {
         if (!playerManager.IsPlayerInControl())
             return;
-
-        float x = moveAction.ReadValue<Vector3>().x;
-        float z = moveAction.ReadValue<Vector3>().z;
+        bool foundInput = false;
+        float x = inputActionMap.FindAction("MoveAction", foundInput).ReadValue<Vector2>().x;
+        float z = inputActionMap.FindAction("MoveAction", foundInput).ReadValue<Vector2>().x;
+        //float x = moveAction.ReadValue<Vector3>().x;
+        //float z = moveAction.ReadValue<Vector3>().z;
         Vector3 direction = new Vector3(x, 0, z);
         if (direction.magnitude >= 0.1f)
         {

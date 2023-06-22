@@ -610,7 +610,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1558158603}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &220373329
 BoxCollider:
@@ -706,11 +706,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276873697}
   m_LocalRotation: {x: 0.52203155, y: -0, z: -0, w: 0.85292625}
-  m_LocalPosition: {x: 0, y: 65.5, z: -55.3}
+  m_LocalPosition: {x: 9.2, y: 56.43018, z: -3.6255188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1558158603}
+  m_Father: {fileID: 502982169}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 62.937, y: 0, z: 0}
 --- !u!81 &276873699
@@ -1104,6 +1104,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &502982168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 502982169}
+  - component: {fileID: 502982170}
+  m_Layer: 0
+  m_Name: Crane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &502982169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502982168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 949797128}
+  - {fileID: 1558158603}
+  - {fileID: 276873698}
+  m_Father: {fileID: 1460306823}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &502982170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502982168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 685e96f590697004b8ec79d5bc61fed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
+  interaction: {fileID: 731697937}
+  controller: {fileID: 949797129}
+  craneCam: {fileID: 276873700}
+  craneSpeed: 10
 --- !u!1 &528256172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1581,7 @@ GameObject:
   - component: {fileID: 731697938}
   - component: {fileID: 731697937}
   m_Layer: 6
-  m_Name: Terminal
+  m_Name: CraneTerminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1548,7 +1600,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1558158603}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 31.577, y: 0, z: 0}
 --- !u!114 &731697937
 MonoBehaviour:
@@ -1576,24 +1628,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
   interaction: {fileID: 731697937}
-  craneCam: {fileID: 0}
-  exitAction:
-    m_Name: Exit
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: b7f9d424-cdbb-4241-acaf-13edcdf5dc96
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 714c949f-fd30-4cad-a082-b41a065e3873
-      m_Path: <Keyboard>/escape
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Exit
-      m_Flags: 0
-    m_Flags: 0
+  controller: {fileID: 0}
+  craneCam: {fileID: 276873700}
+  craneSpeed: 10
 --- !u!65 &731697939
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1942,7 +1979,7 @@ GameObject:
   - component: {fileID: 949797128}
   - component: {fileID: 949797127}
   - component: {fileID: 949797126}
-  - component: {fileID: 949797125}
+  - component: {fileID: 949797129}
   m_Layer: 0
   m_Name: TractorBeamCrane
   m_TagString: Untagged
@@ -1950,20 +1987,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &949797125
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949797124}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &949797126
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2022,14 +2045,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949797124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 21.9, z: 34.9}
+  m_LocalPosition: {x: 11, y: 21.899998, z: 34.9}
   m_LocalScale: {x: 10.718889, y: 0.7828887, z: 10.718889}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 89790466}
-  m_Father: {fileID: 1460306823}
-  m_RootOrder: 3
+  m_Father: {fileID: 502982169}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &949797129
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949797124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5000003
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1004445241
 GameObject:
   m_ObjectHideFlags: 3
@@ -2486,8 +2527,7 @@ Transform:
   - {fileID: 6201564}
   - {fileID: 1270306005}
   - {fileID: 1855724829}
-  - {fileID: 949797128}
-  - {fileID: 1558158603}
+  - {fileID: 502982169}
   m_Father: {fileID: 1895834689}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2582,7 +2622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558158603}
   m_Layer: 0
-  m_Name: CraneTerminal
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2600,11 +2640,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 220373328}
   - {fileID: 731697936}
-  - {fileID: 276873698}
-  m_Father: {fileID: 1460306823}
-  m_RootOrder: 4
+  - {fileID: 220373328}
+  m_Father: {fileID: 502982169}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582221006
 GameObject:
@@ -4029,7 +4068,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100624944}
-  m_LocalRotation: {x: 0.113933936, y: 0.000000008442369, z: -0.0000000016556871, w: 0.9934884}
+  m_LocalRotation: {x: 0.113933936, y: -0.00000000844237, z: 0.0000000016556876, w: 0.9934884}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4408,122 +4447,6 @@ MonoBehaviour:
   shipSpeed: 30
   cameraSpeed: 1
   balanceCorrectionSpeed: 10
-  enterShipAction:
-    m_Name: Enter Ship
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 3cab66c5-13b8-42aa-aa88-69aa71828926
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 99b154b6-e592-4399-9532-76e2a1e0bef5
-      m_Path: <Keyboard>/e
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Enter Ship
-      m_Flags: 0
-    m_Flags: 0
-  exitShipAction:
-    m_Name: Exit Ship
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a9a5a48e-6cd1-484d-9053-0310f454238f
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 4e531738-39d3-4ecd-bac2-139042407efb
-      m_Path: <Keyboard>/escape
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Exit Ship
-      m_Flags: 0
-    m_Flags: 0
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2b84e3de-a14b-4c27-9f6d-955e19cd16f9
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 3D Vector
-      m_Id: b0bd7bc9-d54f-42f6-a905-d82360594148
-      m_Path: 3DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 5b6e3fbe-a97d-4b18-9f4d-3c644dd77574
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: d18cc8ce-7fd9-4847-9721-a8b632722732
-      m_Path: <Keyboard>/x
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 57dda20e-dc96-49c3-953b-f17a7ceae9e7
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 0f9cbb75-f2fa-4ce7-8189-3c438ecedaa0
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: forward
-      m_Id: 06aaa29e-7579-460d-8966-205a35544f1c
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: backward
-      m_Id: 4fefa6ae-6a5b-4ce4-a448-fa680a695a66
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
-  freeLookAction:
-    m_Name: Free Look
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 75d76c62-6899-43df-864f-ddf3ec4c6414
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 01f5c56e-66d6-4080-8f1a-c73155ce995f
-      m_Path: <Keyboard>/leftCtrl
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Free Look
-      m_Flags: 0
-    m_Flags: 0
 --- !u!54 &2130461018
 Rigidbody:
   m_ObjectHideFlags: 0

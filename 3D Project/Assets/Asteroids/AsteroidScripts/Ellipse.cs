@@ -22,4 +22,9 @@ public class Ellipse
         float y = Mathf.Cos(angle) * yAxis;
         return new Vector2(x, y);
     }
+
+    public Vector2 LocalEvaluate(float t)
+    {
+        return Vector2.down;
+    }
 }

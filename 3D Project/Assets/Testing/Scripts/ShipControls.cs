@@ -21,10 +21,9 @@ public class ShipControls : MonoBehaviour
     public float cameraSpeed = 1f;
     public float balanceCorrectionSpeed = 10f;
 
-    
-
     private bool inShip;
     private bool isFreeLooking = false;
+    private Transform player;
 
     private PlayerInput playerInput;
     private InputAction exitShipAction;
@@ -48,7 +47,7 @@ public class ShipControls : MonoBehaviour
 
     private void MoveShip()
     {
-        if (playerManager.IsPlayerInControl())
+        if (playerManager.IsPlayerInControl() && player != null)
             return;
 
         float x = moveAction.ReadValue<Vector3>().x;
@@ -79,7 +78,7 @@ public class ShipControls : MonoBehaviour
 
     private void RotateShip()
     {
-        if (playerManager.IsPlayerInControl())
+        if (playerManager.IsPlayerInControl() && player != null)
             return;
 
         if (isFreeLooking)
@@ -95,7 +94,8 @@ public class ShipControls : MonoBehaviour
         inShip = true;
 
         playerManager.SetPlayerHasControl(false);
-        playerManager.GetPlayer().gameObject.SetActive(false);
+        player = playerManager.GetPlayer();
+        player.gameObject.SetActive(false);
 
         SetAudioListener(true);
         SwapCameras();
@@ -109,6 +109,7 @@ public class ShipControls : MonoBehaviour
         vehicleDropOff.DropOffPlayer();
 
         playerManager.SetPlayerHasControl(true);
+        player = null;
 
         SetAudioListener(false);
         SwapCameras();

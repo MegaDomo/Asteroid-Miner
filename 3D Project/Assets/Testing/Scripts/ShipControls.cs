@@ -21,23 +21,23 @@ public class ShipControls : MonoBehaviour
     public float cameraSpeed = 1f;
     public float balanceCorrectionSpeed = 10f;
 
-    [Header("Actions")]
-    public InputAction enterShipAction;
-    public InputAction exitShipAction;
-    public InputAction moveAction;
-    public InputAction freeLookAction;
+    
 
     private bool inShip;
     private bool isFreeLooking = false;
 
+    private PlayerInput playerInput;
+    private InputAction exitShipAction;
+    private InputAction moveAction;
+    private InputAction freeLookAction;
+
     private void Awake()
     {
-        exitShipAction.performed += ctx => { ExitShip(ctx); };
-        freeLookAction.performed += ctx => { FreeLook(ctx); };
+        playerInput = new PlayerInput();
 
         SetAudioListener(false);
 
-        shipCam.GetComponent<Camera>().enabled = !shipCam.GetComponent<Camera>().enabled;
+        shipCam.GetComponent<Camera>().enabled = false;
     }
 
     private void FixedUpdate()
@@ -136,17 +136,22 @@ public class ShipControls : MonoBehaviour
     {
         interaction.interactAction += EnterShip;
 
-        enterShipAction.Enable();
-        exitShipAction.Enable();
+        moveAction = playerInput.Ship.MoveAction;
         moveAction.Enable();
+
+        exitShipAction = playerInput.Ship.ExitInteractable;
+        exitShipAction.Enable();
+        exitShipAction.performed += ExitShip;
+
+        freeLookAction = playerInput.Ship.FreeLook;
         freeLookAction.Enable();
+        freeLookAction.performed += FreeLook;
     }
 
     private void OnDisable()
     {
         interaction.interactAction -= EnterShip;
 
-        enterShipAction.Disable();
         exitShipAction.Disable();
         moveAction.Disable();
         freeLookAction.Disable();

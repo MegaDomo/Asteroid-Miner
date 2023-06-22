@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -610146001450063920}
   - component: {fileID: 1765170278330923303}
   - component: {fileID: 3073376967489480682}
+  - component: {fileID: 8985356585949202576}
   m_Layer: 7
   m_Name: LargeAsteroid
   m_TagString: Asteroid
@@ -96,7 +97,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7979141116734320728}
   serializedVersion: 2
-  m_Mass: 100
+  m_Mass: 10
   m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -159,3 +160,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toolType: 0
+--- !u!114 &8985356585949202576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979141116734320728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47d8254e46be8347952aea832047e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitingPoint: {fileID: 0}
+  orbitPath:
+    xAxis: 100
+    yAxis: 80
+  orbitProgress: 0
+  orbitPeriod: 10
+  orbitActive: 1

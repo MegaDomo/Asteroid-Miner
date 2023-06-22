@@ -5,7 +5,6 @@ using UnityEngine;
 public class OrbitMotion : MonoBehaviour
 {
     [Header("Unity References")]
-    public Transform orbitingObject;
     public Transform orbitingPoint;
     public Ellipse orbitPath;
 
@@ -15,14 +14,11 @@ public class OrbitMotion : MonoBehaviour
     public float orbitPeriod;
     public bool orbitActive;
 
+    private Vector3 dir;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (orbitingObject == null)
-        {
-            orbitActive = false;
-            return;
-        }
         SetOrbitingObjectPosition();
         //StartCoroutine(AnimateOrbit());
     }
@@ -53,7 +49,19 @@ public class OrbitMotion : MonoBehaviour
         float x = orbitPos.x + orbitingPoint.position.x;
         float y = orbitingPoint.position.y;
         float z = orbitPos.y + orbitingPoint.position.z;
-        orbitingObject.localPosition = new Vector3(x, y, z);
+        dir = new Vector3(x, y, z);
+        transform.localPosition = dir;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        orbitActive = false;
+
+        Vector3 normDir = Vector3.Cross(Vector3.up, dir - orbitingPoint.position).normalized;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        rb.AddForce(normDir * 1000, ForceMode.Impulse);
     }
 
     /*

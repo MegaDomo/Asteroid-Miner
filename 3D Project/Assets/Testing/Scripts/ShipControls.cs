@@ -47,7 +47,7 @@ public class ShipControls : MonoBehaviour
 
     private void MoveShip()
     {
-        if (playerManager.IsPlayerInControl() && player != null)
+        if (playerManager.IsPlayerInControl())
             return;
 
         float x = moveAction.ReadValue<Vector3>().x;
@@ -78,7 +78,7 @@ public class ShipControls : MonoBehaviour
 
     private void RotateShip()
     {
-        if (playerManager.IsPlayerInControl() && player != null)
+        if (playerManager.IsPlayerInControl())
             return;
 
         if (isFreeLooking)

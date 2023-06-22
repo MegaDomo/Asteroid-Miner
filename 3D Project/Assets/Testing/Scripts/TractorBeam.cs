@@ -1,8 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DockTractorBeam : MonoBehaviour
+public class TractorBeam : MonoBehaviour
 {
     [Header("Unity References")]
     public Transform mainPullPoint;
@@ -10,17 +10,19 @@ public class DockTractorBeam : MonoBehaviour
 
     [Header("Attributes")]
     public float pullStrength = 1f;
-    public List<LayerMask> layersToPullOn;
-    public List<string> layersToPullOnStrings;
+    //public List<LayerMask> layersToPullOn;
+    public List<string> tagsToPullOnStrings;
 
-    private bool isDocked;
+    private List<bool> objectsAtRest = new List<bool>();
     private List<Rigidbody> rbs = new List<Rigidbody>();
 
     private void OnTriggerEnter(Collider collider)
     {
-        foreach (string mask in layersToPullOnStrings)
-            if (collider.gameObject.tag == mask)
+        foreach (string tag in tagsToPullOnStrings)
+            if (collider.gameObject.tag == tag)
                 rbs.Add(collider.attachedRigidbody);
+
+        objectsAtRest.Add(false);
     }
 
     private void OnTriggerStay(Collider collider)
@@ -40,11 +42,6 @@ public class DockTractorBeam : MonoBehaviour
     public void OnTriggerExit(Collider collider)
     {
         rbs.Remove(collider.attachedRigidbody);
-    }
-
-    public bool IsDocked()
-    {
-        return isDocked;
     }
 
     private Vector3 CalculatePullPoint()

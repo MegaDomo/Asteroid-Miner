@@ -334,6 +334,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9caa0f7dc74dd45959231d93c0a22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputActionMap:
+    m_Name: Input
+    m_Id: c52f480e-7c8d-41b9-84d5-73a0d494e471
+    m_Asset: {fileID: 0}
+    m_Actions:
+    - m_Name: New action
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: fa511b10-2579-4cbb-8386-4e0c63534058
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Bindings:
+    - m_Name: 
+      m_Id: e1576792-4113-409d-a2d9-e7820ae23228
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New action
+      m_Flags: 0
   playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
   cam: {fileID: 1319878046076770868}
   controller: {fileID: 1319878046957758054}

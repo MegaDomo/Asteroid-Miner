@@ -1,15 +1,15 @@
 {
-    "name": "BasicInputControls",
+    "name": "PlayerInput",
     "maps": [
         {
-            "name": "FPGamePlayInput",
+            "name": "Player",
             "id": "b2b843fd-3f5a-4a86-98cf-93786df30687",
             "actions": [
                 {
                     "name": "MoveAction",
                     "type": "Value",
                     "id": "a9e4922a-cfb4-436b-8205-3f7586d7a985",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -35,9 +35,9 @@
             ],
             "bindings": [
                 {
-                    "name": "GroundedMovement",
+                    "name": "MoveAction",
                     "id": "836208d0-b46f-47f7-9e4b-af61376bac35",
-                    "path": "2DVector",
+                    "path": "3DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -46,9 +46,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "Up",
                     "id": "3ca69da5-76da-4bbe-84dd-ddaf61a2cfae",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -57,9 +57,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
+                    "name": "Down",
                     "id": "1435711a-9b75-4d4f-9134-d2c422fa036c",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -68,7 +68,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
+                    "name": "Left",
                     "id": "079a4a80-99a8-45b4-870a-c64906555cbf",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -79,9 +79,31 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
+                    "name": "Right",
                     "id": "83c9371b-7f01-4b1f-8449-a84aae6d351c",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Forward",
+                    "id": "431c0469-5453-4579-8655-3fd17fefea65",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveAction",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Backward",
+                    "id": "bec49e08-38b7-4cbd-8cdc-b07c31ee1ef3",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -108,6 +130,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "ExitInteractable",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Ship",
+            "id": "575190a3-669e-40a1-8d59-2276ff0a18ef",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "8081d242-4cf1-4f98-8f49-f0cd907c4281",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "074c06d4-635b-4517-8a16-b3754a048ca0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -6,7 +6,6 @@ public enum MovementMode { GravityMode, SpaceMode }
 public class FirstPersonPlayerMovement : MonoBehaviour
 {
     [Header("File References")]
-    public InputActionMap inputActionMap;
     public PlayerManager playerManager;
 
     [Header("Unity References")]
@@ -20,28 +19,31 @@ public class FirstPersonPlayerMovement : MonoBehaviour
     public float flySpeed = 5f;
     public float interactDetectRange = 5f;
 
-    public InputAction moveAction;
-
     private bool isPlayerInControl = true;
     private MovementMode movementMode;
+    private PlayerInput playerInput;
+    private InputAction moveAction;
+
+    private void Awake()
+    {
+        playerInput = new PlayerInput();
+    }
 
     private void Update()
     {
         if (movementMode == MovementMode.GravityMode)
-            GravityMove();
+            GroundedMove();
         else
             SpaceMove();
     }
 
-    private void GravityMove()
+    private void GroundedMove()
     {
         if (!playerManager.IsPlayerInControl())
             return;
-        bool foundInput = false;
-        float x = inputActionMap.FindAction("MoveAction", foundInput).ReadValue<Vector2>().x;
-        float z = inputActionMap.FindAction("MoveAction", foundInput).ReadValue<Vector2>().x;
-        //float x = moveAction.ReadValue<Vector3>().x;
-        //float z = moveAction.ReadValue<Vector3>().z;
+
+        float x = moveAction.ReadValue<Vector3>().x;
+        float z = moveAction.ReadValue<Vector3>().z;
         Vector3 direction = new Vector3(x, 0, z);
         if (direction.magnitude >= 0.1f)
         {
@@ -77,7 +79,6 @@ public class FirstPersonPlayerMovement : MonoBehaviour
         }
     }
 
-
     #region Utility
     public void SetAsSpaceModeMovement()
     {
@@ -107,6 +108,7 @@ public class FirstPersonPlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
+        moveAction = playerInput.Player.MoveAction;
         moveAction.Enable();
     }
 

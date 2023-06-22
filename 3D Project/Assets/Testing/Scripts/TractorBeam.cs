@@ -13,7 +13,6 @@ public class TractorBeam : MonoBehaviour
     //public List<LayerMask> layersToPullOn;
     public List<string> tagsToPullOnStrings;
 
-    private List<bool> objectsAtRest = new List<bool>();
     private List<Rigidbody> rbs = new List<Rigidbody>();
 
     private void OnTriggerEnter(Collider collider)
@@ -21,21 +20,23 @@ public class TractorBeam : MonoBehaviour
         foreach (string tag in tagsToPullOnStrings)
             if (collider.gameObject.tag == tag)
                 rbs.Add(collider.attachedRigidbody);
-
-        objectsAtRest.Add(false);
     }
 
     private void OnTriggerStay(Collider collider)
     {
-        foreach (Rigidbody rb in rbs)
+        for (int i = 0; i < rbs.Count; i++)
         {
-            Vector3 dir = CalculatePullPoint() - rb.transform.position;
+            Vector3 dir = CalculatePullPoint() - rbs[i].transform.position;
 
             // Stops Spasms when on center
             if (dir.magnitude <= 0.1f)
+            {
+                if (!rbs[i].IsSleeping())
+                    rbs[i].Sleep();
                 continue;
+            }
 
-            rb.AddForce(dir.normalized * pullStrength, ForceMode.Force);
+            rbs[i].AddForce(dir.normalized * pullStrength, ForceMode.Force);
         }
     }
 

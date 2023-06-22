@@ -44,11 +44,10 @@ public class OrbitMotion : MonoBehaviour
             orbitProgress %= 1f;
 
             SetOrbitingObjectPosition();
-
         }
     }
 
-        private void SetOrbitingObjectPosition()
+    private void SetOrbitingObjectPosition()
     {
         Vector2 orbitPos = orbitPath.Evaluate(orbitProgress);
         orbitingObject.localPosition = new Vector3(orbitPos.x, orbitingPoint.position.y, orbitPos.y);

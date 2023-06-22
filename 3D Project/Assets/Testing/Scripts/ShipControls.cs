@@ -47,7 +47,8 @@ public class ShipControls : MonoBehaviour
 
     private void MoveShip()
     {
-        if (playerManager.IsPlayerInControl())
+        Debug.Log(inShip);
+        if (playerManager.IsPlayerInControl() || !inShip)
             return;
 
         float x = moveAction.ReadValue<Vector3>().x;
@@ -58,11 +59,7 @@ public class ShipControls : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(x, z) * Mathf.Rad2Deg;
-            /*if (!isFreeLooking)
-                targetAngle += shipCam.transform.eulerAngles.y;
-            else
-                targetAngle += transform.eulerAngles.y;
-*/
+            
             targetAngle += transform.eulerAngles.y;
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
@@ -78,7 +75,7 @@ public class ShipControls : MonoBehaviour
 
     private void RotateShip()
     {
-        if (playerManager.IsPlayerInControl())
+        if (playerManager.IsPlayerInControl() || !inShip)
             return;
 
         if (isFreeLooking)
@@ -92,8 +89,10 @@ public class ShipControls : MonoBehaviour
     public void EnterShip()
     {
         inShip = true;
-
+        Debug.Log("Interacted On Ship");
         playerManager.SetPlayerHasControl(false);
+        playerManager.SetInShip(true);
+
         player = playerManager.GetPlayer();
         player.gameObject.SetActive(false);
 
@@ -109,6 +108,8 @@ public class ShipControls : MonoBehaviour
         vehicleDropOff.DropOffPlayer();
 
         playerManager.SetPlayerHasControl(true);
+        playerManager.SetInShip(false);
+
         player = null;
 
         SetAudioListener(false);

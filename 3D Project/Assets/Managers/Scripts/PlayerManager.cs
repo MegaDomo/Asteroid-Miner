@@ -42,7 +42,7 @@ public class PlayerManager : ScriptableObject
         return inShip;
     }
 
-    public void InShip(bool value)
+    public void SetInShip(bool value)
     {
         inShip = value;
     }

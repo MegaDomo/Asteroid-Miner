@@ -10,14 +10,18 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Attributes")]
     public float interactDetectRange;
 
-    public InputAction interactAction;
+    
 
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
 
+    private PlayerInput playerInput;
+    private InputAction interactAction;
+
     private void Awake()
     {
-        interactAction.performed += ctx => { Interact(ctx); };
+        playerInput = new PlayerInput();
+
         DisplayInteractUI(false);
     }
 
@@ -59,7 +63,9 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnEnable()
     {
+        interactAction = playerInput.Player.Interact;
         interactAction.Enable();
+        interactAction.performed += Interact;
     }
 
     private void OnDisable()

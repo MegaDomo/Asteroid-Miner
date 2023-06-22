@@ -33,9 +33,9 @@ public class CraneTerminal : MonoBehaviour
         if (playerManager.IsPlayerInControl())
             return;
 
-        float x = moveAction.ReadValue<Vector3>().x;
-        float z = moveAction.ReadValue<Vector3>().z;
-        Vector3 dir = new Vector3(x, 0, z).normalized;
+        float x = moveAction.ReadValue<Vector2>().x;
+        float y = moveAction.ReadValue<Vector2>().y;
+        Vector3 dir = new Vector3(x, 0, y).normalized;
         if (dir.magnitude >= 0.05f)
             controller.Move(dir * craneSpeed * Time.deltaTime);
     }

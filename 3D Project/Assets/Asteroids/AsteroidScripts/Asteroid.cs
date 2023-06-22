@@ -9,9 +9,26 @@ public class Asteroid : MonoBehaviour, IToolInteraction
     public AsteroidProperties asteroidProperties;
     public ToolInteraction toolInteraction;
 
+    private float originalMass;
+
+    private void Start()
+    {
+        originalMass = GetComponent<Rigidbody>().mass;
+    }
+
     private void spawnLoot()
     {
         Instantiate(dropPrefab, transform.position, transform.rotation);
+    }
+
+    public void LowerMass(float newMass)
+    {
+        GetComponent<Rigidbody>().mass = newMass;
+    }
+
+    public void ResetMass()
+    {
+        GetComponent<Rigidbody>().mass = originalMass;
     }
 
     public void CompleteInteraction()

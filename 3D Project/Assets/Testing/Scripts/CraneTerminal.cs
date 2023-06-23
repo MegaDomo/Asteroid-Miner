@@ -10,6 +10,7 @@ public class CraneTerminal : MonoBehaviour
     public Interaction interaction;
     public CharacterController controller;
     public Camera craneCam;
+    private Camera playerCamera;
 
     [Header("Attributes")]
     public float craneSpeed = 10f;
@@ -18,9 +19,14 @@ public class CraneTerminal : MonoBehaviour
     private InputAction moveAction;
     private InputAction exitAction;
 
+    private bool isOperatingCrane;
+
     private void Awake()
     {
         playerInput = new PlayerInput();
+        playerCamera = playerManager.GetPlayerCamera();
+
+        craneCam.enabled = false;
     }
 
     private void Update()
@@ -30,7 +36,7 @@ public class CraneTerminal : MonoBehaviour
 
     private void MoveCrane()
     {
-        if (playerManager.IsPlayerInControl())
+        if (!isOperatingCrane)
             return;
 
         float x = moveAction.ReadValue<Vector2>().x;
@@ -42,12 +48,24 @@ public class CraneTerminal : MonoBehaviour
 
     public void InteractWithTerminal()
     {
+        isOperatingCrane = true;
         playerManager.SetPlayerHasControl(false);
+        SwapCameras();
     }
 
     public void StopInteractingWithTerminal(InputAction.CallbackContext context)
     {
+        if (!isOperatingCrane)
+            return;
+        isOperatingCrane = false;
         playerManager.SetPlayerHasControl(true);
+        SwapCameras();
+    }
+
+    private void SwapCameras()
+    {
+        craneCam.enabled = !craneCam.enabled;
+        playerCamera.enabled = !playerCamera.enabled;
     }
 
     private void OnEnable()

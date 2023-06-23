@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerManager", menuName = "Managers/PlayerManager")]
 public class PlayerManager : ScriptableObject
 {
-    [HideInInspector] public Transform player;
+    private Transform player;
+    private Camera playerCam;
 
     private bool playerHasControl;
     private bool inShip;
@@ -19,12 +20,18 @@ public class PlayerManager : ScriptableObject
     private void SetupPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        playerCam = player.GetComponent<FirstPersonPlayerMovement>()?.cam.GetComponent<Camera>();
         SetPlayerHasControl(true);
     }
 
     public Transform GetPlayer()
     {
         return player;
+    }
+
+    public Camera GetPlayerCamera()
+    {
+        return playerCam;
     }
 
     public bool IsPlayerInControl()

@@ -18,26 +18,25 @@ public class ShipControls2 : MonoBehaviour
 
     [Header("Attributes")]
     public float shipSpeed = 10f;
-    public float cameraSpeed = 1f;
-    public float balanceCorrectionSpeed = 10f;
-
-    [Header("Actions")]
-    public InputAction enterShipAction;
-    public InputAction exitShipAction;
-    public InputAction moveAction;
-    public InputAction freeLookAction;
+    public float shipRotationSpeed = 1f;
 
     private bool inShip;
     private bool isFreeLooking = false;
+    private float currentVelocity;
+    private Transform player;
+
+    private PlayerInput playerInput;
+    private InputAction exitShipAction;
+    private InputAction moveAction;
+    private InputAction freeLookAction;
 
     private void Awake()
     {
-        exitShipAction.performed += ctx => { ExitShip(ctx); };
-        freeLookAction.performed += ctx => { FreeLook(ctx); };
+        playerInput = new PlayerInput();
 
         SetAudioListener(false);
 
-        shipCam.GetComponent<Camera>().enabled = !shipCam.GetComponent<Camera>().enabled;
+        shipCam.GetComponent<Camera>().enabled = false;
     }
 
     private void FixedUpdate()
@@ -48,7 +47,7 @@ public class ShipControls2 : MonoBehaviour
 
     private void MoveShip()
     {
-        if (playerManager.IsPlayerInControl())
+        if (!inShip)
             return;
 
         float x = moveAction.ReadValue<Vector3>().x;
@@ -59,8 +58,8 @@ public class ShipControls2 : MonoBehaviour
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(x, z) * Mathf.Rad2Deg;
-            
-            targetAngle += rb.transform.localRotation.eulerAngles.y;
+
+            targetAngle += transform.eulerAngles.y;
             Vector3 dir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
 
             rb.AddForce(dir * shipSpeed, ForceMode.Force);
@@ -75,7 +74,7 @@ public class ShipControls2 : MonoBehaviour
 
     private void RotateShip()
     {
-        if (playerManager.IsPlayerInControl())
+        if (!inShip)
             return;
 
         if (isFreeLooking)
@@ -83,7 +82,13 @@ public class ShipControls2 : MonoBehaviour
 
         Vector3 dir = shipCam.forward;
         Vector3 lookDirection = new Vector3(dir.x, 0f, dir.z);
-        rb.transform.localRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        Quaternion endRoation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, endRoation.eulerAngles.y,
+                                            ref currentVelocity, shipRotationSpeed);
+
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
     }
 
     public void EnterShip()
@@ -91,7 +96,10 @@ public class ShipControls2 : MonoBehaviour
         inShip = true;
 
         playerManager.SetPlayerHasControl(false);
-        playerManager.GetPlayer().gameObject.SetActive(false);
+        playerManager.SetInShip(true);
+
+        player = playerManager.GetPlayer();
+        player.gameObject.SetActive(false);
 
         SetAudioListener(true);
         SwapCameras();
@@ -105,6 +113,9 @@ public class ShipControls2 : MonoBehaviour
         vehicleDropOff.DropOffPlayer();
 
         playerManager.SetPlayerHasControl(true);
+        playerManager.SetInShip(false);
+
+        player = null;
 
         SetAudioListener(false);
         SwapCameras();
@@ -132,17 +143,22 @@ public class ShipControls2 : MonoBehaviour
     {
         interaction.interactAction += EnterShip;
 
-        enterShipAction.Enable();
-        exitShipAction.Enable();
+        moveAction = playerInput.Ship.MoveAction;
         moveAction.Enable();
+
+        exitShipAction = playerInput.Ship.ExitInteractable;
+        exitShipAction.Enable();
+        exitShipAction.performed += ExitShip;
+
+        freeLookAction = playerInput.Ship.FreeLook;
         freeLookAction.Enable();
+        freeLookAction.performed += FreeLook;
     }
 
     private void OnDisable()
     {
         interaction.interactAction -= EnterShip;
 
-        enterShipAction.Disable();
         exitShipAction.Disable();
         moveAction.Disable();
         freeLookAction.Disable();

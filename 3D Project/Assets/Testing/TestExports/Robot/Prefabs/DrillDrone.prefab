@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8316834255783643538}
   - component: {fileID: -1606084624956641617}
   m_Layer: 0
-  m_Name: RobotDraft
+  m_Name: DrillDrone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -20,6 +20,11 @@ public class ShipControls : MonoBehaviour
     public float shipSpeed = 10f;
     public float shipRotationSpeed = 1f;
 
+    [Header("Rotation Correction")]
+    public float xRotationCorrection;
+    public float yRotationCorrection;
+    public float zRotationCorrection;
+
     private bool inShip;
     private bool isFreeLooking = false;
     private float currentVelocity;
@@ -85,10 +90,11 @@ public class ShipControls : MonoBehaviour
 
         Quaternion endRoation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, endRoation.eulerAngles.y, 
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, shipCam.eulerAngles.y, 
                                             ref currentVelocity, shipRotationSpeed);
 
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up) * 
+                             Quaternion.Euler(xRotationCorrection, yRotationCorrection, zRotationCorrection);
     }
 
     public void EnterShip()

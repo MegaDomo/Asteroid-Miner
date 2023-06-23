@@ -18,11 +18,11 @@ public class ShipControls : MonoBehaviour
 
     [Header("Attributes")]
     public float shipSpeed = 10f;
-    public float cameraSpeed = 1f;
-    public float balanceCorrectionSpeed = 10f;
+    public float shipRotationSpeed = 1f;
 
     private bool inShip;
     private bool isFreeLooking = false;
+    private float currentVelocity;
     private Transform player;
 
     private PlayerInput playerInput;
@@ -47,8 +47,7 @@ public class ShipControls : MonoBehaviour
 
     private void MoveShip()
     {
-        Debug.Log(inShip);
-        if (playerManager.IsPlayerInControl() || !inShip)
+        if (!inShip)
             return;
 
         float x = moveAction.ReadValue<Vector3>().x;
@@ -75,7 +74,7 @@ public class ShipControls : MonoBehaviour
 
     private void RotateShip()
     {
-        if (playerManager.IsPlayerInControl() || !inShip)
+        if (!inShip)
             return;
 
         if (isFreeLooking)
@@ -83,13 +82,19 @@ public class ShipControls : MonoBehaviour
 
         Vector3 dir = shipCam.forward;
         Vector3 lookDirection = new Vector3(dir.x, 0f, dir.z);
-        transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        Quaternion endRoation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, endRoation.eulerAngles.y, 
+                                            ref currentVelocity, shipRotationSpeed);
+
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
     }
 
     public void EnterShip()
     {
         inShip = true;
-        Debug.Log("Interacted On Ship");
+
         playerManager.SetPlayerHasControl(false);
         playerManager.SetInShip(true);
 

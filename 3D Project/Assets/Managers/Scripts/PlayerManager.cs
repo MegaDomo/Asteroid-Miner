@@ -20,7 +20,7 @@ public class PlayerManager : ScriptableObject
     private void SetupPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        playerCam = player.GetComponent<FirstPersonPlayerMovement>()?.cam.GetComponent<Camera>();
+        playerCam = player?.GetComponent<FirstPersonPlayerMovement>()?.cam.GetComponent<Camera>();
         SetPlayerHasControl(true);
     }
 

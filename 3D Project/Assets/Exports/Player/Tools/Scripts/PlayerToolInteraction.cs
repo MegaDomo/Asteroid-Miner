@@ -11,7 +11,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
     [Header("Attributes")]
     public float interactRange;
-    public InputAction interactAction;
+    
 
     [Header("Debugging")]
     public Tool selectedTool;
@@ -21,8 +21,16 @@ public class PlayerToolInteraction : MonoBehaviour
 
     private GameObject toolObj;
 
+    private PlayerInput playerInput;
+    private InputAction interactAction;
+
     private bool drillingFinished;
     private float drillingTime;
+
+    private void Awake()
+    {
+        playerInput = new PlayerInput();
+    }
 
     private void Update()
     {
@@ -59,7 +67,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
     public void Drill()
     {
-        if (Physics.Raycast(playerCam.position, playerCam.forward, out interactHit,
+        if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
             interactRange, LayerMask.GetMask("Drillable")))
         {
             inRangeForInteractable = true;
@@ -92,6 +100,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
     private void OnEnable()
     {
+        interactAction = playerInput.Player.ToolHoldAction;
         interactAction.Enable();
     }
 

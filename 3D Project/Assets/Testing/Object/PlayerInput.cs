@@ -44,6 +44,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToolHoldAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd52deda-979c-47f7-97f9-6802373255cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""add6f903-fb00-4582-b2c6-f5b56c0dd120"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolHoldAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -370,6 +390,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MoveAction = m_Player.FindAction("MoveAction", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_ToolHoldAction = m_Player.FindAction("ToolHoldAction", throwIfNotFound: true);
         // Ship
         m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
         m_Ship_MoveAction = m_Ship.FindAction("MoveAction", throwIfNotFound: true);
@@ -440,12 +461,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_MoveAction;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_ToolHoldAction;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveAction => m_Wrapper.m_Player_MoveAction;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @ToolHoldAction => m_Wrapper.m_Player_ToolHoldAction;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -461,6 +484,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @ToolHoldAction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
+                @ToolHoldAction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
+                @ToolHoldAction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -471,6 +497,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @ToolHoldAction.started += instance.OnToolHoldAction;
+                @ToolHoldAction.performed += instance.OnToolHoldAction;
+                @ToolHoldAction.canceled += instance.OnToolHoldAction;
             }
         }
     }
@@ -569,6 +598,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMoveAction(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnToolHoldAction(InputAction.CallbackContext context);
     }
     public interface IShipActions
     {

@@ -11,8 +11,9 @@ public class TestScript : MonoBehaviour
     [Header("Unity References")]
     public MeshFilter meshFilter;
 
+    [Header("Attributes")]
     public float interactRange = 5f;
-
+    public float radius = 2;
     public float deformationStrength = 2f;
 
     private Mesh mesh;
@@ -42,28 +43,29 @@ public class TestScript : MonoBehaviour
 
     void Round1()
     {
-        if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
-            interactRange, LayerMask.GetMask("ToolInteractable")))
+        if (Input.GetMouseButton(0))
         {
-            Debug.Log("Line44 Hit");
-            for (int v = 0; v < modifiedVerts.Length; v++)
+            if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
+            interactRange, LayerMask.GetMask("ToolInteractable")))
             {
-                Vector3 distance = modifiedVerts[v] - interactHit.point;
-                //Debug.Log("Modified: " + modifiedVerts[v] + "\nHit: " 
-                //          + interactHit.point + "\nDistance Vector: " + distance);
-                float smoothingFactor = 2f;
-                float force = deformationStrength / (1f + interactHit.point.sqrMagnitude);
-
-                if (distance.sqrMagnitude < interactRange)
+                for (int v = 0; v < modifiedVerts.Length; v++)
                 {
-                    Debug.Log("Line54 passed sqr");
-                    Vector3 toOrigin = interactHit.point - transform.position;
-                    Debug.Log(toOrigin);
-                    if (Input.GetMouseButton(0))
-                        modifiedVerts[v] = modifiedVerts[v] + (toOrigin * force) / smoothingFactor;
+                    Vector3 distance = modifiedVerts[v] - interactHit.point;
+
+                    float smoothingFactor = 2f;
+                    float force = deformationStrength / (1f + interactHit.point.sqrMagnitude);
+
+                    if (distance.sqrMagnitude < radius)
+                    {
+                        Vector3 toOrigin = interactHit.point - transform.position;
+                        Debug.Log(toOrigin);
+                        if (Input.GetMouseButton(0))
+                            modifiedVerts[v] = modifiedVerts[v] + (Vector3.up * force) / smoothingFactor;
+                    }
                 }
             }
         }
+        
 
         RecalculateMesh();
     }

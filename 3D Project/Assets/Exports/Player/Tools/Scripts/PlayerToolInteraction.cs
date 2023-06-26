@@ -15,6 +15,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
     [Header("Debugging")]
     public Tool selectedTool;
+    public float force;
 
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
@@ -35,7 +36,7 @@ public class PlayerToolInteraction : MonoBehaviour
     private void Update()
     {
         if (interactAction.IsPressed())
-            CheckForToolUse();
+            Drill();
     }
 
     private void CheckForToolUse()
@@ -67,22 +68,13 @@ public class PlayerToolInteraction : MonoBehaviour
 
     public void Drill()
     {
-        if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
-            interactRange, LayerMask.GetMask("Drillable")))
+        if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit hit,
+            interactRange, LayerMask.GetMask("ToolInteractable")))
         {
-            inRangeForInteractable = true;
-            drillingTime += Time.deltaTime;
-            Debug.Log("Drilling");
-            DrillableSurface surface = interactHit.transform.GetComponent<DrillableSurface>();
-            float timeToDrill = surface.timeToDrill;
-            if (drillingTime >= timeToDrill)
-                surface.CompleteDrilling();
-        }
-        else
-        {
-            inRangeForInteractable = false;
-            drillingTime = 0f;
-        }
+            MeshDeformer deformer = hit.collider.GetComponent<MeshDeformer>();
+            if (deformer)
+                deformer.AddDeformingForce(hit.point, force);
+        }   
     }
 
     public void SetTool(Tool tool)

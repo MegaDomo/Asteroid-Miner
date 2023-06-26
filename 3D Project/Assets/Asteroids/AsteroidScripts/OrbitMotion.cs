@@ -25,7 +25,8 @@ public class OrbitMotion : MonoBehaviour
 
     private void Update()
     {
-        AnimateOrbit();
+        if (orbitingPoint)
+            AnimateOrbit();
     }
 
     public void AnimateOrbit()

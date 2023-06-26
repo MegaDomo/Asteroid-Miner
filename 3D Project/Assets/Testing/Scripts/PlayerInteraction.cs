@@ -10,7 +10,8 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Attributes")]
     public float interactDetectRange;
 
-    
+    [Header("Debugging")]
+    public bool drawFacingLine;
 
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
@@ -32,7 +33,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckForInteractable()
     {
-        Debug.DrawRay(cam.position, cam.forward * interactDetectRange, Color.red, 0.01f);
+        if (drawFacingLine)
+            Debug.DrawRay(cam.position, cam.forward * interactDetectRange, Color.red, 0.01f);
 
         if (Physics.Raycast(cam.position, cam.forward, out interactHit,
             interactDetectRange, LayerMask.GetMask("Interactable")))

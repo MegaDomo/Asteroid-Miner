@@ -16,6 +16,7 @@ public class PlayerToolInteraction : MonoBehaviour
     [Header("Debugging")]
     public Tool selectedTool;
     public float force;
+    public float forceOffset = 0.1f;
 
     private bool inRangeForInteractable;
     private RaycastHit interactHit;
@@ -72,8 +73,10 @@ public class PlayerToolInteraction : MonoBehaviour
             interactRange, LayerMask.GetMask("ToolInteractable")))
         {
             MeshDeformer deformer = hit.collider.GetComponent<MeshDeformer>();
+            Vector3 point = hit.point;
+            point += hit.normal * forceOffset;
             if (deformer)
-                deformer.AddDeformingForce(hit.point, force);
+                deformer.AddDeformingForce(point, force);
         }   
     }
 

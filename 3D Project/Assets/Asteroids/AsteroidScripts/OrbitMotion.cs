@@ -19,8 +19,8 @@ public class OrbitMotion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetOrbitingObjectPosition();
-        //StartCoroutine(AnimateOrbit());
+        if (orbitingPoint)
+            SetOrbitingObjectPosition();
     }
 
     private void Update()
@@ -56,6 +56,9 @@ public class OrbitMotion : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!orbitingPoint)
+            return;
+
         orbitActive = false;
 
         Vector3 normDir = Vector3.Cross(Vector3.up, dir - orbitingPoint.position).normalized;
@@ -64,23 +67,4 @@ public class OrbitMotion : MonoBehaviour
 
         rb.AddForce(normDir * 1000, ForceMode.Impulse);
     }
-
-    /*
-    IEnumerator AnimateOrbit()
-    {
-        if (orbitPeriod < 0.1f)
-            orbitPeriod = 0.1f;
-        float orbitSpeed = 1f / orbitPeriod;
-
-        while (orbitActive)
-        {
-            orbitProgress += Time.deltaTime * orbitSpeed;
-            orbitProgress %= 1f;
-
-            SetOrbitingObjectPosition();
-
-            yield return null;
-        }
-
-    }*/
 }

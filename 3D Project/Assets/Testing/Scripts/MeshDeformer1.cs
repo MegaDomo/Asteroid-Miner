@@ -43,10 +43,10 @@ public class MeshDeformer1 : MonoBehaviour
 
     private void AddDisplacement(int index, Vector3 point, float force)
     {
-        Vector3 pointToVertex = mesh.vertices[index] - point;
-        if (pointToVertex.magnitude < deformationRadius)
+        Vector3 pointToVertex = point - mesh.vertices[index];
+        if (pointToVertex.sqrMagnitude < deformationRadius)
         {
-            float attenuatedForce = force / (1f + pointToVertex.sqrMagnitude);
+            float attenuatedForce = force / (1f + point.sqrMagnitude);
             displacedVertices[index] = pointToVertex.normalized * attenuatedForce;
         }
     }

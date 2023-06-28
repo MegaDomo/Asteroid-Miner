@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MeshDeformer1 : MonoBehaviour
 {
+    [Header("Attributes")]
+    public float deformationRadius = 2f;
+
     private Mesh mesh;
     private Vector3[] vertices, displacedVertices;
 
@@ -41,9 +44,11 @@ public class MeshDeformer1 : MonoBehaviour
     private void AddDisplacement(int index, Vector3 point, float force)
     {
         Vector3 pointToVertex = mesh.vertices[index] - point;
-        float attenuatedForce = force / (1f + pointToVertex.sqrMagnitude);
-        float velocity = attenuatedForce * Time.deltaTime;
-        displacedVertices[index] = pointToVertex.normalized * velocity;
+        if (pointToVertex.magnitude < deformationRadius)
+        {
+            float attenuatedForce = force / (1f + pointToVertex.sqrMagnitude);
+            displacedVertices[index] = pointToVertex.normalized * attenuatedForce;
+        }
     }
 
     void RecalculateMesh()

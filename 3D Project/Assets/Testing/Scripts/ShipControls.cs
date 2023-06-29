@@ -46,7 +46,7 @@ public class ShipControls : MonoBehaviour
 
         shipCam.GetComponent<Camera>().enabled = false;
 
-        if (shipTools[0] != null)
+        if (shipTools.Length != 0 && shipTools[0] != null)
             currentShipTool = shipTools[0];
     }
 

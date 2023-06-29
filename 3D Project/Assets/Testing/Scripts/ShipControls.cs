@@ -19,6 +19,7 @@ public class ShipControls : MonoBehaviour
     [Header("Attributes")]
     public float shipSpeed = 10f;
     public float shipRotationSpeed = 1f;
+    public GameObject[] shipTools;
 
     [Header("Rotation Correction")]
     public float xRotationCorrection;
@@ -29,11 +30,13 @@ public class ShipControls : MonoBehaviour
     private bool isFreeLooking = false;
     private float currentVelocity;
     private Transform player;
+    private GameObject currentShipTool;
 
     private PlayerInput playerInput;
     private InputAction exitShipAction;
     private InputAction moveAction;
     private InputAction freeLookAction;
+    private InputAction toggleToolAction;
 
     private void Awake()
     {
@@ -42,6 +45,9 @@ public class ShipControls : MonoBehaviour
         SetAudioListener(false);
 
         shipCam.GetComponent<Camera>().enabled = false;
+
+        if (shipTools[0] != null)
+            currentShipTool = shipTools[0];
     }
 
     private void FixedUpdate()
@@ -134,6 +140,14 @@ public class ShipControls : MonoBehaviour
         isFreeLooking = !isFreeLooking;
     }
 
+    public void ToggleTool(InputAction.CallbackContext context)
+    {
+        if (currentShipTool.activeSelf)
+            currentShipTool.SetActive(false);
+        else
+            currentShipTool.SetActive(true);
+    }
+
     private void SwapCameras()
     {
         playerCam.GetComponent<Camera>().enabled = !playerCam.GetComponent<Camera>().enabled;
@@ -159,6 +173,10 @@ public class ShipControls : MonoBehaviour
         freeLookAction = playerInput.Ship.FreeLook;
         freeLookAction.Enable();
         freeLookAction.performed += FreeLook;
+
+        toggleToolAction = playerInput.Ship.ToggleTool;
+        toggleToolAction.Enable();
+        toggleToolAction.performed += ToggleTool;
     }
 
     private void OnDisable()
@@ -168,5 +186,6 @@ public class ShipControls : MonoBehaviour
         exitShipAction.Disable();
         moveAction.Disable();
         freeLookAction.Disable();
+        toggleToolAction.Disable();
     }
 }

@@ -187,6 +187,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleTool"",
+                    ""type"": ""Button"",
+                    ""id"": ""a36e45e2-50d4-415f-bf15-b17b5b6fae90"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -286,6 +295,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FreeLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d97f6d1-7c59-49df-ae4c-c09ee533fbbe"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleTool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -396,6 +416,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Ship_MoveAction = m_Ship.FindAction("MoveAction", throwIfNotFound: true);
         m_Ship_ExitInteractable = m_Ship.FindAction("ExitInteractable", throwIfNotFound: true);
         m_Ship_FreeLook = m_Ship.FindAction("FreeLook", throwIfNotFound: true);
+        m_Ship_ToggleTool = m_Ship.FindAction("ToggleTool", throwIfNotFound: true);
         // Crane
         m_Crane = asset.FindActionMap("Crane", throwIfNotFound: true);
         m_Crane_MoveAction = m_Crane.FindAction("MoveAction", throwIfNotFound: true);
@@ -511,6 +532,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_MoveAction;
     private readonly InputAction m_Ship_ExitInteractable;
     private readonly InputAction m_Ship_FreeLook;
+    private readonly InputAction m_Ship_ToggleTool;
     public struct ShipActions
     {
         private @PlayerInput m_Wrapper;
@@ -518,6 +540,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @MoveAction => m_Wrapper.m_Ship_MoveAction;
         public InputAction @ExitInteractable => m_Wrapper.m_Ship_ExitInteractable;
         public InputAction @FreeLook => m_Wrapper.m_Ship_FreeLook;
+        public InputAction @ToggleTool => m_Wrapper.m_Ship_ToggleTool;
         public InputActionMap Get() { return m_Wrapper.m_Ship; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -536,6 +559,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @FreeLook.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnFreeLook;
                 @FreeLook.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnFreeLook;
                 @FreeLook.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnFreeLook;
+                @ToggleTool.started -= m_Wrapper.m_ShipActionsCallbackInterface.OnToggleTool;
+                @ToggleTool.performed -= m_Wrapper.m_ShipActionsCallbackInterface.OnToggleTool;
+                @ToggleTool.canceled -= m_Wrapper.m_ShipActionsCallbackInterface.OnToggleTool;
             }
             m_Wrapper.m_ShipActionsCallbackInterface = instance;
             if (instance != null)
@@ -549,6 +575,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @FreeLook.started += instance.OnFreeLook;
                 @FreeLook.performed += instance.OnFreeLook;
                 @FreeLook.canceled += instance.OnFreeLook;
+                @ToggleTool.started += instance.OnToggleTool;
+                @ToggleTool.performed += instance.OnToggleTool;
+                @ToggleTool.canceled += instance.OnToggleTool;
             }
         }
     }
@@ -605,6 +634,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMoveAction(InputAction.CallbackContext context);
         void OnExitInteractable(InputAction.CallbackContext context);
         void OnFreeLook(InputAction.CallbackContext context);
+        void OnToggleTool(InputAction.CallbackContext context);
     }
     public interface ICraneActions
     {

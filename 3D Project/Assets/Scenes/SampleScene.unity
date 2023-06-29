@@ -473,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2241633203924274215, guid: 25403977ef64a3744abce18861941449, type: 3}
       propertyPath: pullStrength
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2241633203924274215, guid: 25403977ef64a3744abce18861941449, type: 3}
       propertyPath: tagsToPullOnStrings.Array.size
@@ -2224,6 +2224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1824613259958596399, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1884363277304610392, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2273,8 +2277,12 @@ PrefabInstance:
       value: LargeAsteroid
       objectReference: {fileID: 0}
     - target: {fileID: 8985356585949202576, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
-      propertyPath: orbitActive
+      propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985356585949202576, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
+      propertyPath: orbitActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8985356585949202576, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: orbitingPoint

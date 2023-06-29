@@ -142,6 +142,9 @@ public class ShipControls : MonoBehaviour
 
     public void ToggleTool(InputAction.CallbackContext context)
     {
+        if (currentShipTool == null)
+            return;
+
         if (currentShipTool.activeSelf)
             currentShipTool.SetActive(false);
         else

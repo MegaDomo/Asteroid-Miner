@@ -25,6 +25,7 @@ public class PlayerToolInteraction : MonoBehaviour
 
     private PlayerInput playerInput;
     private InputAction interactAction;
+    private InputAction toolToggle;
 
     private bool drillingFinished;
     private float drillingTime;
@@ -94,16 +95,30 @@ public class PlayerToolInteraction : MonoBehaviour
 
         selectedTool = tool;
         toolObj = Instantiate(selectedTool.prefab, toolPoint.position, Quaternion.identity);
+        toolObj.transform.SetParent(transform);
+    }
+
+    public void ToolToggle(InputAction.CallbackContext context)
+    {
+        if (selectedTool == null)
+            return;
+
+        selectedTool.ToolInteraction(toolObj);
     }
 
     private void OnEnable()
     {
         interactAction = playerInput.Player.ToolHoldAction;
         interactAction.Enable();
+
+        toolToggle = playerInput.Player.ToolToggle;
+        toolToggle.Enable();
+        toolToggle.performed += ToolToggle;
     }
 
     private void OnDisable()
     {
         interactAction.Disable();
+        toolToggle.Disable();
     }
 }

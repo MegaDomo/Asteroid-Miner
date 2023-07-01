@@ -317,7 +317,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1319878046957758056}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.50000036
   m_Height: 2
   m_Direction: 1
@@ -334,28 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9caa0f7dc74dd45959231d93c0a22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActionMap:
-    m_Name: Input
-    m_Id: c52f480e-7c8d-41b9-84d5-73a0d494e471
-    m_Asset: {fileID: 0}
-    m_Actions:
-    - m_Name: New action
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: fa511b10-2579-4cbb-8386-4e0c63534058
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Bindings:
-    - m_Name: 
-      m_Id: e1576792-4113-409d-a2d9-e7820ae23228
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: New action
-      m_Flags: 0
   playerManager: {fileID: 11400000, guid: ad115f1909e519f48bc00eeaf0511ec1, type: 2}
   cam: {fileID: 1319878046076770868}
   controller: {fileID: 1319878046957758054}
@@ -364,71 +342,6 @@ MonoBehaviour:
   walkSpeed: 10
   flySpeed: 5
   interactDetectRange: 5
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: f46553cb-28e8-4d0c-b32c-29b73fa9d04e
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 3D Vector
-      m_Id: bd30f737-e558-4d28-854b-4a14100fdef9
-      m_Path: 3DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 0cc54a56-21fd-40ae-8c0a-19ccef163e96
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 1b4014bc-a60e-469c-a54b-e1788e1a2c6b
-      m_Path: <Keyboard>/x
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: a2cde376-34cf-4804-b259-3963fa36b069
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: e554773e-0faf-48de-9b7b-25677483d8b5
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: forward
-      m_Id: 6368116c-f061-47f0-8c4e-4e05432e3123
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: backward
-      m_Id: 6d2b1f3a-a17e-4fe2-92b5-7e825a30c858
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
 --- !u!114 &1319878046957758048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,23 +357,7 @@ MonoBehaviour:
   cam: {fileID: 1319878046076770868}
   interactUI: {fileID: 0}
   interactDetectRange: 6
-  interactAction:
-    m_Name: Interact
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4a9e7729-a036-4a57-bf4c-8a50738b18c7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 31a930e1-bd07-4e68-a1a9-bcbee50ed339
-      m_Path: <Keyboard>/e
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Interact
-      m_Flags: 0
-    m_Flags: 0
+  drawFacingLine: 0
 --- !u!114 &1319878046957758367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,24 +373,9 @@ MonoBehaviour:
   playerCam: {fileID: 1319878046076770868}
   toolPoint: {fileID: 1319878046828568901}
   interactRange: 5.45
-  interactAction:
-    m_Name: Interact
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: d013e83b-8654-4e83-a9d7-aa56105833ab
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 4275bdf9-0d6d-4b9c-ba52-99149aef642d
-      m_Path: <Mouse>/leftButton
-      m_Interactions: Hold
-      m_Processors: 
-      m_Groups: 
-      m_Action: Interact
-      m_Flags: 0
-    m_Flags: 0
   selectedTool: {fileID: 0}
+  force: 0
+  forceOffset: 0.1
 --- !u!114 &1313395467285509548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +391,7 @@ MonoBehaviour:
   tools:
   - {fileID: 11400000, guid: 8546af6d18df26849803393b0de6063c, type: 2}
   - {fileID: 11400000, guid: 7e29ceca911544b45bbf327a390ba4eb, type: 2}
+  - {fileID: 11400000, guid: 311cc059383fc0d4f875e33051088a3e, type: 2}
   hotbarKeys:
   - m_Name: Element 0
     m_Type: 0
@@ -536,6 +419,22 @@ MonoBehaviour:
     - m_Name: 
       m_Id: dd78f6ef-337f-4034-b2ad-69283786b8ae
       m_Path: <Keyboard>/2
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c1caeeb4-de33-4435-be0b-02489f7c94f0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d9e4532b-c373-4c73-b648-231cfc2f663e
+      m_Path: <Keyboard>/3
       m_Interactions: 
       m_Processors: 
       m_Groups: 

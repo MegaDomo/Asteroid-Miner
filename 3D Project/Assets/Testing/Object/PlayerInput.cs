@@ -53,6 +53,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToolToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d1bfce1-e613-4fd9-8920-4ecb9eed776a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToolHoldAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8eb00c8a-6e5a-4ad2-b8a6-b6766c8fd111"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -411,6 +431,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_MoveAction = m_Player.FindAction("MoveAction", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToolHoldAction = m_Player.FindAction("ToolHoldAction", throwIfNotFound: true);
+        m_Player_ToolToggle = m_Player.FindAction("ToolToggle", throwIfNotFound: true);
         // Ship
         m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
         m_Ship_MoveAction = m_Ship.FindAction("MoveAction", throwIfNotFound: true);
@@ -483,6 +504,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MoveAction;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToolHoldAction;
+    private readonly InputAction m_Player_ToolToggle;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -490,6 +512,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @MoveAction => m_Wrapper.m_Player_MoveAction;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ToolHoldAction => m_Wrapper.m_Player_ToolHoldAction;
+        public InputAction @ToolToggle => m_Wrapper.m_Player_ToolToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -508,6 +531,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ToolHoldAction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
                 @ToolHoldAction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
                 @ToolHoldAction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolHoldAction;
+                @ToolToggle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
+                @ToolToggle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
+                @ToolToggle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -521,6 +547,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ToolHoldAction.started += instance.OnToolHoldAction;
                 @ToolHoldAction.performed += instance.OnToolHoldAction;
                 @ToolHoldAction.canceled += instance.OnToolHoldAction;
+                @ToolToggle.started += instance.OnToolToggle;
+                @ToolToggle.performed += instance.OnToolToggle;
+                @ToolToggle.canceled += instance.OnToolToggle;
             }
         }
     }
@@ -628,6 +657,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMoveAction(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnToolHoldAction(InputAction.CallbackContext context);
+        void OnToolToggle(InputAction.CallbackContext context);
     }
     public interface IShipActions
     {

@@ -21,6 +21,7 @@ public class PlayerToolManager : MonoBehaviour
         hotbarKeys[0].performed += ctx => { Hotbar1(ctx); };
         hotbarKeys[1].performed += ctx => { Hotbar2(ctx); };
         hotbarKeys[2].performed += ctx => { Hotbar3(ctx); };
+        hotbarKeys[3].performed += ctx => { Hotbar4(ctx); };
     }
 
     public void Hotbar1(InputAction.CallbackContext context)
@@ -36,6 +37,11 @@ public class PlayerToolManager : MonoBehaviour
     public void Hotbar3(InputAction.CallbackContext context)
     {
         toolInteraction.SetTool(tools[2]);
+    }
+
+    public void Hotbar4(InputAction.CallbackContext context)
+    {
+        toolInteraction.SetTool(tools[3]);
     }
 
     private void OnEnable()

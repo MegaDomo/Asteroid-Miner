@@ -392,6 +392,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8546af6d18df26849803393b0de6063c, type: 2}
   - {fileID: 11400000, guid: 7e29ceca911544b45bbf327a390ba4eb, type: 2}
   - {fileID: 11400000, guid: 311cc059383fc0d4f875e33051088a3e, type: 2}
+  - {fileID: 11400000, guid: 74a8593184529b946a3d398458168c9b, type: 2}
   hotbarKeys:
   - m_Name: Element 0
     m_Type: 0
@@ -435,6 +436,22 @@ MonoBehaviour:
     - m_Name: 
       m_Id: d9e4532b-c373-4c73-b648-231cfc2f663e
       m_Path: <Keyboard>/3
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Input Action
+      m_Flags: 0
+    m_Flags: 0
+  - m_Name: Input Action
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 94c53d2a-c920-452d-bce1-373d853d7c15
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 66f2340c-cb0e-4a46-b478-cc8f7b687558
+      m_Path: <Keyboard>/4
       m_Interactions: 
       m_Processors: 
       m_Groups: 

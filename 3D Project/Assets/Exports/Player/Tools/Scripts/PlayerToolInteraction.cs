@@ -103,7 +103,10 @@ public class PlayerToolInteraction : MonoBehaviour
         if (selectedTool == null)
             return;
 
-        selectedTool.ToolInteraction(toolObj);
+        if (selectedTool.toolType == Tool.ToolType.Flashlight)
+            selectedTool.ToolInteraction(toolObj);
+        else
+            selectedTool.ToolInteraction();
     }
 
     private void OnEnable()

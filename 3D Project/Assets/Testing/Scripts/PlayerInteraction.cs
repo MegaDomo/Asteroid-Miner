@@ -54,6 +54,7 @@ public class PlayerInteraction : MonoBehaviour
         if (!inRangeForInteractable || interactHit.transform == null)
             return;
         interactHit.transform.GetComponent<Interaction>().Interact();
+        interactUI.SetActive(false);
     }
 
     public void DisplayInteractUI(bool value)

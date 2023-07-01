@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f13791d5496484b9cf6d48af413b89, type: 3}
   m_Name: ScannerTool
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  toolType: 0
+  prefab: {fileID: 2604200783326833297, guid: 51f7024505acd2c4f854d17594a640be, type: 3}
+  toolType: 3

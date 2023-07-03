@@ -8,9 +8,6 @@ public class TestScript : MonoBehaviour
     [Header("Scriptable References")]
     public PlayerManager playerManager;
 
-    [Header("Unity References")]
-    public MeshFilter meshFilter;
-
     [Header("Attributes")]
     public float interactRange = 5f;
     public float radius = 2;
@@ -22,9 +19,9 @@ public class TestScript : MonoBehaviour
 
     private void Start()
     {
-        playerCam = playerManager.GetPlayer().GetComponent<FirstPersonPlayerMovement>().cam;
+        playerCam = playerManager.GetPlayerCamera().transform;
 
-        mesh = meshFilter.mesh;
+        mesh = GetComponent<MeshFilter>().mesh;
         verticies = mesh.vertices;
         modifiedVerts = mesh.vertices;
     }
@@ -48,19 +45,22 @@ public class TestScript : MonoBehaviour
             if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
             interactRange, LayerMask.GetMask("ToolInteractable")))
             {
+                Vector3 point = interactHit.point;
+                Debug.DrawLine(playerCam.position, point);
+                Debug.Log("Hitting: " + name);
+
                 for (int v = 0; v < modifiedVerts.Length; v++)
                 {
-                    Vector3 distance = modifiedVerts[v] - interactHit.point;
+                    Vector3 distance = modifiedVerts[v] - point;
 
-                    float smoothingFactor = 2f;
-                    float force = deformationStrength / (1f + interactHit.point.sqrMagnitude);
-
+                    Debug.Log(distance.sqrMagnitude);
                     if (distance.sqrMagnitude < radius)
                     {
-                        Vector3 toOrigin = interactHit.point - transform.position;
-                        Debug.Log(toOrigin);
+                        float smoothingFactor = 2f;
+                        float force = deformationStrength / (1f + point.sqrMagnitude);
+
                         if (Input.GetMouseButton(0))
-                            modifiedVerts[v] = modifiedVerts[v] + (Vector3.up * force) / smoothingFactor;
+                            modifiedVerts[v] = modifiedVerts[v] + (playerCam.forward * force) / smoothingFactor;
                     }
                 }
             }

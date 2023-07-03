@@ -39,8 +39,8 @@ public class PlayerToolInteraction : MonoBehaviour
     {
         //if (interactAction.IsPressed())
         //    Drill();
-
-        if (Input.GetMouseButtonDown(0))
+        // Input.GetMouseButtonDown(0)
+        if (interactAction.IsPressed())
             Drill();
     }
 
@@ -75,8 +75,8 @@ public class PlayerToolInteraction : MonoBehaviour
     {
         if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit hit,
             interactRange, LayerMask.GetMask("ToolInteractable")))
-        {
-            MeshDeformer1 deformer = hit.collider.GetComponent<MeshDeformer1>();
+        {            
+            MeshDeformer deformer = hit.collider.GetComponent<MeshDeformer>();
             Vector3 point = hit.point;
             point += hit.normal * forceOffset;
             if (deformer)

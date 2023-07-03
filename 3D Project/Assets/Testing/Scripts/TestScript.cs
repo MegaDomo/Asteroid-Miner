@@ -23,7 +23,9 @@ public class TestScript : MonoBehaviour
 
         mesh = GetComponent<MeshFilter>().mesh;
         verticies = mesh.vertices;
-        modifiedVerts = mesh.vertices;
+        modifiedVerts = new Vector3[mesh.vertices.Length];
+        for (int i = 0; i < mesh.vertices.Length; i++)
+            modifiedVerts[i] = mesh.vertices[i];
     }
 
     void RecalculateMesh()
@@ -45,7 +47,7 @@ public class TestScript : MonoBehaviour
             if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit interactHit,
             interactRange, LayerMask.GetMask("ToolInteractable")))
             {
-                Vector3 point = interactHit.point;
+                Vector3 point = transform.InverseTransformPoint(interactHit.point);
                 Debug.DrawLine(playerCam.position, point);
                 Debug.Log("Hitting: " + name);
 

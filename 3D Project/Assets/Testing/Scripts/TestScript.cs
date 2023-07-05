@@ -10,8 +10,9 @@ public class TestScript : MonoBehaviour
 
     [Header("Attributes")]
     public float interactRange = 5f;
-    public float radius = 2;
-    public float deformationStrength = 2f;
+    public float radius = 0.01f;
+    public float deformationStrength = 0.2f;
+    public float smoothingFactor = 2f;
 
     private Mesh mesh;
     private Transform playerCam;
@@ -49,20 +50,16 @@ public class TestScript : MonoBehaviour
             {
                 Vector3 point = transform.InverseTransformPoint(interactHit.point);
                 Debug.DrawLine(playerCam.position, point);
-                Debug.Log("Hitting: " + name);
+                //Debug.Log("Hitting: " + name);
 
                 for (int v = 0; v < modifiedVerts.Length; v++)
                 {
                     Vector3 distance = modifiedVerts[v] - point;
 
-                    Debug.Log(distance.sqrMagnitude);
                     if (distance.sqrMagnitude < radius)
                     {
-                        float smoothingFactor = 2f;
                         float force = deformationStrength / (1f + point.sqrMagnitude);
-
-                        if (Input.GetMouseButton(0))
-                            modifiedVerts[v] = modifiedVerts[v] + (playerCam.forward * force) / smoothingFactor;
+                        modifiedVerts[v] = modifiedVerts[v] + (playerCam.forward * force) / smoothingFactor;
                     }
                 }
             }

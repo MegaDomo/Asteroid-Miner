@@ -55,18 +55,19 @@ public class TestScript : MonoBehaviour
                 for (int v = 0; v < modifiedVerts.Length; v++)
                 {
                     Vector3 distance = modifiedVerts[v] - point;
-
-                    if (distance.sqrMagnitude < radius)
+                    
+                    if (distance.sqrMagnitude < radius )//|| (interactHit.point - transform.position).magnitude > smoothingFactor)
                     {
-
-                        //float force = deformationStrength / (point.sqrMagnitude);
+                        float force = deformationStrength / (point.sqrMagnitude);
                         //Vector3 newVertPoint = transform.InverseTransformVector((modifiedVerts[v] + playerCam.forward) * force) ;
 
                         //Vector3 newVertPoint = transform.InverseTransformDirection(playerCam.forward);
                         //modifiedVerts[v] = newVertPoint / smoothingFactor;
-                        Vector3 newVertPoint = (interactHit.point - transform.position) * 0.7f;
-                        modifiedVerts[v] = transform.InverseTransformPoint(newVertPoint);
 
+                        //dir = transform.InverseTransformVector(dir);
+                        Vector3 dir = (interactHit.point - transform.position);
+
+                        modifiedVerts[v] += (-dir.normalized * force) / smoothingFactor;
                     }
                 }
             }

@@ -45,7 +45,7 @@ public class MarchingCubesVisualisation : MonoBehaviour
 					float ground = -y + groundLevel * gridSize;
 					float noise = Noise.PerlinNoise3D((float)x / gridSize * noiseScale, (float)y / gridSize * noiseScale, (float)z / gridSize * noiseScale) * noiseAmplitude;
 
-					
+					if (noise > 2) noise *= -1;
 					pointValues[x, y, z] = useGroundLevel ? ground + noise : noise;
 					Debug.Log("Point: (" + x + ", " + y + ", " + z + ") has the value: " + pointValues[x, y, z]);
 				}

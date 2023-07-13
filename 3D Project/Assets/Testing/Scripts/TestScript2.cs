@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class TestScript2 : MonoBehaviour
 {
-    private void Start()
+    public float x;
+    public float y;
+
+    private void Update()
     {
+        Debug.Log(Mathf.PerlinNoise(x, y));
     }
 }

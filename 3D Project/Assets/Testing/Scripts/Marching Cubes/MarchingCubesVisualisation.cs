@@ -47,6 +47,7 @@ public class MarchingCubesVisualisation : MonoBehaviour
 
 					
 					pointValues[x, y, z] = useGroundLevel ? ground + noise : noise;
+					Debug.Log("Point: (" + x + ", " + y + ", " + z + ") has the value: " + pointValues[x, y, z]);
 				}
 			}
 		}

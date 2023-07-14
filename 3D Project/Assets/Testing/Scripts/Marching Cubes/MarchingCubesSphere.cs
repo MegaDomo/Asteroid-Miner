@@ -8,6 +8,7 @@ public class MarchingCubesSphere : MonoBehaviour
     public int gridSize = 16;
     public float radius = 4f;
     public int isoLevel = 0;
+    public float cellSize = 10f;
 
     [Header("Display")]
     public bool useMarchDelay;
@@ -26,6 +27,7 @@ public class MarchingCubesSphere : MonoBehaviour
     {
         mesh = new Mesh();
         CreateGrid();
+        StartCoroutine("March");
     }
 
     
@@ -54,8 +56,12 @@ public class MarchingCubesSphere : MonoBehaviour
         for (int x = 0; x < gridSize - 1; x++) {
             for (int y = 0; y < gridSize - 1; y++) {
                 for (int z = 0; z < gridSize - 1; z++) {
-                    currentCubePosition = new Vector3(x + .5f, y + .5f, z + .5f);
+                    currentCubePosition = new Vector3(x + .5f, y+ .5f, z + .5f);
                     Vector3 worldPos = new Vector3(x, y, z);
+
+                    //Debug.Log(Mathf.Abs(new Vector3(x, y, z + 1).magnitude));
+                    //Debug.Log(Mathf.Abs(gridCenter.magnitude - new Vector3(xc, yc, zc + 1).magnitude));
+                    //Debug.Log(Mathf.Abs(gridCenter.magnitude - new Vector3(x, y, z + 1).magnitude) - radius);
 
                     // Set values at the corners of the cube
                     float[] cubeValues = new float[] {
@@ -68,6 +74,10 @@ public class MarchingCubesSphere : MonoBehaviour
                         Mathf.Abs(gridCenter.magnitude - new Vector3(x + 1, y + 1, z).magnitude) - radius,
                         Mathf.Abs(gridCenter.magnitude - new Vector3(x, y + 1, z).magnitude) - radius,
                     };
+
+                    float stringValue = Mathf.Ceil(cubeValues[0]);
+                    Utils.CreateWorldText(new Vector3(x, y, z + 1), stringValue.ToString(), 10, TextAnchor.MiddleCenter);
+
 
                     // Find the triangulation index
                     int cubeIndex = 0;

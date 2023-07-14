@@ -30,8 +30,7 @@ public class SingleMarchingCube : MonoBehaviour
 
     public void ChangePoint(int index)
     {
-        pointValues[index] *= -1;
-        Debug.Log("Index:Value: " + index + ":" + pointValues[index]);
+        pointValues[index] += -2;
         UpdateCube();
     }
 
@@ -46,7 +45,6 @@ public class SingleMarchingCube : MonoBehaviour
                 cubeIndex |= 1 << i;
             }
         }
-        Debug.Log(cubeIndex);
 
         int[] triangulation = MarchingCubesTables.triTable[cubeIndex];
 
@@ -56,7 +54,11 @@ public class SingleMarchingCube : MonoBehaviour
             int indexB = MarchingCubesTables.edgeConnections[triangulation[i]][1];
 
             // Find midpoint of Edge
-            Vector3 vertexPos = (MarchingCubesTables.cubeCorners[indexA] + MarchingCubesTables.cubeCorners[indexB]) / 2;
+            //Vector3 vertexPos = (MarchingCubesTables.cubeCorners[indexA] + MarchingCubesTables.cubeCorners[indexB]) / 2;
+
+            // Interpolates
+            Vector3 vertexPos = Interp(MarchingCubesTables.cubeCorners[indexA], pointValues[indexA],
+                               MarchingCubesTables.cubeCorners[indexB], pointValues[indexB]);
 
             vertices.Add(vertexPos);
 
@@ -64,6 +66,11 @@ public class SingleMarchingCube : MonoBehaviour
         }
 
         UpdateMesh();
+    }
+
+    Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)
+    {
+        return vertex1 + (isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
     }
 
     void UpdateMesh()

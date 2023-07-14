@@ -12,6 +12,7 @@ public class MarchingCubesSphere : MonoBehaviour
 
     [Header("Display")]
     public bool useMarchDelay;
+    public bool useDebug = false;
     public float marchSpeedInSeconds = 0.5f;
     public MeshFilter meshFilter;
     Mesh mesh;
@@ -65,30 +66,32 @@ public class MarchingCubesSphere : MonoBehaviour
 
                     // Set values at the corners of the cube
                     float[] cubeValues = new float[] {
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x, y, z + 1).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x + 1, y, z + 1).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x + 1, y, z).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x, y, z).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x, y + 1, z + 1).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x + 1, y + 1, z + 1).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x + 1, y + 1, z).magnitude) - radius,
-                        Mathf.Abs(gridCenter.magnitude - new Vector3(x, y + 1, z).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x, y, z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y, z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y, z)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x, y, z)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x, y + 1, z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y + 1, z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y + 1, z)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x, y + 1, z)).magnitude) - radius,
                     };
 
-                    float stringValue = Mathf.Ceil(cubeValues[0]);
-                    Utils.CreateWorldText(new Vector3(x, y, z + 1), stringValue.ToString(), 10, TextAnchor.MiddleCenter);
-
+                    if (useDebug)
+                    {
+                        float stringValue = Mathf.Ceil(cubeValues[0]);
+                        Utils.CreateWorldText(new Vector3(x, y, z + 1), stringValue.ToString(), 9, TextAnchor.MiddleCenter);
+                    }
 
                     // Find the triangulation index
                     int cubeIndex = 0;
-                    if (cubeValues[0] < isoLevel) cubeIndex |= 1;
-                    if (cubeValues[1] < isoLevel) cubeIndex |= 2;
-                    if (cubeValues[2] < isoLevel) cubeIndex |= 4;
-                    if (cubeValues[3] < isoLevel) cubeIndex |= 8;
-                    if (cubeValues[4] < isoLevel) cubeIndex |= 16;
-                    if (cubeValues[5] < isoLevel) cubeIndex |= 32;
-                    if (cubeValues[6] < isoLevel) cubeIndex |= 64;
-                    if (cubeValues[7] < isoLevel) cubeIndex |= 128;
+                    if (cubeValues[0] > isoLevel) cubeIndex |= 1;
+                    if (cubeValues[1] > isoLevel) cubeIndex |= 2;
+                    if (cubeValues[2] > isoLevel) cubeIndex |= 4;
+                    if (cubeValues[3] > isoLevel) cubeIndex |= 8;
+                    if (cubeValues[4] > isoLevel) cubeIndex |= 16;
+                    if (cubeValues[5] > isoLevel) cubeIndex |= 32;
+                    if (cubeValues[6] > isoLevel) cubeIndex |= 64;
+                    if (cubeValues[7] > isoLevel) cubeIndex |= 128;
 
                     // Get the intersecting edges
                     int[] edges = MarchingCubesTables.triTable[cubeIndex];

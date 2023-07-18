@@ -13,6 +13,7 @@ public static class Utils
         else
             return Vector3.zero;
     }
+
     public static void CreateWorldText(Vector3 localPosition, string text, int fontSize, TextAnchor textAnchor)
     {
         GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
@@ -23,8 +24,8 @@ public static class Utils
         textMesh.fontSize = fontSize;
         textMesh.color = Color.white;
         textMesh.anchor = textAnchor;
-        //return textMesh;
     }
+
     public static void CreateWorldTextPopup(Vector3 localPosition, string text, int fontSize, TextAnchor textAnchor)
     {
         GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
@@ -35,7 +36,6 @@ public static class Utils
         textMesh.fontSize = fontSize;
         textMesh.color = Color.white;
         textMesh.anchor = textAnchor;
-        //return textMesh;
         
         Object.Destroy(gameObject, 1.3f);
     }
@@ -50,7 +50,6 @@ public static class Utils
         textMesh.fontSize = fontSize;
         textMesh.color = Color.white;
         textMesh.anchor = textAnchor;
-        //return textMesh;
 
         Object.Destroy(gameObject, duration);
     }

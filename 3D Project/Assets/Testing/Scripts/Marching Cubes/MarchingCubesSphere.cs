@@ -66,14 +66,14 @@ public class MarchingCubesSphere : MonoBehaviour
 
                     // Set values at the corners of the cube
                     float[] cubeValues = new float[] {
-                        Mathf.Abs((gridCenter - new Vector3(x, y, z + 1)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x + 1, y, z + 1)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x + 1, y, z)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x, y, z)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x, y + 1, z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x    , y    , z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y    , z + 1)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y    , z    )).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x    , y    , z    )).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x    , y + 1, z + 1)).magnitude) - radius,
                         Mathf.Abs((gridCenter - new Vector3(x + 1, y + 1, z + 1)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x + 1, y + 1, z)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - new Vector3(x, y + 1, z)).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x + 1, y + 1, z    )).magnitude) - radius,
+                        Mathf.Abs((gridCenter - new Vector3(x    , y + 1, z    )).magnitude) - radius,
                     };
 
                     if (useDebug)

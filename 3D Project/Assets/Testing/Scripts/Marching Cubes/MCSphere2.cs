@@ -12,12 +12,16 @@ public class MCSphere2 : MonoBehaviour
 
     [Header("Sphere Traits")]
     public float radius;
+
+    [Header("Noise")]
+    public bool useNoise;
     public float noiseScale;
 
     [Header("Display")]
     public bool useMarchDelay;
     public float marchSpeedInSeconds;
-    public bool useDebug = false;
+    public bool showValues = false;
+    public bool showGizmos = false;
 
     Vector3[,,] grid;
     List<CubeData> cubes;
@@ -25,16 +29,18 @@ public class MCSphere2 : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
 
+    float[,,] noiseValues;
+
     Mesh mesh;
 
     private void Start()
     {
         mesh = new Mesh();
-        StartCoroutine("March");
     }
 
     private void Update()
     {
+        CreateNoise();
         March();
         UpdateMesh();
     }
@@ -48,27 +54,29 @@ public class MCSphere2 : MonoBehaviour
                                          (((float)gridSize / 2) - .5f) * cellSize, 
                                          (((float)gridSize / 2) - .5f) * cellSize)
                                          + transform.position;
+
         Debug.Log(new Vector3(1 * cellSize, 1 * cellSize, 1 * cellSize));
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {
-
+                    Vector3 trueWorldPosition = new Vector3(x, y, z);
                     Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize) + transform.position;
+
                     // Setting the Value and Weight of the Cubes/Corners
                     float[] cubeValues = new float[] {
-                        Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 1f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 1f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 0f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 0f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 1f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 1f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 0f) + worldPos)).magnitude) - radius,
-                        Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 0f) + worldPos)).magnitude) - radius
+                        (Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 1f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 1f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 0f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 0f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 1f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 1f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 0f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 0f) + worldPos)).magnitude) * noiseValues[x, y, z]) - radius
                     };
                     CubeData cubeData = new CubeData(new Vector3(x, y, z), cubeValues);
                     cubes.Add(cubeData);
 
-                    if (useDebug)
+                    if (showValues)
                     {
                         float stringValue = Mathf.Ceil(cubeValues[0]);
                         Utils.CreateWorldText(new Vector3(x, y, z + 1), stringValue.ToString(), 9, TextAnchor.MiddleCenter);
@@ -100,12 +108,12 @@ public class MCSphere2 : MonoBehaviour
                         int e20 = MarchingCubesTables.edgeConnections[edges[i + 2]][0];
                         int e21 = MarchingCubesTables.edgeConnections[edges[i + 2]][1];
 
-                        Vector3 a = Interp(MarchingCubesTables.cubeCorners[e00], cubeValues[e00], 
-                                           MarchingCubesTables.cubeCorners[e01], cubeValues[e01]) + worldPos;
-                        Vector3 b = Interp(MarchingCubesTables.cubeCorners[e10], cubeValues[e10],
-                                           MarchingCubesTables.cubeCorners[e11], cubeValues[e11]) + worldPos;
-                        Vector3 c = Interp(MarchingCubesTables.cubeCorners[e20], cubeValues[e20],
-                                           MarchingCubesTables.cubeCorners[e21], cubeValues[e21]) + worldPos;
+                        Vector3 a = Interp(MarchingCubesTables.cubeCorners[e00] * cellSize, cubeValues[e00], 
+                                           MarchingCubesTables.cubeCorners[e01] * cellSize, cubeValues[e01]) + worldPos;
+                        Vector3 b = Interp(MarchingCubesTables.cubeCorners[e10] * cellSize, cubeValues[e10],
+                                           MarchingCubesTables.cubeCorners[e11] * cellSize, cubeValues[e11]) + worldPos;
+                        Vector3 c = Interp(MarchingCubesTables.cubeCorners[e20] * cellSize, cubeValues[e20],
+                                           MarchingCubesTables.cubeCorners[e21] * cellSize, cubeValues[e21]) + worldPos;
 
                         AddTriangle(a, b, c);
                     }
@@ -118,9 +126,25 @@ public class MCSphere2 : MonoBehaviour
                         mesh.RecalculateNormals();
                         meshFilter.mesh = mesh;
                     }
+                }
+            }
+        }
+    }
 
-                    /*if (useMarchDelay)
-                        yield return new WaitForSeconds(marchSpeedInSeconds);*/
+    void CreateNoise()
+    {
+        noiseValues = new float[gridSize, gridSize, gridSize];
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                for (int z = 0; z < gridSize; z++) {
+                    // Noise
+                    float noise = Noise.PerlinNoise3D((float)x / gridSize * noiseScale,
+                                                      (float)y / gridSize * noiseScale,
+                                                      (float)z / gridSize * noiseScale);
+                    if (useNoise)
+                        noiseValues[x, y, z] = noise;
+                    else
+                        noiseValues[x, y, z] = 1f;
                 }
             }
         }
@@ -153,7 +177,7 @@ public class MCSphere2 : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (cubes == null && !useDebug)
+        if (cubes == null || !showGizmos)
             return;
 
         for (int x = 0; x < gridSize; x++) {

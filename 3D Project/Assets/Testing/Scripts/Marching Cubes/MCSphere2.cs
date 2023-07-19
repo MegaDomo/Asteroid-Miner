@@ -50,10 +50,6 @@ public class MCSphere2 : MonoBehaviour
         cubes = new List<CubeData>();
         vertices = new List<Vector3>();
         triangles = new List<int>();
-        Vector3 gridCenter = new Vector3((((float)gridSize / 2) - .5f) * cellSize,
-                                         (((float)gridSize / 2) - .5f) * cellSize, 
-                                         (((float)gridSize / 2) - .5f) * cellSize)
-                                         + transform.position;
         Vector3 trueGridCenter = new Vector3((((float)gridSize / 2) - .5f),
                                          (((float)gridSize / 2) - .5f),
                                          (((float)gridSize / 2) - .5f))
@@ -111,27 +107,12 @@ public class MCSphere2 : MonoBehaviour
                         int e20 = MarchingCubesTables.edgeConnections[edges[i + 2]][0];
                         int e21 = MarchingCubesTables.edgeConnections[edges[i + 2]][1];
 
-                        /*Vector3 a = Interp(MarchingCubesTables.cubeCorners[e00], cubeValues[e00], 
+                        Vector3 a = Interp(MarchingCubesTables.cubeCorners[e00], cubeValues[e00],
                                            MarchingCubesTables.cubeCorners[e01], cubeValues[e01]) + worldPos;
                         Vector3 b = Interp(MarchingCubesTables.cubeCorners[e10], cubeValues[e10],
                                            MarchingCubesTables.cubeCorners[e11], cubeValues[e11]) + worldPos;
                         Vector3 c = Interp(MarchingCubesTables.cubeCorners[e20], cubeValues[e20],
                                            MarchingCubesTables.cubeCorners[e21], cubeValues[e21]) + worldPos;
-*/
-
-                        Vector3 a = (MarchingCubesTables.cubeCorners[e00] * cellSize +
-                                     MarchingCubesTables.cubeCorners[e01] * cellSize) / 2 + worldPos;
-                        Vector3 b = (MarchingCubesTables.cubeCorners[e10] * cellSize +
-                                     MarchingCubesTables.cubeCorners[e11] * cellSize) / 2 + worldPos;
-                        Vector3 c = (MarchingCubesTables.cubeCorners[e20] * cellSize +
-                                     MarchingCubesTables.cubeCorners[e21] * cellSize) / 2 + worldPos;
-
-                        Vector3 resA = (MarchingCubesTables.cubeCorners[e00] * cellSize +
-                                     MarchingCubesTables.cubeCorners[e01] * cellSize) / 2;
-
-                        Debug.Log("V1: " + MarchingCubesTables.cubeCorners[e00] * cellSize + 
-                                  "\nV2: " + MarchingCubesTables.cubeCorners[e01] * cellSize + 
-                                  "\nRes: " + resA);
 
                         AddTriangle(a, b, c);
                     }
@@ -186,10 +167,9 @@ public class MCSphere2 : MonoBehaviour
 
     Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)
     {
-
-        Vector3 vec = vertex1 + (isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
-        Debug.Log("V1: " + vertex1 * cellSize + "\nV2: " + vertex2 * cellSize + "\nRes: " + vec);
-        return vec;
+        vertex1 *= cellSize;
+        vertex2 *= cellSize;
+        return vertex1 + (isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
     }
 
     void AddTriangle(Vector3 a, Vector3 b, Vector3 c)

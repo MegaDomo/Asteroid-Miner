@@ -54,23 +54,27 @@ public class MCSphere2 : MonoBehaviour
                                          (((float)gridSize / 2) - .5f) * cellSize, 
                                          (((float)gridSize / 2) - .5f) * cellSize)
                                          + transform.position;
+        Vector3 trueGridCenter = new Vector3((((float)gridSize / 2) - .5f),
+                                         (((float)gridSize / 2) - .5f),
+                                         (((float)gridSize / 2) - .5f))
+                                         + transform.position;
 
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {
-                    Vector3 trueWorldPos = new Vector3(x, y, z);
+                    Vector3 trueWorldPos = new Vector3(x, y, z) + transform.position;
                     Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize) + transform.position;
 
                     // Setting the Value and Weight of the Cubes/Corners
                     float[] cubeValues = new float[] {
-                        (Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(1f, 0f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(0f, 0f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(1f, 1f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
-                        (Mathf.Abs((gridCenter - (new Vector3(0f, 1f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius
+                        (Mathf.Abs((trueGridCenter - (new Vector3(0f, 0f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(1f, 0f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(1f, 0f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(0f, 0f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(0f, 1f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(1f, 1f, 1f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(1f, 1f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius,
+                        (Mathf.Abs((trueGridCenter - (new Vector3(0f, 1f, 0f) + trueWorldPos)).magnitude) * noiseValues[x, y, z]) - radius
                     };
                     CubeData cubeData = new CubeData(new Vector3(x, y, z), cubeValues);
                     cubes.Add(cubeData);
@@ -78,7 +82,7 @@ public class MCSphere2 : MonoBehaviour
                     if (showValues)
                     {
                         float stringValue = Mathf.Ceil(cubeValues[0]);
-                        Utils.CreateWorldText(new Vector3(x, y, z + 1), stringValue.ToString(), 9, TextAnchor.MiddleCenter);
+                        Utils.CreateWorldText(worldPos, stringValue.ToString(), 9, TextAnchor.MiddleCenter);
                     }
 
                     // Finds which corners are above ground
@@ -115,12 +119,20 @@ public class MCSphere2 : MonoBehaviour
                                            MarchingCubesTables.cubeCorners[e21], cubeValues[e21]) + worldPos;
 */
 
-                        Vector3 a = (MarchingCubesTables.cubeCorners[e00] +
-                                     MarchingCubesTables.cubeCorners[e01]) + trueWorldPos;
-                        Vector3 b = (MarchingCubesTables.cubeCorners[e10] +
-                                     MarchingCubesTables.cubeCorners[e11]) + trueWorldPos;
-                        Vector3 c = (MarchingCubesTables.cubeCorners[e20] +
-                                     MarchingCubesTables.cubeCorners[e21]) + trueWorldPos;
+                        Vector3 a = (MarchingCubesTables.cubeCorners[e00] * cellSize +
+                                     MarchingCubesTables.cubeCorners[e01] * cellSize) / 2 + worldPos;
+                        Vector3 b = (MarchingCubesTables.cubeCorners[e10] * cellSize +
+                                     MarchingCubesTables.cubeCorners[e11] * cellSize) / 2 + worldPos;
+                        Vector3 c = (MarchingCubesTables.cubeCorners[e20] * cellSize +
+                                     MarchingCubesTables.cubeCorners[e21] * cellSize) / 2 + worldPos;
+
+                        Vector3 resA = (MarchingCubesTables.cubeCorners[e00] * cellSize +
+                                     MarchingCubesTables.cubeCorners[e01] * cellSize) / 2;
+
+                        Debug.Log("V1: " + MarchingCubesTables.cubeCorners[e00] * cellSize + 
+                                  "\nV2: " + MarchingCubesTables.cubeCorners[e01] * cellSize + 
+                                  "\nRes: " + resA);
+
                         AddTriangle(a, b, c);
                     }
 
@@ -139,7 +151,23 @@ public class MCSphere2 : MonoBehaviour
 
     void CreateNoise()
     {
-        noiseValues = new float[gridSize, gridSize, gridSize];
+        if (noiseValues == null)
+        {
+            noiseValues = new float[gridSize, gridSize, gridSize];
+            for (int x = 0; x < gridSize; x++) {
+                for (int y = 0; y < gridSize; y++) {
+                    for (int z = 0; z < gridSize; z++) {
+                        
+                        noiseValues[x, y, z] = 1f;
+                    }
+                }
+            }
+            return;
+        }
+
+        if (!useNoise)
+            return;
+
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {

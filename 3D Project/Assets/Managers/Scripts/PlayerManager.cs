@@ -15,6 +15,8 @@ public class PlayerManager : ScriptableObject
     private void OnEnable()
     {
         SetupPlayer();
+        inShip = false;
+        playerHasControl = true;
     }
 
     private void SetupPlayer()

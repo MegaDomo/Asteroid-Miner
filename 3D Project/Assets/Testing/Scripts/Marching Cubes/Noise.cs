@@ -12,6 +12,6 @@ public static class Noise
 		float zx = Mathf.PerlinNoise(z, x);
 		float zy = Mathf.PerlinNoise(z, y);
 
-		return (xy + xz + yz + yx + zx + zy) / 6;
+		return (xy + xz + yz + yx + zx + zy) / 12;
 	}
 }

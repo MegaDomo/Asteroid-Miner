@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MCGrid : MonoBehaviour
+public class MCGrid
 {
-    // Start is called before the first frame update
-    void Start()
+    float[,,] pointValues;
+
+    public float GetValue(int x, int y, int z)
     {
-        
+        return pointValues[x, y, z];
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetValue(int x, int y, int z, float value)
     {
-        
+        pointValues[x, y, z] = value;
     }
 }

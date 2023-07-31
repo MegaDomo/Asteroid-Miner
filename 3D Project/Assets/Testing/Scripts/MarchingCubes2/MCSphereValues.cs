@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MCSphereValues : MonoBehaviour
+public class MCSphereValues
 {
     MCGrid grid;
 
     public MCSphereValues(int gridSize, float radius)
     {
-        grid = new MCGrid();
+        grid = new MCGrid(gridSize);
 
         Vector3 gridCenter = new Vector3(gridSize / 2, gridSize / 2, gridSize / 2);
 

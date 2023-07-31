@@ -6,7 +6,6 @@ public static class Utils
 {
     public static Vector3 GetMouseWorldPosition()
     {
-        //return Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, LayerMask.GetMask("MouseTesting")))
             return raycastHit.point;

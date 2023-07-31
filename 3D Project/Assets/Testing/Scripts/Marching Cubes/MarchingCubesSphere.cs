@@ -9,6 +9,8 @@ public class MarchingCubesSphere : MonoBehaviour
     public float radius = 4f;
     public int isoLevel = 0;
     public float cellSize = 10f;
+    public bool addRigidBody = false;
+    public bool addCollider = false;
 
     [Header("Display")]
     public bool useMarchDelay;
@@ -29,6 +31,7 @@ public class MarchingCubesSphere : MonoBehaviour
         mesh = new Mesh();
         CreateGrid();
         StartCoroutine("March");
+        AddPhysics();
     }
 
     
@@ -133,6 +136,23 @@ public class MarchingCubesSphere : MonoBehaviour
                 }
             }
         }
+    }
+
+    void AddPhysics()
+    {
+        GameObject obj = meshFilter.gameObject;
+        if (addCollider)
+        {
+            obj.AddComponent<MeshCollider>();
+            obj.GetComponent<MeshCollider>().convex = true;
+        }
+        if (addRigidBody)
+        {
+            obj.AddComponent<Rigidbody>();
+            obj.GetComponent<Rigidbody>().useGravity = false;
+        }
+        
+        transform.DetachChildren();
     }
 
     Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)

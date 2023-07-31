@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TestScript2 : MonoBehaviour
 {
-    public float x;
-    public float y;
-
     private void Update()
     {
-        Debug.Log(Mathf.PerlinNoise(x, y));
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 vec = Utils.GetMouseWorldPosition();
+            Debug.Log(vec);
+            Utils.CreateWorldText(vec, "Here", 40, TextAnchor.MiddleCenter);
+        }
     }
 }

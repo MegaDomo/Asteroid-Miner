@@ -26,7 +26,7 @@ public class MarchingCubesGen : MonoBehaviour
     {
         mesh = new Mesh();
         grid = new MCGrid(gridSize);
-        MCValues.AddSphereValues(grid, radius);
+        MCValues.AddSphereValues(grid, transform.position, radius);
 
         March();
         AddPhysics();
@@ -101,7 +101,6 @@ public class MarchingCubesGen : MonoBehaviour
                 }
             }
         }
-        UpdateMesh();
     }
 
     public void TerraformMesh()

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public static class MCValues 
 {
-    public static void AddSphereValues(MCGrid grid, float radius)
+    public static void AddSphereValues(MCGrid grid, Vector3 origin, float radius)
     {
         int gridSize = grid.GetGridSize();
-        Vector3 gridCenter = new Vector3(gridSize / 2, gridSize / 2, gridSize / 2);
+        Vector3 gridCenter = new Vector3((((float)gridSize / 2) - .5f),
+                                         (((float)gridSize / 2) - .5f),
+                                         (((float)gridSize / 2) - .5f))
+                                         + origin;
 
         for (int x = 0; x < gridSize - 1; x++) {
             for (int y = 0; y < gridSize - 1; y++) {

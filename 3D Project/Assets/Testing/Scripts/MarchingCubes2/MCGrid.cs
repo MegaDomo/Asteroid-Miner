@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MCGrid
 {
+    int gridSize;
     float[,,] pointValues;
 
     public MCGrid(int gridSize)
     {
+        this.gridSize = gridSize;
         pointValues = new float[gridSize, gridSize, gridSize];
     }
 
@@ -19,5 +21,10 @@ public class MCGrid
     public void SetValue(int x, int y, int z, float value)
     {
         pointValues[x, y, z] = value;
+    }
+
+    public int GetGridSize()
+    {
+        return gridSize;
     }
 }

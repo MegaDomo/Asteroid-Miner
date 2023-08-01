@@ -6161,6 +6161,39 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084380960}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1087224912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1087224913}
+  m_Layer: 0
+  m_Name: MCTest3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1087224913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087224912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1390631510}
+  - {fileID: 1950871664}
+  m_Father: {fileID: 1132784195}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132784194
 GameObject:
   m_ObjectHideFlags: 0
@@ -6193,7 +6226,7 @@ Transform:
   - {fileID: 579457615}
   - {fileID: 1166262345}
   - {fileID: 1467763467}
-  - {fileID: 1950871664}
+  - {fileID: 1087224913}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6444,6 +6477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18d00ab3891a404aac3173ad0617683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   areaOfInfluenceRadius: 0
   potency: 1
 --- !u!4 &1288813449
@@ -6550,8 +6584,9 @@ GameObject:
   - component: {fileID: 1390631510}
   - component: {fileID: 1390631508}
   - component: {fileID: 1390631509}
+  - component: {fileID: 1390631511}
   m_Layer: 3
-  m_Name: MeshObject (1)
+  m_Name: MeshObject3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6619,9 +6654,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1950871664}
+  m_Father: {fileID: 1087224913}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1390631511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390631507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8177402fcd892bc459304359d792f283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marchingCubesGen: {fileID: 1950871663}
 --- !u!1 &1395468017
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,7 +7364,7 @@ GameObject:
   - component: {fileID: 1467763467}
   - component: {fileID: 1467763466}
   m_Layer: 0
-  m_Name: Test
+  m_Name: MouseInputTester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7334,7 +7382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18d00ab3891a404aac3173ad0617683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaOfInfluenceRadius: 4
+  cam: {fileID: 2059760811}
+  areaOfInfluenceRadius: 2
   potency: 1
 --- !u!4 &1467763467
 Transform:
@@ -10046,7 +10095,7 @@ MonoBehaviour:
   isoLevel: 0
   addCollider: 1
   addRigidBody: 0
-  radius: 4
+  radius: 5.05
 --- !u!4 &1950871664
 Transform:
   m_ObjectHideFlags: 0
@@ -10058,10 +10107,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1390631510}
-  m_Father: {fileID: 1132784195}
-  m_RootOrder: 4
+  m_Children: []
+  m_Father: {fileID: 1087224913}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1985196571
 GameObject:

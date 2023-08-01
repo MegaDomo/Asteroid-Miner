@@ -103,10 +103,28 @@ public class MarchingCubesGen : MonoBehaviour
         }
     }
 
-    public void TerraformMesh()
+    public void TerraformMesh(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
         ResetMesh();
+        AdjustPointValues(pointOfInfluence, areaOfInfluenceRadius, potency);
         March();
+        UpdateColliderMesh();
+    }
+
+    void AdjustPointValues(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
+    {
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                for (int z = 0; z < gridSize; z++) {
+                    Vector3 worldPos = new Vector3(x, y, z);
+
+                    if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius) {
+                        float value = grid.GetValue(x, y, z);
+                        grid.SetValue(x, y, z, value + potency);
+                    }
+                }
+            }
+        }
     }
 
     #region Helper Methods
@@ -126,8 +144,13 @@ public class MarchingCubesGen : MonoBehaviour
             obj.AddComponent<Rigidbody>();
             obj.GetComponent<Rigidbody>().useGravity = false;
         }
+    }
 
-        transform.DetachChildren();
+    void UpdateColliderMesh()
+    {
+        if (mesh == null)
+            return;
+        meshFilter.GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
     Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)

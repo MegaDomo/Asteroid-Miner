@@ -137,7 +137,7 @@ public class MarchingCubesGen : MonoBehaviour
         if (addCollider)
         {
             obj.AddComponent<MeshCollider>();
-            obj.GetComponent<MeshCollider>().convex = true;
+            //obj.GetComponent<MeshCollider>().convex = true;
         }
         if (addRigidBody)
         {

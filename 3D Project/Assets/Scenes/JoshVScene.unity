@@ -10962,6 +10962,10 @@ PrefabInstance:
       propertyPath: inputActionMap.m_Name
       value: Input
       objectReference: {fileID: 0}
+    - target: {fileID: 1319878046957758051, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
+      propertyPath: m_Drag
+      value: 1.08
+      objectReference: {fileID: 0}
     - target: {fileID: 1319878046957758055, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
       propertyPath: m_RootOrder
       value: 0

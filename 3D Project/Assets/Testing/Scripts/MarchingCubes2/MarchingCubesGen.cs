@@ -8,10 +8,15 @@ public class MarchingCubesGen : MonoBehaviour
     public MeshFilter meshFilter;
 
     [Header("Details")]
-    public int gridSize;
-    public float isoLevel;
+    public int gridSize = 15;
+    public float cellSize = 1f;
+    public float isoLevel = 0f;
+    public float noiseScale = 1f;
     public bool addCollider;
     public bool addRigidBody;
+
+    [Header("Debugging")]
+    public bool showGizmos;
 
     [Header("Sphere")]
     public float radius;
@@ -26,7 +31,7 @@ public class MarchingCubesGen : MonoBehaviour
     {
         mesh = new Mesh();
         grid = new MCGrid(gridSize);
-        MCValues.AddSphereValues(grid, transform.position, radius);
+        MCValues.AddSphereValuesWithNoise(grid, transform.position, radius, noiseScale);
 
         March();
         AddPhysics();
@@ -41,7 +46,7 @@ public class MarchingCubesGen : MonoBehaviour
         for (int x = 0; x < gridSize - 1; x++) {
             for (int y = 0; y < gridSize - 1; y++) {
                 for (int z = 0; z < gridSize - 1; z++) {
-                    Vector3 worldPos = new Vector3(x, y, z);
+                    Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize);
 
                     // Gets Corners for Box
                     float[] cubeValues = new float[] {
@@ -155,6 +160,8 @@ public class MarchingCubesGen : MonoBehaviour
 
     Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)
     {
+        vertex1 *= cellSize;
+        vertex2 *= cellSize;
         return vertex1 + (isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
     }
 
@@ -188,4 +195,19 @@ public class MarchingCubesGen : MonoBehaviour
         triangles = new List<int>();
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        if (!showGizmos)
+            return;
+
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                for (int z = 0; z < gridSize; z++) {
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawCube(new Vector3(x * cellSize, y * cellSize, z * cellSize), Vector3.one * .1f);
+                }
+            }
+        }
+    }
 }

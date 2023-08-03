@@ -41,4 +41,19 @@ public static class MCValues
             }
         }
     }
+
+    public static void AddChunkSphereValues(MCGrid grid, Vector3 chunkOrigin, Vector3 worldPos, float radius)
+    {
+        int gridSize = grid.GetGridSize();
+
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                for (int z = 0; z < gridSize; z++) {
+                    float value = Mathf.Abs((chunkOrigin - (new Vector3(x, y, z)) + worldPos).magnitude) - radius;
+
+                    grid.SetValue(x, y, z, value);
+                }
+            }
+        }
+    }
 }

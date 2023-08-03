@@ -6,7 +6,8 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     [Header("Unity References")]
-    public Transform origin;
+    public Transform chunkOrigin;
+    public Material material;
 
     [Header("Mesh Settings")]
     public float radius = 3f;
@@ -37,17 +38,16 @@ public class ChunkManager : MonoBehaviour
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
                 for (int z = 0; z < chunkGridSize; z++) {
-                    Vector3 worldPos = new Vector3(x, y, z) * chunkCellSize + 
-                                       new Vector3(0f, 0f, 0f) * (marchingGridSize * marchingCellSize);
+                    Vector3 worldPos = new Vector3(x, y, z) * marchingGridSize;
 
                     GameObject clone = new GameObject("Chunk: " + x.ToString() + ", " + y.ToString() + ", " + z.ToString());
                     clone.transform.position = worldPos;
 
                     clone.AddComponent<MeshFilter>();
-                    clone.AddComponent<MeshRenderer>();
+                    clone.AddComponent<MeshRenderer>().material = material;
                     ChunkMarchingCubes chunk = clone.AddComponent<ChunkMarchingCubes>();
 
-                    chunk.Setup(marchingGridSize, marchingCellSize, marchingIsoLevel);
+                    chunk.Setup(chunkOrigin.position, marchingGridSize, marchingCellSize, radius, marchingIsoLevel);
                     chunks.Add(chunk);
                 }
             }

@@ -14,12 +14,13 @@ public class ChunkMarchingCubes : MonoBehaviour
     public bool addRigidBody;
 
     [Header("Debugging")]
-    public bool showGizmos;
+    public bool showGizmos = false;
 
     [Header("Sphere")]
     public float radius;
 
-    Vector3 origin;
+    Vector3 chunkOrigin;
+    Vector3 cubeOrigin;
 
     Mesh mesh;
     MeshFilter meshFilter;
@@ -28,22 +29,24 @@ public class ChunkMarchingCubes : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
 
-    public void Setup(int gridSize, float cellSize, float isoLevel)
+    public void Setup(Vector3 chunkOrigin, int gridSize, float cellSize, float radius, float isoLevel)
     {
+        this.chunkOrigin = chunkOrigin;
         this.gridSize = gridSize;
         this.cellSize = cellSize;
+        this.radius = radius;
         this.isoLevel = isoLevel;
+
+        cubeOrigin = transform.position;
 
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(gridSize);
 
-        origin = transform.position;
-
         if (useNoise)
-            MCValues.AddSphereValuesWithNoise(grid, origin, radius, noiseScale);
+            MCValues.AddSphereValuesWithNoise(grid, chunkOrigin, radius, noiseScale);
         else
-            MCValues.AddSphereValues(grid, origin, radius);
+            MCValues.AddChunkSphereValues(grid, chunkOrigin, cubeOrigin, radius);
     }
 
     public void FirstMarch()
@@ -142,7 +145,7 @@ public class ChunkMarchingCubes : MonoBehaviour
             {
                 for (int z = 0; z < gridSize; z++)
                 {
-                    Vector3 worldPos = new Vector3(x, y, z) + origin;
+                    Vector3 worldPos = new Vector3(x, y, z) + cubeOrigin;
 
                     if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius)
                     {

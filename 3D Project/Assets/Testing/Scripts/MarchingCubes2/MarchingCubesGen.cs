@@ -24,7 +24,7 @@ public class MarchingCubesGen : MonoBehaviour
 
     Vector3 origin;
 
-    Mesh mesh;
+    public Mesh mesh;
     MCGrid grid;
 
     List<Vector3> vertices;

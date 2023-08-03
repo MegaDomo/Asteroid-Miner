@@ -34,7 +34,7 @@ public static class MCValues
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {
-                    float value = Mathf.Abs((gridCenter - new Vector3(x, y, z)).magnitude) - radius;
+                    float value = Mathf.Abs((gridCenter - (new Vector3(x, y, z) + origin)).magnitude) - radius;
                     value += Random.Range(-1f * noiseScale, 1f * noiseScale);
                     grid.SetValue(x, y, z, value);
                 }

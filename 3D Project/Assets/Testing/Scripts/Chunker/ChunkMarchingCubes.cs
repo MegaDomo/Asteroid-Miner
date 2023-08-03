@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarchingCubesGen : MonoBehaviour
+public class ChunkMarchingCubes : MonoBehaviour
 {
-    [Header("References")]
-    public MeshFilter meshFilter;
-
     [Header("Details")]
     public int gridSize = 15;
     public float cellSize = 1f;
@@ -24,24 +21,21 @@ public class MarchingCubesGen : MonoBehaviour
 
     Vector3 origin;
 
-    public Mesh mesh;
+    Mesh mesh;
+    MeshFilter meshFilter;
     MCGrid grid;
 
     List<Vector3> vertices;
     List<int> triangles;
 
-    public MarchingCubesGen() { }
-
-    public MarchingCubesGen(int gridSize, float cellSize, float isoLevel)
+    public void Setup(int gridSize, float cellSize, float isoLevel)
     {
         this.gridSize = gridSize;
         this.cellSize = cellSize;
         this.isoLevel = isoLevel;
-    }
 
-    private void Start()
-    {
         mesh = new Mesh();
+        meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(gridSize);
 
         origin = transform.position;
@@ -50,7 +44,10 @@ public class MarchingCubesGen : MonoBehaviour
             MCValues.AddSphereValuesWithNoise(grid, origin, radius, noiseScale);
         else
             MCValues.AddSphereValues(grid, origin, radius);
+    }
 
+    public void FirstMarch()
+    {
         March();
         AddPhysics();
     }
@@ -59,14 +56,16 @@ public class MarchingCubesGen : MonoBehaviour
     {
         vertices = new List<Vector3>();
         triangles = new List<int>();
-        
 
         // We March the number of Boxes which is 1 less than the number of Vertices (GridSize)
-        for (int x = 0; x < gridSize - 1; x++) {
-            for (int y = 0; y < gridSize - 1; y++) {
-                for (int z = 0; z < gridSize - 1; z++) {
+        for (int x = 0; x < gridSize - 1; x++)
+        {
+            for (int y = 0; y < gridSize - 1; y++)
+            {
+                for (int z = 0; z < gridSize - 1; z++)
+                {
                     Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize);
-                    
+
                     // Gets Corners for Box
                     float[] cubeValues = new float[] {
                         grid.GetValue(x    , y    , z + 1),
@@ -137,12 +136,16 @@ public class MarchingCubesGen : MonoBehaviour
 
     void AdjustPointValues(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
-        for (int x = 0; x < gridSize; x++) {
-            for (int y = 0; y < gridSize; y++) {
-                for (int z = 0; z < gridSize; z++) {
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
                     Vector3 worldPos = new Vector3(x, y, z) + origin;
-                    
-                    if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius) {
+
+                    if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius)
+                    {
                         float value = grid.GetValue(x, y, z);
                         grid.SetValue(x, y, z, value + potency);
                     }
@@ -220,9 +223,12 @@ public class MarchingCubesGen : MonoBehaviour
         if (!showGizmos)
             return;
 
-        for (int x = 0; x < gridSize; x++) {
-            for (int y = 0; y < gridSize; y++) {
-                for (int z = 0; z < gridSize; z++) {
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
                     Gizmos.color = Color.white;
                     Vector3 vec = meshFilter.transform.position;
                     Gizmos.DrawCube(new Vector3(x * cellSize, y * cellSize, z * cellSize) + vec, Vector3.one * .1f);

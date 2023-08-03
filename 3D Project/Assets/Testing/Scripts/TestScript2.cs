@@ -22,7 +22,7 @@ public class TestScript2 : MonoBehaviour
             100f, LayerMask.GetMask("MouseTesting")))
             {
                 vec = interactHit.point;
-
+                
                 MarchingCubesGen gen = interactHit.transform.GetComponent<MCGenReference>().marchingCubesGen;
                 gen.TerraformMesh(vec, areaOfInfluenceRadius, potency);
             }

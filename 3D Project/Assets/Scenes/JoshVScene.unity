@@ -6024,8 +6024,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1390631510}
+  m_Children: []
   m_Father: {fileID: 1132784195}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6336,7 +6335,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25464
+  m_Name: pb_Mesh25462
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6654,8 +6653,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1950871664}
-  m_Father: {fileID: 1087224913}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1390631511
 MonoBehaviour:
@@ -10091,14 +10090,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 1390631508}
-  gridSize: 30
-  cellSize: 0.5
+  gridSize: 15
+  cellSize: 1
   isoLevel: 0
-  noiseScale: 0.37
+  useNoise: 0
+  noiseScale: 1
   addCollider: 1
   addRigidBody: 0
   showGizmos: 1
-  radius: 12
+  radius: 6
 --- !u!4 &1950871664
 Transform:
   m_ObjectHideFlags: 0

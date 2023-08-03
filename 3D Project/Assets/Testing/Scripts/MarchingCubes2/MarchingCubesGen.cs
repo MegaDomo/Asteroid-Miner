@@ -11,6 +11,7 @@ public class MarchingCubesGen : MonoBehaviour
     public int gridSize = 15;
     public float cellSize = 1f;
     public float isoLevel = 0f;
+    public bool useNoise = false;
     public float noiseScale = 1f;
     public bool addCollider;
     public bool addRigidBody;
@@ -20,6 +21,8 @@ public class MarchingCubesGen : MonoBehaviour
 
     [Header("Sphere")]
     public float radius;
+
+    Vector3 origin;
 
     Mesh mesh;
     MCGrid grid;
@@ -31,7 +34,13 @@ public class MarchingCubesGen : MonoBehaviour
     {
         mesh = new Mesh();
         grid = new MCGrid(gridSize);
-        MCValues.AddSphereValuesWithNoise(grid, transform.position, radius, noiseScale);
+
+        origin = meshFilter.transform.position;
+
+        if (useNoise)
+            MCValues.AddSphereValuesWithNoise(grid, origin, radius, noiseScale);
+        else
+            MCValues.AddSphereValues(grid, origin, radius);
 
         March();
         AddPhysics();
@@ -41,13 +50,14 @@ public class MarchingCubesGen : MonoBehaviour
     {
         vertices = new List<Vector3>();
         triangles = new List<int>();
+        
 
         // We March the number of Boxes which is 1 less than the number of Vertices (GridSize)
         for (int x = 0; x < gridSize - 1; x++) {
             for (int y = 0; y < gridSize - 1; y++) {
                 for (int z = 0; z < gridSize - 1; z++) {
                     Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize);
-
+                    
                     // Gets Corners for Box
                     float[] cubeValues = new float[] {
                         grid.GetValue(x    , y    , z + 1),
@@ -121,8 +131,8 @@ public class MarchingCubesGen : MonoBehaviour
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {
-                    Vector3 worldPos = new Vector3(x, y, z);
-
+                    Vector3 worldPos = new Vector3(x, y, z) + origin;
+                    
                     if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius) {
                         float value = grid.GetValue(x, y, z);
                         grid.SetValue(x, y, z, value + potency);
@@ -205,7 +215,8 @@ public class MarchingCubesGen : MonoBehaviour
             for (int y = 0; y < gridSize; y++) {
                 for (int z = 0; z < gridSize; z++) {
                     Gizmos.color = Color.white;
-                    Gizmos.DrawCube(new Vector3(x * cellSize, y * cellSize, z * cellSize), Vector3.one * .1f);
+                    Vector3 vec = meshFilter.transform.position;
+                    Gizmos.DrawCube(new Vector3(x * cellSize, y * cellSize, z * cellSize) + vec, Vector3.one * .1f);
                 }
             }
         }

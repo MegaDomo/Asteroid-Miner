@@ -3010,15 +3010,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9052d9cad39344c8ecfb163b932351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 6
-  radius: 2
+  gridSize: 15
+  radius: 1.59
   isoLevel: 0
-  cellSize: 10
+  cellSize: 1
   addRigidBody: 0
   addCollider: 1
-  useMarchDelay: 0
+  useMarchDelay: 1
   useDebug: 0
-  marchSpeedInSeconds: 0.03
+  marchSpeedInSeconds: 0.01
   meshFilter: {fileID: 2080256132}
 --- !u!4 &579457615
 Transform:
@@ -3926,8 +3926,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735563705}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.781584, y: 18.669935, z: -44.430126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6028,37 +6028,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084380960}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1087224912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1087224913}
-  m_Layer: 0
-  m_Name: MCTest3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1087224913
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087224912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1132784195}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132784194
 GameObject:
   m_ObjectHideFlags: 0
@@ -6091,7 +6060,6 @@ Transform:
   - {fileID: 579457615}
   - {fileID: 1166262345}
   - {fileID: 1467763467}
-  - {fileID: 1087224913}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

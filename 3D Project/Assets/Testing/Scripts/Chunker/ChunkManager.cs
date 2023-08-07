@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChunkManager : MonoBehaviour
 {
     [Header("Unity References")]
-    public Transform chunkOrigin;
+    public Transform meshOrigin;
     public Material material;
 
     [Header("Mesh Settings")]
@@ -30,7 +30,6 @@ public class ChunkManager : MonoBehaviour
     private void Start()
     {
         CreateChunkGrid();
-        LoadChunks();
     }
 
     void CreateChunkGrid()
@@ -38,7 +37,7 @@ public class ChunkManager : MonoBehaviour
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
                 for (int z = 0; z < chunkGridSize; z++) {
-                    Vector3 worldPos = new Vector3(x, y, z) * marchingGridSize;
+                    Vector3 worldPos = new Vector3(x, y, z) * (marchingGridSize - 1);
 
                     GameObject clone = new GameObject("Chunk: " + x.ToString() + ", " + y.ToString() + ", " + z.ToString());
                     clone.transform.position = worldPos;
@@ -46,17 +45,13 @@ public class ChunkManager : MonoBehaviour
                     clone.AddComponent<MeshFilter>();
                     clone.AddComponent<MeshRenderer>().material = material;
                     ChunkMarchingCubes chunk = clone.AddComponent<ChunkMarchingCubes>();
+                    clone.AddComponent<ChunkReference>().AddReference(chunk);
 
-                    chunk.Setup(chunkOrigin.position, marchingGridSize, marchingCellSize, radius, marchingIsoLevel);
+                    chunk.Setup(meshOrigin.position, marchingGridSize, marchingCellSize, radius, marchingIsoLevel);
                     chunks.Add(chunk);
+                    chunk.FirstMarch(addCollider, addRigidBody);
                 }
             }
         }
-    }
-
-    void LoadChunks()
-    {
-        foreach (ChunkMarchingCubes chunk in chunks)
-            chunk.FirstMarch();
     }
 }

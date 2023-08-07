@@ -10,16 +10,14 @@ public class ChunkMarchingCubes : MonoBehaviour
     public float isoLevel = 0f;
     public bool useNoise = false;
     public float noiseScale = 1f;
-    public bool addCollider;
-    public bool addRigidBody;
-
+    
     [Header("Debugging")]
     public bool showGizmos = false;
 
     [Header("Sphere")]
     public float radius;
 
-    Vector3 chunkOrigin;
+    Vector3 meshOrigin;
     Vector3 cubeOrigin;
 
     Mesh mesh;
@@ -29,9 +27,9 @@ public class ChunkMarchingCubes : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
 
-    public void Setup(Vector3 chunkOrigin, int gridSize, float cellSize, float radius, float isoLevel)
+    public void Setup(Vector3 meshOrigin, int gridSize, float cellSize, float radius, float isoLevel)
     {
-        this.chunkOrigin = chunkOrigin;
+        this.meshOrigin = meshOrigin;
         this.gridSize = gridSize;
         this.cellSize = cellSize;
         this.radius = radius;
@@ -42,17 +40,14 @@ public class ChunkMarchingCubes : MonoBehaviour
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(gridSize);
-
-        if (useNoise)
-            MCValues.AddSphereValuesWithNoise(grid, chunkOrigin, radius, noiseScale);
-        else
-            MCValues.AddChunkSphereValues(grid, chunkOrigin, cubeOrigin, radius);
+        
+        MCValues.AddChunkSphereValues(grid, meshOrigin, cubeOrigin, radius);
     }
 
-    public void FirstMarch()
+    public void FirstMarch(bool addCollider, bool addRigidBody)
     {
         March();
-        AddPhysics();
+        AddPhysics(addCollider, addRigidBody);
     }
 
     void March()
@@ -158,7 +153,7 @@ public class ChunkMarchingCubes : MonoBehaviour
     }
 
     #region Helper Methods
-    void AddPhysics()
+    void AddPhysics(bool addCollider, bool addRigidBody)
     {
         if (meshFilter == null)
             return;
@@ -168,6 +163,7 @@ public class ChunkMarchingCubes : MonoBehaviour
         {
             obj.AddComponent<MeshCollider>();
             //obj.GetComponent<MeshCollider>().convex = true;
+            obj.layer += 3; 
         }
         if (addRigidBody)
         {
@@ -209,8 +205,9 @@ public class ChunkMarchingCubes : MonoBehaviour
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
 
-        if (addCollider)
-            meshFilter.gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
+        if (GetComponent<MeshCollider>())
+            GetComponent<MeshCollider>().sharedMesh = mesh;
+
     }
 
     void ResetMesh()

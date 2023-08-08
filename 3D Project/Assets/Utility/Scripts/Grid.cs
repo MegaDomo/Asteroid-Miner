@@ -11,33 +11,35 @@ public class Grid<T>
     private int length;
     private float cellSize;
     private Vector3 origin;
-    private T[,] gridArray;
+    private T[,,] gridArray;
 
     // Constructor
-    public Grid(int size, int cellSize, Vector3 origin, Func<T> createGridObject)
+    public Grid(int width, int height, int length, int cellSize, Vector3 origin, Func<T> createGridObject)
     {
-        width = size;
-        height = size;
-        this.origin = origin;
+        this.width = width;
+        this.height = height;
+        this.length = length;
         this.cellSize = cellSize;
+        this.origin = origin;
 
-        gridArray = new T[width, height];
+        gridArray = new T[width, height, length];
 
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-                gridArray[i, j] = createGridObject();
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                for (int z = 0; z < length; z++)
+                    gridArray[x, y, z] = createGridObject();
 
         bool debug = false;
         if (debug)
         {
             // Shows Grid in Space
-            for (int x = 0; x < gridArray.GetLength(0); x++)
-            {
-                for (int z = 0; z < gridArray.GetLength(1); z++)
-                {
-                    Utils.CreateWorldText(GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, x.ToString() + ", " + z.ToString(), 30, TextAnchor.MiddleCenter);
-                    Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
-                    Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    for (int z = 0; z < length; z++) {
+                        Utils.CreateWorldText(GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, x.ToString() + ", " + z.ToString(), 30, TextAnchor.MiddleCenter);
+                        Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
+                    }
                 }
             }
             Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);

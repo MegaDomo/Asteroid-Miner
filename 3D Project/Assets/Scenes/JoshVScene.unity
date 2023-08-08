@@ -6222,7 +6222,6 @@ Transform:
   m_Children:
   - {fileID: 744784662}
   - {fileID: 1166262345}
-  - {fileID: 1467763467}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7393,8 +7392,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1132784195}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1492677701 stripped
 Transform:
@@ -10932,8 +10931,9 @@ MonoBehaviour:
   marchingGridSize: 15
   marchingCellSize: 1
   marchingIsoLevel: 0
-  useNoise: 0
-  noiseScale: 1
+  useNoise: 1
+  noiseScale: 7
+  noiseTransform: 1.66
   addCollider: 1
   addRigidBody: 0
 --- !u!4 &2134865707

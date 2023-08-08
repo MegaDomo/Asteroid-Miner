@@ -27,21 +27,26 @@ public class ChunkMarchingCubes : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
 
-    public void Setup(Vector3 meshOrigin, int gridSize, float cellSize, float radius, float isoLevel)
+    public void Setup(Vector3 meshOrigin, int gridSize, float cellSize, float isoLevel, float radius, 
+                      bool useNoise, float noiseScale, float noiseTransform)
     {
         this.meshOrigin = meshOrigin;
         this.gridSize = gridSize;
         this.cellSize = cellSize;
         this.radius = radius;
         this.isoLevel = isoLevel;
+        this.noiseScale = noiseScale;
 
         cubeOrigin = transform.position;
 
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(gridSize);
-        
-        MCValues.AddChunkSphereValues(grid, meshOrigin, cubeOrigin, radius);
+
+        if (useNoise)
+            MCValues.AddChunkSphereValuesWithNoise(grid, meshOrigin, cubeOrigin, radius, noiseScale, noiseTransform);
+        else
+            MCValues.AddChunkSphereValues(grid, meshOrigin, cubeOrigin, radius);
     }
 
     public void FirstMarch(bool addCollider, bool addRigidBody)

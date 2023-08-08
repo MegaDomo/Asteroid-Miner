@@ -16,7 +16,7 @@ public class TestScript2 : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             if (Physics.Raycast(cam.position, cam.forward, out RaycastHit interactHit,
             100f, LayerMask.GetMask("MouseTesting")))

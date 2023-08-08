@@ -47,12 +47,12 @@ public class Grid<T>
         }        
     }
 
-    public T GetGridObject(int x, int z)
+    public T GetGridObject(int x, int y, int z)
     {
         if (!isCoordinatesSafe(x, z))
             return default(T);
 
-        return gridArray[x, z];
+        return gridArray[x, y, z];
     }
 
     public Vector3 GetWorldPosition(int x, int z)
@@ -70,9 +70,10 @@ public class Grid<T>
         return new Vector3(x, y, z) * cellSize;
     }
 
-    public void GetXZ(Vector3 worldPosition, out int x, out int z)
+    public void GetXZ(Vector3 worldPosition, out int x, out int y, out int z)
     {
         x = Mathf.FloorToInt(worldPosition.x / cellSize);
+        y = Mathf.FloorToInt(worldPosition.y / cellSize);
         z = Mathf.FloorToInt(worldPosition.z / cellSize);
     }
 
@@ -110,16 +111,16 @@ public class Grid<T>
 
     public void SetGridObject(Vector3 worldPosition, T newGridObject)
     {
-        int x, z;
-        GetXZ(worldPosition, out x, out z);
-        SetGridObject(x, z, newGridObject);
+        int x, y, z;
+        GetXZ(worldPosition, out x, out y, out z);
+        SetGridObject(x, y, z, newGridObject);
     }
 
-    public void SetGridObject(int x, int z, T newGridObject)
+    public void SetGridObject(int x, int y, int z, T newGridObject)
     {
         if (!isCoordinatesSafe(x, z))
             return;
-        gridArray[x, z] = newGridObject;
+        gridArray[x, y, z] = newGridObject;
     }
 
     public bool isCoordinatesSafe(int x, int z)

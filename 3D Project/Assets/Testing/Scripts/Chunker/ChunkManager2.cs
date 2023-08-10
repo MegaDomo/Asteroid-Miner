@@ -51,23 +51,37 @@ public class ChunkManager2 : MonoBehaviour
 
                     clone.AddComponent<MeshFilter>();
                     clone.AddComponent<MeshRenderer>().material = material;
+
                     Chunk chunk = clone.AddComponent<Chunk>();
-                    //clone.AddComponent<ChunkReference>().AddReference(chunk);
-                    //ChunkData data = CreateChunkData();
-                    chunk.Setup(meshOrigin.position, marchingGridSize, marchingCellSize, marchingIsoLevel,
-                                radius, useNoise, noiseScale, noiseTransform);
-                    //chunks.Add(chunk);
+                    clone.AddComponent<ChunkReference2>().AddReference(chunk);
+
+                    ChunkData data = CreateChunkData(worldPos);
+                    chunk.Setup(data, chunks);
+
+                    chunks.SetGridObject(x, y, z, chunk);
+
                     chunk.FirstMarch(addCollider, addRigidBody);
                 }
             }
         }
     }
-/*
+
     ChunkData CreateChunkData(Vector3 worldPos)
     {
         ChunkData data = new ChunkData();
 
         data.meshOrigin = meshOrigin.position;
-        data.chunkOrigin = 
-    }*/
+        data.chunkOrigin = worldPos;
+        data.gridSize = marchingGridSize;
+        data.cellSize = marchingCellSize;
+        data.isoLevel = marchingIsoLevel;
+
+        data.radius = radius;
+
+        data.useNoise = useNoise;
+        data.noiseScale = noiseScale;
+        data.noiseTransform = noiseTransform;
+
+        return data;
+    }
 }

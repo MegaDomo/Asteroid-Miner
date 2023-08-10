@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ChunkReference2 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Chunk chunk;
 
-    // Update is called once per frame
-    void Update()
+    public void AddReference(Chunk chunk)
     {
-        
+        this.chunk = chunk;
     }
 }

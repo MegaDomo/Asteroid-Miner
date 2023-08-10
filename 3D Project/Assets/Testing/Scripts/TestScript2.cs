@@ -23,7 +23,7 @@ public class TestScript2 : MonoBehaviour
             {
                 vec = interactHit.point;
 
-                ChunkMarchingCubes gen = interactHit.transform.GetComponent<ChunkReference>().chunkMarchingCubes;
+                Chunk gen = interactHit.transform.GetComponent<ChunkReference2>().chunk;
                 gen.TerraformMesh(vec, areaOfInfluenceRadius, potency);
             }
         }

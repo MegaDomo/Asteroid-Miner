@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct ChunkData
+public struct ChunkData
 {
     // Core Details
     public Vector3 meshOrigin;
@@ -22,18 +22,8 @@ struct ChunkData
 
 public class Chunk : MonoBehaviour
 {
-    // Chunk Details
-    public int gridSize = 15;
-    public float cellSize = 1f;
-    public float isoLevel = 0f;
-    public bool useNoise = false;
-    public float noiseScale = 1f;
-
-    // Sphere Details
-    public float radius;
-
-    Vector3 meshOrigin;
-    Vector3 cubeOrigin;
+    ChunkData data;
+    Grid<Chunk> chunks;
 
     Mesh mesh;
     MeshFilter meshFilter;
@@ -47,26 +37,19 @@ public class Chunk : MonoBehaviour
 
     }
 
-    public void Setup(Vector3 meshOrigin, int gridSize, float cellSize, float isoLevel, float radius,
-                      bool useNoise, float noiseScale, float noiseTransform)
+    public void Setup(ChunkData data, Grid<Chunk> chunks)
     {
-        this.meshOrigin = meshOrigin;
-        this.gridSize = gridSize;
-        this.cellSize = cellSize;
-        this.radius = radius;
-        this.isoLevel = isoLevel;
-        this.noiseScale = noiseScale;
-
-        // TODO : cubeOrigin = transform.position;
+        this.data = data;
+        this.chunks = chunks;
 
         mesh = new Mesh();
-        // TODO : meshFilter = GetComponent<MeshFilter>();
-        grid = new MCGrid(gridSize);
+        meshFilter = GetComponent<MeshFilter>();
+        grid = new MCGrid(data.gridSize);
 
-        if (useNoise)
-            MCValues.AddChunkSphereValuesWithNoise(grid, meshOrigin, cubeOrigin, radius, noiseScale, noiseTransform);
+        if (data.useNoise)
+            MCValues.AddChunkSphereValuesWithNoise(grid, data.meshOrigin, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
         else
-            MCValues.AddChunkSphereValues(grid, meshOrigin, cubeOrigin, radius);
+            MCValues.AddChunkSphereValues(grid, data.meshOrigin, data.chunkOrigin, data.radius);
     }
 
     public void FirstMarch(bool addCollider, bool addRigidBody)
@@ -81,13 +64,10 @@ public class Chunk : MonoBehaviour
         triangles = new List<int>();
 
         // We March the number of Boxes which is 1 less than the number of Vertices (GridSize)
-        for (int x = 0; x < gridSize - 1; x++)
-        {
-            for (int y = 0; y < gridSize - 1; y++)
-            {
-                for (int z = 0; z < gridSize - 1; z++)
-                {
-                    Vector3 worldPos = new Vector3(x * cellSize, y * cellSize, z * cellSize);
+        for (int x = 0; x < data.gridSize - 1; x++) {
+            for (int y = 0; y < data.gridSize - 1; y++) {
+                for (int z = 0; z < data.gridSize - 1; z++) {
+                    Vector3 worldPos = new Vector3(x * data.cellSize, y * data.cellSize, z * data.cellSize);
 
                     // Gets Corners for Box
                     float[] cubeValues = new float[] {
@@ -103,6 +83,7 @@ public class Chunk : MonoBehaviour
 
                     // Finds which Permutation
                     int cubeIndex = 0;
+                    float isoLevel = data.isoLevel;
                     if (cubeValues[0] > isoLevel) cubeIndex |= 1;
                     if (cubeValues[1] > isoLevel) cubeIndex |= 2;
                     if (cubeValues[2] > isoLevel) cubeIndex |= 4;
@@ -151,21 +132,35 @@ public class Chunk : MonoBehaviour
 
     public void TerraformMesh(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
+        AlertNeighbors(pointOfInfluence, areaOfInfluenceRadius, potency);
         ResetMesh();
         AdjustPointValues(pointOfInfluence, areaOfInfluenceRadius, potency);
         March();
         UpdateColliderMesh();
     }
 
+    private void AlertNeighbors(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
+    {
+        List<Chunk> neighbors = chunks.GetNeighbors(data.chunkOrigin);
+        Debug.Log(neighbors.Count);
+        foreach (Chunk chunk in neighbors)
+            chunk.TerraformMeshChild(pointOfInfluence, areaOfInfluenceRadius, potency);
+    }
+
+    public void TerraformMeshChild(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
+    {
+        ResetMesh();
+        AdjustPointValues(pointOfInfluence, areaOfInfluenceRadius, potency);
+        March();
+        UpdateColliderMesh();
+    }
+        
     void AdjustPointValues(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
-        for (int x = 0; x < gridSize; x++)
-        {
-            for (int y = 0; y < gridSize; y++)
-            {
-                for (int z = 0; z < gridSize; z++)
-                {
-                    Vector3 worldPos = new Vector3(x, y, z) + cubeOrigin;
+        for (int x = 0; x < data.gridSize; x++) {
+            for (int y = 0; y < data.gridSize; y++) {
+                for (int z = 0; z < data.gridSize; z++) {
+                    Vector3 worldPos = new Vector3(x, y, z) + data.chunkOrigin;
 
                     if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius)
                     {
@@ -206,9 +201,9 @@ public class Chunk : MonoBehaviour
 
     Vector3 Interp(Vector3 vertex1, float valueAtVertex1, Vector3 vertex2, float valueAtVertex2)
     {
-        vertex1 *= cellSize;
-        vertex2 *= cellSize;
-        return vertex1 + (isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
+        vertex1 *= data.cellSize;
+        vertex2 *= data.cellSize;
+        return vertex1 + (data.isoLevel - valueAtVertex1) * (vertex2 - vertex1) / (valueAtVertex2 - valueAtVertex1);
     }
 
     void AddTriangle(Vector3 a, Vector3 b, Vector3 c)
@@ -230,8 +225,8 @@ public class Chunk : MonoBehaviour
         mesh.RecalculateNormals();
         meshFilter.mesh = mesh;
 
-        // TODO : if (GetComponent<MeshCollider>())
-        // TODO : GetComponent<MeshCollider>().sharedMesh = mesh;
+        if (GetComponent<MeshCollider>())
+            GetComponent<MeshCollider>().sharedMesh = mesh;
 
     }
 

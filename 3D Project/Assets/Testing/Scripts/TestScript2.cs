@@ -26,20 +26,7 @@ public class TestScript2 : MonoBehaviour
                 ChunkMarchingCubes gen = interactHit.transform.GetComponent<ChunkReference>().chunkMarchingCubes;
                 gen.TerraformMesh(vec, areaOfInfluenceRadius, potency);
             }
-
-            //vec = Utils.GetMouseWorldPosition();
         }
-/*
-        if (Input.GetMouseButton(0))
-        {
-            showGizmos = true;
-            vec = Utils.GetMouseWorldPosition();
-        }
-        else
-        {
-            showGizmos = false;
-        }
-*/
     }
 
     public void OnDrawGizmos()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Data Structure
+// 3D WorldSpace Data Structure
 public class Grid<T>
 {
     private int width;
@@ -14,7 +14,7 @@ public class Grid<T>
     private T[,,] gridArray;
 
     // Constructor
-    public Grid(int width, int height, int length, int cellSize, Vector3 origin, Func<T> createGridObject)
+    public Grid(int width, int height, int length, float cellSize, Vector3 origin, Func<T> createGridObject)
     {
         this.width = width;
         this.height = height;
@@ -29,21 +29,37 @@ public class Grid<T>
                 for (int z = 0; z < length; z++)
                     gridArray[x, y, z] = createGridObject();
 
-        bool debug = false;
+        bool debug = true;
         if (debug)
         {
-            // Shows Grid in Space
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     for (int z = 0; z < length; z++) {
-                        Utils.CreateWorldText(GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, x.ToString() + ", " + z.ToString(), 30, TextAnchor.MiddleCenter);
-                        Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
-                        Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
+                        //Utils.CreateWorldText(GetWorldPosition(x, y, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, x.ToString() + ", " + y.ToString() + ", " + z.ToString(), 30, TextAnchor.MiddleCenter);
+                        Debug.DrawLine(GetWorldPosition(x, y, z), GetWorldPosition(x + 1, y, z), Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, y, z), GetWorldPosition(x, y + 1, z), Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, y, z), GetWorldPosition(x, y, z + 1), Color.white, 100f);
                     }
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+
+            for (int i = 0; i < width; i++)
+            {
+                // Verticals
+                Debug.DrawLine(GetWorldPosition(i, 0, length), GetWorldPosition(i, height, length), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(width, 0, i), GetWorldPosition(width, height, i), Color.white, 100f);
+
+                // Horizontals
+                Debug.DrawLine(GetWorldPosition(0, i, length), GetWorldPosition(width, i, length), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(width, i, 0), GetWorldPosition(width, i, length), Color.white, 100f);
+            }
+
+            for (int i = 0; i < width + 1; i++)
+            {
+                // Top Layer
+                Debug.DrawLine(GetWorldPosition(i, height, 0), GetWorldPosition(i, height, length), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(0, height, i), GetWorldPosition(width, height, i), Color.white, 100f);
+            }
         }        
     }
 
@@ -55,14 +71,9 @@ public class Grid<T>
         return gridArray[x, y, z];
     }
 
-    public Vector3 GetWorldPosition(int x, int z)
-    {
-        return new Vector3(x, 0, z) * cellSize;
-    }
-
     public Vector3 GetWorldPosition(Node node)
     {
-        return new Vector3(node.x, 0, node.z) * cellSize;
+        return new Vector3(node.x, node.y, node.z) * cellSize;
     }
 
     public Vector3 GetWorldPosition(int x, int y, int z)

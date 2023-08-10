@@ -1,0 +1,73 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChunkManager2 : MonoBehaviour
+{
+    [Header("Unity References")]
+    public Transform meshOrigin;
+    public Material material;
+
+    [Header("Mesh Settings")]
+    [Range(1f, 100f)]
+    public float radius = 3f;
+
+    [Header("Whole Chunk Settings")]
+    [Range(5f, 15f)]
+    public int chunkGridSize = 5;
+    public float chunkCellSize = 1f;
+
+    [Header("Individual Chunk Settings")]
+    [Range(5, 15)]
+    public int marchingGridSize = 15;
+    public float marchingCellSize = 1f;
+    public float marchingIsoLevel = 0f;
+    public bool useNoise = false;
+    [Range(1f, 100f)]
+    public float noiseScale = 1f;
+    [Range(1f, 15f)]
+    public float noiseTransform = 1f;
+    public bool addCollider;
+    public bool addRigidBody;
+
+    Grid<Chunk> chunks;
+
+    private void Start()
+    {
+        CreateChunkGrid();
+    }
+
+    void CreateChunkGrid()
+    {
+        chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
+
+        for (int x = 0; x < chunkGridSize; x++) {
+            for (int y = 0; y < chunkGridSize; y++) {
+                for (int z = 0; z < chunkGridSize; z++) {
+                    Vector3 worldPos = new Vector3(x, y, z) * (marchingGridSize - 1);
+
+                    GameObject clone = new GameObject("Chunk: " + x.ToString() + ", " + y.ToString() + ", " + z.ToString());
+                    clone.transform.position = worldPos;
+
+                    clone.AddComponent<MeshFilter>();
+                    clone.AddComponent<MeshRenderer>().material = material;
+                    Chunk chunk = clone.AddComponent<Chunk>();
+                    //clone.AddComponent<ChunkReference>().AddReference(chunk);
+                    //ChunkData data = CreateChunkData();
+                    chunk.Setup(meshOrigin.position, marchingGridSize, marchingCellSize, marchingIsoLevel,
+                                radius, useNoise, noiseScale, noiseTransform);
+                    //chunks.Add(chunk);
+                    chunk.FirstMarch(addCollider, addRigidBody);
+                }
+            }
+        }
+    }
+/*
+    ChunkData CreateChunkData(Vector3 worldPos)
+    {
+        ChunkData data = new ChunkData();
+
+        data.meshOrigin = meshOrigin.position;
+        data.chunkOrigin = 
+    }*/
+}

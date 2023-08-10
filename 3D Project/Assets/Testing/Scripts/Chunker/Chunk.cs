@@ -7,6 +7,8 @@ public struct ChunkData
     // Core Details
     public Vector3 meshOrigin;
     public Vector3 chunkOrigin;
+    public Vector3 gridCoord;
+
     public int gridSize;
     public float cellSize;
     public float isoLevel;
@@ -141,7 +143,15 @@ public class Chunk : MonoBehaviour
 
     private void AlertNeighbors(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
-        List<Chunk> neighbors = chunks.GetNeighbors(data.chunkOrigin);
+        //chunks.GetXYZ(data.chunkOrigin, out int x, out int y, out int z);
+
+        int x = (int)data.gridCoord.x;
+        int y = (int)data.gridCoord.y;
+        int z = (int)data.gridCoord.z;
+
+        Debug.Log(x + ", " + y + ", " + z);
+
+        List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
         Debug.Log(neighbors.Count);
         foreach (Chunk chunk in neighbors)
             chunk.TerraformMeshChild(pointOfInfluence, areaOfInfluenceRadius, potency);

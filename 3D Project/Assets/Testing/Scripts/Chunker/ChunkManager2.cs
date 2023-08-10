@@ -55,7 +55,7 @@ public class ChunkManager2 : MonoBehaviour
                     Chunk chunk = clone.AddComponent<Chunk>();
                     clone.AddComponent<ChunkReference2>().AddReference(chunk);
 
-                    ChunkData data = CreateChunkData(worldPos);
+                    ChunkData data = CreateChunkData(worldPos, x, y, z);
                     chunk.Setup(data, chunks);
 
                     chunks.SetGridObject(x, y, z, chunk);
@@ -66,12 +66,14 @@ public class ChunkManager2 : MonoBehaviour
         }
     }
 
-    ChunkData CreateChunkData(Vector3 worldPos)
+    ChunkData CreateChunkData(Vector3 worldPos, int x, int y, int z)
     {
         ChunkData data = new ChunkData();
 
         data.meshOrigin = meshOrigin.position;
         data.chunkOrigin = worldPos;
+        data.gridCoord = new Vector3(x, y, z);
+
         data.gridSize = marchingGridSize;
         data.cellSize = marchingCellSize;
         data.isoLevel = marchingIsoLevel;

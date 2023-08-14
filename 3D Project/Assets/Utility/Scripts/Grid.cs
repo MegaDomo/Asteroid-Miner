@@ -116,6 +116,100 @@ public class Grid<T>
 
         return items;
     }
+
+    public List<T> GetClosestNeighbors(Vector3 playerPoint, float chunkGridSize, float chunkCellSize, int x, int y, int z)
+    {
+        List<T> items = GetNeighbors(x, y, z);
+        Vector3 gridCenter = GetWorldPosition(x, y, z) + (new Vector3(chunkGridSize, chunkGridSize, chunkGridSize) / 2) * chunkCellSize;
+
+        #region X
+        if (playerPoint.x < gridCenter.x)
+        {
+            // Remove item that are Greater than x
+            if (isCoordinatesSafe(x + 1, y + 1, z + 1)) items.Remove(GetGridObject(x + 1, y + 1, z + 1));
+            if (isCoordinatesSafe(x + 1, y + 1, z + 0)) items.Remove(GetGridObject(x + 1, y + 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y + 1, z - 1)) items.Remove(GetGridObject(x + 1, y + 1, z - 1));
+            if (isCoordinatesSafe(x + 1, y + 0, z + 1)) items.Remove(GetGridObject(x + 1, y + 0, z + 1));
+            if (isCoordinatesSafe(x + 1, y + 0, z + 0)) items.Remove(GetGridObject(x + 1, y + 0, z + 0));
+            if (isCoordinatesSafe(x + 1, y + 0, z - 1)) items.Remove(GetGridObject(x + 1, y + 0, z - 1));
+            if (isCoordinatesSafe(x + 1, y - 1, z + 1)) items.Remove(GetGridObject(x + 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x + 1, y - 1, z + 0)) items.Remove(GetGridObject(x + 1, y - 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y - 1, z - 1)) items.Remove(GetGridObject(x + 1, y - 1, z - 1));
+        }
+        else if (playerPoint.x > gridCenter.x)
+        {
+            // Remove item that are Lesser than x
+            if (isCoordinatesSafe(x - 1, y + 1, z + 1)) items.Remove(GetGridObject(x + 1, y + 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 1, z + 0)) items.Remove(GetGridObject(x + 1, y + 1, z + 0));
+            if (isCoordinatesSafe(x - 1, y + 1, z - 1)) items.Remove(GetGridObject(x + 1, y + 1, z - 1));
+            if (isCoordinatesSafe(x - 1, y + 0, z + 1)) items.Remove(GetGridObject(x + 1, y + 0, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 0, z + 0)) items.Remove(GetGridObject(x + 1, y + 0, z + 0));
+            if (isCoordinatesSafe(x - 1, y + 0, z - 1)) items.Remove(GetGridObject(x + 1, y + 0, z - 1));
+            if (isCoordinatesSafe(x - 1, y - 1, z + 1)) items.Remove(GetGridObject(x + 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y - 1, z + 0)) items.Remove(GetGridObject(x + 1, y - 1, z + 0));
+            if (isCoordinatesSafe(x - 1, y - 1, z - 1)) items.Remove(GetGridObject(x + 1, y - 1, z - 1));
+        }
+        #endregion
+
+        #region Y
+        if (playerPoint.y < gridCenter.y)
+        {
+            // Remove item that are Greater than y
+            if (isCoordinatesSafe(x + 0, y + 1, z + 0)) items.Remove(GetGridObject(x + 0, y + 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y + 1, z + 0)) items.Remove(GetGridObject(x + 1, y + 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y + 1, z + 1)) items.Remove(GetGridObject(x + 1, y + 1, z + 1));
+            if (isCoordinatesSafe(x + 0, y + 1, z + 1)) items.Remove(GetGridObject(x + 0, y + 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 1, z + 1)) items.Remove(GetGridObject(x - 1, y + 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 1, z + 0)) items.Remove(GetGridObject(x - 1, y + 1, z + 0));
+            if (isCoordinatesSafe(x - 1, y + 1, z - 1)) items.Remove(GetGridObject(x - 1, y + 1, z - 1));
+            if (isCoordinatesSafe(x + 0, y + 1, z - 1)) items.Remove(GetGridObject(x + 0, y + 1, z - 1));
+            if (isCoordinatesSafe(x + 1, y + 1, z - 1)) items.Remove(GetGridObject(x + 1, y + 1, z - 1));
+        }
+        else if (playerPoint.y > gridCenter.y)
+        {
+            // Remove item that are Lesser than y
+            if (isCoordinatesSafe(x + 0, y - 1, z + 0)) items.Remove(GetGridObject(x + 0, y - 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y - 1, z + 0)) items.Remove(GetGridObject(x + 1, y - 1, z + 0));
+            if (isCoordinatesSafe(x + 1, y - 1, z + 1)) items.Remove(GetGridObject(x + 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x + 0, y - 1, z + 1)) items.Remove(GetGridObject(x + 0, y - 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y - 1, z + 1)) items.Remove(GetGridObject(x - 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y - 1, z + 0)) items.Remove(GetGridObject(x - 1, y - 1, z + 0));
+            if (isCoordinatesSafe(x - 1, y - 1, z - 1)) items.Remove(GetGridObject(x - 1, y - 1, z - 1));
+            if (isCoordinatesSafe(x + 0, y - 1, z - 1)) items.Remove(GetGridObject(x + 0, y - 1, z - 1));
+            if (isCoordinatesSafe(x + 1, y - 1, z - 1)) items.Remove(GetGridObject(x + 1, y - 1, z - 1));
+        }
+        #endregion
+
+        #region Z
+        if (playerPoint.z < gridCenter.z)
+        {
+            // Remove item that are Greater than z
+            if (isCoordinatesSafe(x + 1, y - 1, z + 1)) items.Remove(GetGridObject(x + 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x + 0, y - 1, z + 1)) items.Remove(GetGridObject(x + 0, y - 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y - 1, z + 1)) items.Remove(GetGridObject(x - 1, y - 1, z + 1));
+            if (isCoordinatesSafe(x + 1, y + 0, z + 1)) items.Remove(GetGridObject(x + 1, y + 0, z + 1));
+            if (isCoordinatesSafe(x + 0, y + 0, z + 1)) items.Remove(GetGridObject(x + 0, y + 0, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 0, z + 1)) items.Remove(GetGridObject(x - 1, y + 0, z + 1));
+            if (isCoordinatesSafe(x + 1, y + 1, z + 1)) items.Remove(GetGridObject(x + 1, y + 1, z + 1));
+            if (isCoordinatesSafe(x + 0, y + 1, z + 1)) items.Remove(GetGridObject(x + 0, y + 1, z + 1));
+            if (isCoordinatesSafe(x - 1, y + 1, z + 1)) items.Remove(GetGridObject(x - 1, y + 1, z + 1));
+        }
+        else if (playerPoint.z > gridCenter.z)
+        {
+            // Remove item that are Lesser than z
+            if (isCoordinatesSafe(x - 1, y - 1, z - 1)) items.Remove(GetGridObject(x - 1, y - 1, z - 1));
+            if (isCoordinatesSafe(x + 0, y - 1, z - 1)) items.Remove(GetGridObject(x + 0, y - 1, z - 1));
+            if (isCoordinatesSafe(x + 1, y - 1, z - 1)) items.Remove(GetGridObject(x + 1, y - 1, z - 1));
+            if (isCoordinatesSafe(x - 1, y + 0, z - 1)) items.Remove(GetGridObject(x - 1, y + 0, z - 1));
+            if (isCoordinatesSafe(x + 0, y + 0, z - 1)) items.Remove(GetGridObject(x + 0, y + 0, z - 1));
+            if (isCoordinatesSafe(x + 1, y + 0, z - 1)) items.Remove(GetGridObject(x + 1, y + 0, z - 1));
+            if (isCoordinatesSafe(x - 1, y + 1, z - 1)) items.Remove(GetGridObject(x - 1, y + 1, z - 1));
+            if (isCoordinatesSafe(x + 0, y + 1, z - 1)) items.Remove(GetGridObject(x + 0, y + 1, z - 1));
+            if (isCoordinatesSafe(x + 1, y + 1, z - 1)) items.Remove(GetGridObject(x + 1, y + 1, z - 1));
+        }
+        #endregion
+        return items;
+    }
     #endregion
 
 

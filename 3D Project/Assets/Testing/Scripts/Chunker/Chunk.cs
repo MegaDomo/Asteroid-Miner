@@ -149,9 +149,9 @@ public class Chunk : MonoBehaviour
         int y = (int)data.gridCoord.y;
         int z = (int)data.gridCoord.z;
 
-        Debug.Log(x + ", " + y + ", " + z);
+        //Debug.Log(x + ", " + y + ", " + z);
 
-        List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
+        List<Chunk> neighbors = chunks.GetClosestNeighbors(pointOfInfluence, data.gridSize, data.cellSize, x, y, z);
         Debug.Log(neighbors.Count);
         foreach (Chunk chunk in neighbors)
             chunk.TerraformMeshChild(pointOfInfluence, areaOfInfluenceRadius, potency);

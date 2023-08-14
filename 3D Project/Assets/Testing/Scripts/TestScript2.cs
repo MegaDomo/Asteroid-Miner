@@ -11,7 +11,7 @@ public class TestScript2 : MonoBehaviour
     public float areaOfInfluenceRadius = 4f;
     public float potency = 1f;
 
-    bool showGizmos;
+    public bool showGizmos;
     Vector3 vec;
 
     private void Update()
@@ -31,7 +31,7 @@ public class TestScript2 : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        if (showGizmos && vec != null)
+        if (showGizmos || vec != null)
         {
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(vec, areaOfInfluenceRadius);

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 126
+  controlID: 111
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 18
+  controlID: 53
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 84
+  controlID: 112
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c262c1329a02fa49b5cb4c297106f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinSize: {x: 133, y: 30}
+  m_MinSize: {x: 129, y: 28}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: ProBuilder
@@ -551,9 +551,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6cf4ffff
-      m_LastClickedID: -2964
-      m_ExpandedIDs: 90b6ffffc6c2ffff3acdffffa2f4ffffa4f4ffff7e690000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 14fbffff2a640000c6640000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -617,23 +617,21 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Testing/Scripts
+    m_Folders: []
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\DrewH926\Downloads\Ejorus Entertainment\GitHub\Asteroid-Miner\3D
-    Project
+  m_LastProjectPath: C:\Users\abcji\EELLC Unity\Asteroid-Miner\3D Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: fc5e0000
     m_LastClickedID: 24316
-    m_ExpandedIDs: 00000000626b0000646b0000666b0000686b00006a6b00006c6b00006e6b0000706b0000726b0000746b0000766b0000786b00007a6b00007c6b0000
+    m_ExpandedIDs: 00000000a265000000670000026700000467000006670000086700000a6700000c6700000e67000010670000126700001467000016670000186700001a6700001c6700001e67000020670000226700002467000026670000286700002a6700002c6700002e67000030670000326700003467000036670000386700003a6700003c6700003e6700004067000042670000446700004667000048670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -661,7 +659,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 776}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000626b0000646b0000666b0000686b00006a6b00006c6b00006e6b0000706b0000726b0000746b0000766b0000786b00007a6b00007c6b0000ec6b0000ee6b0000f46b0000028c0000048c0000
+    m_ExpandedIDs: ffffffff00000000a265000000670000026700000467000006670000086700000a6700000c6700000e67000010670000126700001467000016670000186700001a6700001c6700001e67000020670000226700002467000026670000286700002a6700002c6700002e67000030670000326700003467000036670000386700003a6700003c6700003e6700004067000042670000446700004667000048670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -975,9 +973,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 35.409584, y: 6.0828037, z: -6.766113}
+    m_Target: {x: 114.42958, y: 74.20505, z: 19.101269}
     speed: 2
-    m_Value: {x: 35.409584, y: 6.0828037, z: -6.766113}
+    m_Value: {x: 114.42958, y: 74.20505, z: 19.101269}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1024,11 +1022,11 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.12727891, y: 0.48347566, z: -0.07127753, w: -0.8631349}
+    m_Target: {x: 0.2617876, y: 0.52765405, z: -0.17509276, w: 0.78891885}
     speed: 2
-    m_Value: {x: -0.12727694, y: 0.48346817, z: -0.07127643, w: -0.86312157}
+    m_Value: {x: 0.2606037, y: 0.5279156, z: -0.17430091, w: 0.78930986}
   m_Size:
-    m_Target: 4.993035
+    m_Target: 24.71486
     speed: 2
     m_Value: 4.993035
   m_Ortho:

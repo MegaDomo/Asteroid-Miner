@@ -121,7 +121,8 @@ public class Grid<T>
     {
         List<T> items = GetNeighbors(x, y, z);
         Vector3 gridCenter = GetWorldPosition(x, y, z) + (new Vector3(chunkGridSize, chunkGridSize, chunkGridSize) / 2) * chunkCellSize;
-
+        // TODO : Double Check whether gridCenter or PlayerPoint are actually comparable
+        // TODO : Also check if the wrong 7 neighbors are getting set up, perhaps with <= || >=
         #region X
         if (playerPoint.x < gridCenter.x)
         {

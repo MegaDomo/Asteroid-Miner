@@ -14,6 +14,10 @@ public class PlayerInventory : MonoBehaviour
             inventory.AddItem(item.item, 1);
             Destroy(other.gameObject);
         }
-            
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.container.Clear();
     }
 }

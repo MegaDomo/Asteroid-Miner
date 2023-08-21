@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e3c3557edfac1418bde59a1c15b3d6, type: 3}
-  m_Name: Iron
+  m_Script: {fileID: 11500000, guid: 8c545ef82818dc54388e61ff56f78ea5, type: 3}
+  m_Name: IronPlate
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8164520788573783355, guid: c96c36cb3a7662e41ac0315e97e8faf5, type: 3}
+  UIElement: {fileID: 4688297935650204811, guid: a635286b7c0913a4590cb22f84ea58fa, type: 3}
   type: 0
   description: 

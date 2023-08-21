@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryObject : ScriptableObject
 {
     public List<InventorySlot> container = new List<InventorySlot>();
+
     public void AddItem(ItemObject item, int amount)
     {
         bool hasItem = false;
@@ -39,6 +40,6 @@ public class InventorySlot
 
     public void AddItem(int amount)
     {
-        this.amount = amount;
+        this.amount += amount;
     }
 }

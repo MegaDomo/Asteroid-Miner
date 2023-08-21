@@ -1,20 +1,22 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewInventorySystem", menuName = "Managers/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    public List<InventorySlot> container = new List<InventorySlot>();
+    public Dictionary<ItemObject, int> container = new Dictionary<ItemObject, int>();
+
+    public Action<ItemObject, int> itemPickedUp;
 
     public void AddItem(ItemObject item, int amount)
     {
         bool hasItem = false;
         for (int i = 0; i < container.Count; i++)
         {
-            if (container[i].item == item)
+            if (container.ContainsKey(item))
             {
-                container[i].AddItem(amount);
+                container[item] += amount;
                 hasItem = true;
                 break;
             }
@@ -22,8 +24,10 @@ public class InventoryObject : ScriptableObject
 
         if (!hasItem)
         {
-            container.Add(new InventorySlot(item, amount));
+            container.Add(item, amount);
         }
+
+        itemPickedUp.Invoke(item, amount);
     }
 }
 

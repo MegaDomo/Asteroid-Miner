@@ -7,7 +7,8 @@ public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory;
 
-    Dictionary<ItemObject, GameObject> itemsDisplayed = new Dictionary<ItemObject, GameObject>();
+    private List<GameObject> displaySlots;
+/*
     private void Awake()
     {
         inventory.itemPickedUp += UpdateDisplayItem;
@@ -20,24 +21,37 @@ public class DisplayInventory : MonoBehaviour
 
     private void StartDisplay()
     {
-        foreach (var item in inventory.container.Keys)
+        // Initializes the Slots
+        for (int i = 0; i < transform.childCount; i++)
         {
-            UpdateDisplayItem(item, inventory.container[item]);
+            InventorySlot tempSlot = new InventorySlot(null, 0);
+            itemsDisplayed.Add(tempSlot, transform.GetChild(i).gameObject);
         }
+        
+        // Fills Slots with any Save Data (or Data from Editor)
+        for (int i = 0; i < inventory.container.Count; i++)
+            UpdateDisplayItem(inventory.container[i]);
     }
 
-    public void UpdateDisplayItem(ItemObject item, int amount)
+    public void UpdateDisplayItem(InventorySlot slot)
     {
-        if (itemsDisplayed.ContainsKey(item))
-            itemsDisplayed[item].GetComponentInChildren<TextMeshProUGUI>().text = inventory.container[item].ToString("n0");
+        // Update Existing item - TODO check if run out of item (reach "0" for amount)
+        if (itemsDisplayed.ContainsKey(slot))
+            itemsDisplayed[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
+        // Add Item to Display
         else
-            AddDisplayItem(item, amount);
+            AddDisplayItem(slot);
     }
 
-    public void AddDisplayItem(ItemObject item, int amount)
+    public void AddDisplayItem(InventorySlot slot)
     {
-        var obj = Instantiate(item.UIElement, Vector3.zero, Quaternion.identity, transform);
-        obj.GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString("n0");
-        itemsDisplayed.Add(item, obj);
+        var obj = Instantiate(slot.item.UIElement, Vector3.zero, Quaternion.identity, transform);
+        obj.GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
+        itemsDisplayed.Add(slot, obj);
     }
+
+    private void UpdateSprite()
+    {
+
+    }*/
 }

@@ -5,48 +5,64 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewInventorySystem", menuName = "Managers/Inventory")]
 public class InventoryObject : ScriptableObject
 {
-    //public Dictionary<ItemObject, int> container = new Dictionary<ItemObject, int>();
-    public List<InventorySlot> container = new List<InventorySlot>();
+    [Header("Unity References")]
+    public GameObject draggableItemPrefab;
+    public List<DisplaySlot> inventory = new List<DisplaySlot>();
 
-    public Action<InventorySlot> itemPickedUp;
+    public Action<InventoryItem> itemPickedUp;
 
-    public void AddItem(ItemObject item, int amount)
+    public void Setup(Transform parent)
     {
-        bool hasItem = false;
-        InventorySlot slot;
-        for (int i = 0; i < container.Count; i++)
-        {
-            if (container[i].item == item)
-            {
-                hasItem = true;
-                container[i].amount += amount;
-                slot = container[i];
-                itemPickedUp.Invoke(slot);
-                break;
+        // Gets all DisplaySlots from UI
+        for (int i = 0; i < parent.childCount; i++)
+            inventory.Add(parent.GetChild(i).GetComponent<DisplaySlot>());
+    }
+
+    public bool AddItem(ItemObject item, int amount)
+    {
+        // Adds to Existing Item 
+        for (int i = 0; i < inventory.Count; i++) {
+            DisplaySlot slot = inventory[i];
+            DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
+            if (itemInSlot != null && itemInSlot.slot.item == item) {
+                itemInSlot.AddToExistingItem(amount);
+                return true;
             }
         }
 
-        if (!hasItem)
-        {
-            slot = new InventorySlot(item, amount);
-            container.Add(slot);
-            itemPickedUp.Invoke(slot);
+        // Find Empty Slot
+        for (int i = 0; i < inventory.Count; i++) {
+            DisplaySlot slot = inventory[i];
+            DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
+            if (itemInSlot == null) {
+                SpawnNewItem(item, amount, slot);
+                return true;
+            }
         }
+
+        return false;
+    }
+
+    private void SpawnNewItem(ItemObject item, int amount, DisplaySlot slot)
+    {
+        GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
+        DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
+        draggableItem.Setup(item, amount);
     }
 }
 
 [System.Serializable]
-public class InventorySlot
+public class InventoryItem
 {
     public ItemObject item;
     public int amount;
-    public InventorySlot(ItemObject item, int amount)
+    public InventoryItem(ItemObject item, int amount)
     {
         this.item = item;
         this.amount = amount;
     }
 
-    public void AddItem(int amount)
+    public void AddToAmount(int amount)
     {
         this.amount += amount;
     }

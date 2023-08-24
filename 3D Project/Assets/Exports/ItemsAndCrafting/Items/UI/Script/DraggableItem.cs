@@ -3,16 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public Transform canvasParent;
+    [Header("UI References")]
+    public Image image;
+    public TextMeshProUGUI text;
+
+    // Util Vars
     [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public InventoryItem slot;
+
+    public void Setup(ItemObject item, int amount)
+    {
+        slot = new InventoryItem(item, amount);
+        image.sprite = item.sprite;
+        UpdateTextAmount();
+    }
+
+    public void AddToExistingItem(int amount)
+    {
+        if (slot == null)
+            return;
+
+        slot.AddToAmount(amount);
+        UpdateTextAmount();
+    }
+
+    public void UpdateTextAmount()
+    {
+        text.text = slot.amount.ToString();
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         parentAfterDrag = transform.parent;
-        transform.SetParent(canvasParent);
+        transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         GetComponent<Image>().raycastTarget = false;
     }

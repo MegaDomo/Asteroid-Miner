@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: IronPlate
   m_EditorClassIdentifier: 
   prefab: {fileID: 8164520788573783355, guid: c96c36cb3a7662e41ac0315e97e8faf5, type: 3}
-  UIElement: {fileID: 4688297935650204811, guid: a635286b7c0913a4590cb22f84ea58fa, type: 3}
+  sprite: {fileID: 21300000, guid: f8d1e5ccb26c20b4aa4c6335edaf9eb0, type: 3}
   type: 0
+  maxStackSize: 30
   description: 

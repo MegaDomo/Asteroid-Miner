@@ -7,18 +7,35 @@ public class DisplayInventory : MonoBehaviour
 {
     public InventoryObject inventory;
 
-    private List<GameObject> displaySlots;
-/*
+    private List<DisplaySlot> displaySlots;
+
     private void Awake()
     {
         inventory.itemPickedUp += UpdateDisplayItem;
     }
 
-    void Start()
+    private void Start()
     {
         StartDisplay();
     }
 
+    private void StartDisplay()
+    {
+        // Initializes the Slots
+        for (int i = 0; i < transform.childCount; i++)
+            displaySlots.Add(transform.GetChild(i).GetComponent<DisplaySlot>());
+
+        // TODO : Load any Save Datat
+    }
+
+    public void UpdateDisplayItem(InventoryItem slot)
+    {
+        // When an Item is Picked up
+
+        // TODO : When an Item is moved/moved from a chest into this inventory
+    }
+
+/*
     private void StartDisplay()
     {
         // Initializes the Slots

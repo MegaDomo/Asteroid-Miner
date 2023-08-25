@@ -11,11 +11,11 @@ public class InventoryObject : ScriptableObject
 
     public Action<InventoryItem> itemPickedUp;
 
-    public void Setup(Transform parent)
+    public void Setup(List<Transform> slots)
     {
         // Gets all DisplaySlots from UI
-        for (int i = 0; i < parent.childCount; i++)
-            inventory.Add(parent.GetChild(i).GetComponent<DisplaySlot>());
+        for (int i = 0; i < slots.Count; i++)
+            inventory.Add(slots[i].GetComponent<DisplaySlot>());
     }
 
     public bool AddItem(ItemObject item, int amount)

@@ -8,7 +8,7 @@ public class PlayerInventoryManager : MonoBehaviour
     public InventoryObject inventory;
 
     [Header("UI References")]
-    public Transform parentOfInventorySlots;
+    public List<Transform> allDisplaySlots;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -22,7 +22,7 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private void Start()
     {
-        inventory.Setup(parentOfInventorySlots);
+        inventory.Setup(allDisplaySlots);
     }
 
     private void OnApplicationQuit()

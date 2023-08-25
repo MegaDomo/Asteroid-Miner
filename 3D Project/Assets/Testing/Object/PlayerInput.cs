@@ -62,6 +62,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""306fc6e0-9246-4295-81c8-57ce1f5f7cc4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToolToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04cd0908-67a3-4e13-85e3-6710abfdb4b1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -432,6 +452,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToolHoldAction = m_Player.FindAction("ToolHoldAction", throwIfNotFound: true);
         m_Player_ToolToggle = m_Player.FindAction("ToolToggle", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         // Ship
         m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
         m_Ship_MoveAction = m_Ship.FindAction("MoveAction", throwIfNotFound: true);
@@ -505,6 +526,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToolHoldAction;
     private readonly InputAction m_Player_ToolToggle;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -513,6 +535,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ToolHoldAction => m_Wrapper.m_Player_ToolHoldAction;
         public InputAction @ToolToggle => m_Wrapper.m_Player_ToolToggle;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -534,6 +557,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ToolToggle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
                 @ToolToggle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
                 @ToolToggle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToolToggle;
+                @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -550,6 +576,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ToolToggle.started += instance.OnToolToggle;
                 @ToolToggle.performed += instance.OnToolToggle;
                 @ToolToggle.canceled += instance.OnToolToggle;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -658,6 +687,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnToolHoldAction(InputAction.CallbackContext context);
         void OnToolToggle(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IShipActions
     {

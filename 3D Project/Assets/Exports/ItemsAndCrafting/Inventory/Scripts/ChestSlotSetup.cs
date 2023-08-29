@@ -11,6 +11,6 @@ public class ChestSlotSetup : MonoBehaviour
         for (int i = 0; i < parentOfChestInventorySlots.childCount; i++)
             allDisplaySlots.Add(parentOfChestInventorySlots.GetChild(i));
 
-        inventory.Initialize(allDisplaySlots);
+        inventory.Initialize(allDisplaySlots, "ChestInventory");
     }
 }

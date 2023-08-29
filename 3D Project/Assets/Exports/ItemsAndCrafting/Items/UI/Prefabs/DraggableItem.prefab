@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4254643328083353389}
   - component: {fileID: 4254643328083353388}
   - component: {fileID: 4254643328083353379}
+  - component: {fileID: 9065907816000966762}
   m_Layer: 0
   m_Name: DraggableItem
   m_TagString: Untagged
@@ -228,6 +229,19 @@ MonoBehaviour:
   image: {fileID: 4254643328083353388}
   text: {fileID: 7007990298075507113}
   parentAfterDrag: {fileID: 0}
-  slot:
+  invItem:
     item: {fileID: 0}
     amount: 0
+--- !u!114 &9065907816000966762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4254643328083353377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04743ffc6a29ddf42b26a1cf77eb2cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}

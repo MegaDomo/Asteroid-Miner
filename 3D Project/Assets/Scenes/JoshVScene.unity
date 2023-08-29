@@ -1579,7 +1579,7 @@ GameObject:
   - component: {fileID: 117720719}
   m_Layer: 0
   m_Name: ParentOfChestInventorySlots
-  m_TagString: Untagged
+  m_TagString: ChestInventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1718,6 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8c862824e812a42bd8a96b597bc7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}
   canvasGroup: {fileID: 117720715}
 --- !u!1 &121026794
 GameObject:
@@ -2157,7 +2158,7 @@ GameObject:
   - component: {fileID: 189342862}
   m_Layer: 0
   m_Name: ParentOfPlayerInventorySlots
-  m_TagString: Untagged
+  m_TagString: PlayerInventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2296,6 +2297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8c862824e812a42bd8a96b597bc7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}
   canvasGroup: {fileID: 189342861}
 --- !u!1001 &216149266
 PrefabInstance:
@@ -18941,6 +18943,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 6bcab486e8f381d419ae3f00a6154d12, type: 2}
+  inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}
+  parentOfPlayerInventory: {fileID: 189342856}
+  parentOfChestInventory: {fileID: 117720714}
   inventoryToggle: {fileID: 189342862}
   allDisplaySlots:
   - {fileID: 1729509704}

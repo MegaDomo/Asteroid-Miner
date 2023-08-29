@@ -7,6 +7,11 @@ public class PlayerInventoryManager : MonoBehaviour
 {
     [Header("Scriptable Object References")]
     public InventoryObject inventory;
+    public InventoryManager inventoryManager;
+
+    [Header("UI Parents of Inventory")]
+    public Transform parentOfPlayerInventory;
+    public Transform parentOfChestInventory;
 
     [Header("UI References")]
     public InventoryToggle inventoryToggle;
@@ -27,7 +32,8 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private void Start()
     {
-        inventory.Initialize(allDisplaySlots);
+        inventory.Initialize(allDisplaySlots, "PlayerInventory");
+        inventoryManager.Intialize(parentOfPlayerInventory, parentOfChestInventory);
     }
 
     private void Awake()

@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 
 public class InventoryToggle : MonoBehaviour
 {
+    [Header("Manager")]
+    public InventoryManager inventoryManager;
+
     [Header("Inventory to Toggle")]
     public CanvasGroup canvasGroup;
 
@@ -35,14 +38,20 @@ public class InventoryToggle : MonoBehaviour
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1f;
+
             inventoryObject.LoadContent();
+            currentInventory = inventoryObject;
+            inventoryManager.SetChestInventory(currentInventory);
         }
         // Hide
         else {
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = 0f;
+
             inventoryObject.SaveContent(); // TODO : Better System
+            currentInventory = null;
+            inventoryManager.SetChestInventory(currentInventory);
         }
     }
 }

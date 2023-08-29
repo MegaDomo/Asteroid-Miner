@@ -46,5 +46,6 @@ public class Chest : MonoBehaviour
         // TODO : Save
         inventory.inventory.Clear();
         Array.Clear(inventory.items, 0, inventory.items.Length);
+        inventory.items = null;
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Vehicle
   - Asteroid
+  - PlayerInventory
+  - ChestInventory
   layers:
   - Default
   - TransparentFX

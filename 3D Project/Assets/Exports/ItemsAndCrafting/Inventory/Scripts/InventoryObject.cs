@@ -14,11 +14,15 @@ public class InventoryObject : ScriptableObject
 
     [HideInInspector] public InventoryItem[] items;
 
-    public void Initialize(List<Transform> slots)
+    public void Initialize(List<Transform> slots, string tag)
     {
         // Gets all DisplaySlots from UI
         for (int i = 0; i < slots.Count; i++)
+        {
             inventory.Add(slots[i].GetComponent<DisplaySlot>());
+            slots[i].tag = tag;
+        }
+            
         items = new InventoryItem[slots.Count];
     }
 
@@ -60,6 +64,11 @@ public class InventoryObject : ScriptableObject
     }
     #endregion
 
+    public void RemoveItem(DraggableItem item)
+    {
+        Destroy(item.gameObject);
+    }
+
     #region Load Content
     public void LoadContent()
     {
@@ -73,6 +82,7 @@ public class InventoryObject : ScriptableObject
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
             if (items[index] != null) {
+                Debug.Log(index);
                 GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
                 DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
                 draggableItem.Setup(items[index].item, items[index].amount);
@@ -87,7 +97,11 @@ public class InventoryObject : ScriptableObject
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
             if (slot.transform.childCount != 0)
+            {
+                if (slot.draggableItem == null) Debug.Log("Dragg");
+                if (slot.draggableItem.invItem == null) Debug.Log(".invItem");
                 items[index] = slot.draggableItem.invItem;
+            }
             else
                 items[index] = null;
             index++;

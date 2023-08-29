@@ -13,27 +13,27 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     // Util Vars
     [HideInInspector] public Transform parentAfterDrag;
-    [HideInInspector] public InventoryItem slot;
+    [HideInInspector] public InventoryItem invItem;
 
     public void Setup(ItemObject item, int amount)
     {
-        slot = new InventoryItem(item, amount);
+        invItem = new InventoryItem(item, amount);
         image.sprite = item.sprite;
         UpdateTextAmount();
     }
 
     public void AddToExistingItem(int amount)
     {
-        if (slot == null)
+        if (invItem == null)
             return;
 
-        slot.AddToAmount(amount);
+        invItem.AddToAmount(amount);
         UpdateTextAmount();
     }
 
     public void UpdateTextAmount()
     {
-        text.text = slot.amount.ToString();
+        text.text = invItem.amount.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

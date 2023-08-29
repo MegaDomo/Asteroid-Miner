@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,7 +27,7 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private void Start()
     {
-        inventory.Setup(allDisplaySlots);
+        inventory.Initialize(allDisplaySlots);
     }
 
     private void Awake()
@@ -46,5 +46,6 @@ public class PlayerInventoryManager : MonoBehaviour
     {
         // TODO : Save
         inventory.inventory.Clear();
+        Array.Clear(inventory.items, 0, inventory.items.Length);
     }
 }

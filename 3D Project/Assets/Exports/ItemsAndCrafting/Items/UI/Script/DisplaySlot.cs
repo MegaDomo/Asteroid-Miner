@@ -16,4 +16,12 @@ public class DisplaySlot : MonoBehaviour, IDropHandler
             draggableItem.parentAfterDrag = transform;
         }
     }
+
+    public void Clear()
+    {
+        if (!draggableItem)
+            return;
+        Destroy(draggableItem.gameObject);
+        draggableItem = null;
+    }
 }

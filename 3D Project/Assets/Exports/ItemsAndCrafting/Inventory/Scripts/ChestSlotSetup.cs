@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class ChestSlotSetup : MonoBehaviour
 {
-    [Header("Contents")]
-    public InventoryObject inventory;
+    List<Transform> allDisplaySlots = new List<Transform>();
 
-    [Header("UI Reference")]
-    public Transform parentOfChestInventorySlots;
-
-    List<Transform> allDisplaySlots;
-
-    private void Start()
+    public void Setup(Transform parentOfChestInventorySlots, InventoryObject inventory)
     {
         for (int i = 0; i < parentOfChestInventorySlots.childCount; i++)
             allDisplaySlots.Add(parentOfChestInventorySlots.GetChild(i));
 
-        inventory.Setup(allDisplaySlots);
+        inventory.Initialize(allDisplaySlots);
     }
 }

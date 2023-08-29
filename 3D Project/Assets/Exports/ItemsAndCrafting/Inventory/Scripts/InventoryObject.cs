@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewInventorySystem", menuName = "Managers/Inventory")]
 public class InventoryObject : ScriptableObject
 {
+    [Header("Default Contents")]
+    public List<InventoryItem> itemsToSpawnWith;
+
     [Header("Unity References")]
     public GameObject draggableItemPrefab;
     public List<DisplaySlot> inventory = new List<DisplaySlot>();
@@ -18,8 +21,6 @@ public class InventoryObject : ScriptableObject
             inventory.Add(slots[i].GetComponent<DisplaySlot>());
         items = new InventoryItem[slots.Count];
     }
-
-
 
     #region Picking up an Item from World Space
     public bool AddItem(ItemObject item, int amount)

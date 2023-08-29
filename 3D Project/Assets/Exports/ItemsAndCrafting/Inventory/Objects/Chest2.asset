@@ -12,5 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8cfaef4299ff744895c9eeccbdae12, type: 3}
   m_Name: Chest2
   m_EditorClassIdentifier: 
-  draggableItemPrefab: {fileID: 0}
+  itemsToSpawnWith: []
+  draggableItemPrefab: {fileID: 4254643328083353377, guid: b9c294b1f47431f419aa6e0d2a8c43a1, type: 3}
   inventory: []
+  items:
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0
+  - item: {fileID: 0}
+    amount: 0

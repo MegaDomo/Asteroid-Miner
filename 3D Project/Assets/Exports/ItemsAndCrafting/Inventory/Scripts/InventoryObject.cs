@@ -13,6 +13,7 @@ public class InventoryObject : ScriptableObject
 
     public void Setup(List<Transform> slots)
     {
+        // TODO : Loading might be here
         // Gets all DisplaySlots from UI
         for (int i = 0; i < slots.Count; i++)
             inventory.Add(slots[i].GetComponent<DisplaySlot>());

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInventoryManager : MonoBehaviour
 {
@@ -8,7 +9,11 @@ public class PlayerInventoryManager : MonoBehaviour
     public InventoryObject inventory;
 
     [Header("UI References")]
+    public InventoryToggle inventoryToggle;
     public List<Transform> allDisplaySlots;
+
+    PlayerInput playerInput;
+    InputAction inventoryInput;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -23,6 +28,18 @@ public class PlayerInventoryManager : MonoBehaviour
     private void Start()
     {
         inventory.Setup(allDisplaySlots);
+    }
+
+    private void Awake()
+    {
+        playerInput = new PlayerInput();
+    }
+
+    private void OnEnable()
+    {
+        inventoryInput = playerInput.Player.Inventory;
+        inventoryInput.Enable();
+        inventoryInput.performed += inventoryToggle.ToggleInventory;
     }
 
     private void OnApplicationQuit()

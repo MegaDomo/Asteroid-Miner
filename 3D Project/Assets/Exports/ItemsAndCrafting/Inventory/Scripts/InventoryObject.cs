@@ -33,8 +33,10 @@ public class InventoryObject : ScriptableObject
         for (int i = 0; i < inventory.Count; i++) {
             DisplaySlot slot = inventory[i];
             DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
-            if (itemInSlot != null && itemInSlot.invItem.item == item) {
-                itemInSlot.AddToExistingItem(amount);
+            if (itemInSlot != null && itemInSlot.invItem.item == item && item.maxStackSize >= itemInSlot.invItem.amount + amount) {
+                int overflow = itemInSlot.AddToExistingItem(amount);
+                if (overflow > 0)
+                    AddItem(itemInSlot.invItem.item, overflow);
                 items[i] = itemInSlot.invItem;
                 return true;
             }
@@ -72,6 +74,7 @@ public class InventoryObject : ScriptableObject
     #region Load Content
     public void LoadContent()
     {
+        // Clears Display Slots
         foreach (DisplaySlot slot in inventory) {
             Transform transform = slot.transform;
             if (transform.childCount != 0)
@@ -115,10 +118,12 @@ public class InventoryItem
 {
     public ItemObject item;
     public int amount;
+    public int maxStack;
     public InventoryItem(ItemObject item, int amount)
     {
         this.item = item;
         this.amount = amount;
+        maxStack = item.maxStackSize;
     }
 
     public void AddToAmount(int amount)

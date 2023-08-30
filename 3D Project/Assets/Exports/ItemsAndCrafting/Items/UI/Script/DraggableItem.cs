@@ -22,13 +22,24 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         UpdateTextAmount();
     }
 
-    public void AddToExistingItem(int amount)
+    // Returns any Overflow
+    public int AddToExistingItem(int amount)
     {
         if (invItem == null)
-            return;
+            return 0;
+
+        
+        if (invItem.amount + amount > invItem.maxStack)
+        {
+            int overflow = invItem.maxStack - (invItem.amount + amount);
+            invItem.AddToAmount(overflow);
+            UpdateTextAmount();
+            return overflow;
+        }
 
         invItem.AddToAmount(amount);
         UpdateTextAmount();
+        return 0;
     }
 
     public void UpdateTextAmount()

@@ -71,6 +71,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TransferItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""83c4fc13-69df-4766-affa-0ee0105ac1d8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,6 +203,39 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""ShiftClick"",
+                    ""id"": ""8352fb90-ee1a-49e2-8a2e-aab51c548627"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TransferItem"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e41e72bf-dce3-45d0-b530-ad3f8ab96062"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TransferItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""fc5d87c0-048c-447b-804f-3897703af2cf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TransferItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -453,6 +495,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_ToolHoldAction = m_Player.FindAction("ToolHoldAction", throwIfNotFound: true);
         m_Player_ToolToggle = m_Player.FindAction("ToolToggle", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_TransferItem = m_Player.FindAction("TransferItem", throwIfNotFound: true);
         // Ship
         m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
         m_Ship_MoveAction = m_Ship.FindAction("MoveAction", throwIfNotFound: true);
@@ -527,6 +570,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ToolHoldAction;
     private readonly InputAction m_Player_ToolToggle;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_TransferItem;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -536,6 +580,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @ToolHoldAction => m_Wrapper.m_Player_ToolHoldAction;
         public InputAction @ToolToggle => m_Wrapper.m_Player_ToolToggle;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @TransferItem => m_Wrapper.m_Player_TransferItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -560,6 +605,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @TransferItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransferItem;
+                @TransferItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransferItem;
+                @TransferItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransferItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -579,6 +627,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @TransferItem.started += instance.OnTransferItem;
+                @TransferItem.performed += instance.OnTransferItem;
+                @TransferItem.canceled += instance.OnTransferItem;
             }
         }
     }
@@ -688,6 +739,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnToolHoldAction(InputAction.CallbackContext context);
         void OnToolToggle(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnTransferItem(InputAction.CallbackContext context);
     }
     public interface IShipActions
     {

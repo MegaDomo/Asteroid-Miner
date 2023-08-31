@@ -226,12 +226,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ae5af231c165f4d8dd201d66c7c336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}
   image: {fileID: 4254643328083353388}
   text: {fileID: 7007990298075507113}
   parentAfterDrag: {fileID: 0}
   invItem:
     item: {fileID: 0}
     amount: 0
+    maxStack: 0
 --- !u!114 &9065907816000966762
 MonoBehaviour:
   m_ObjectHideFlags: 0

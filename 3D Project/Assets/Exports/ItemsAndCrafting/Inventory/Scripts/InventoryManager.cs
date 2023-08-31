@@ -9,14 +9,7 @@ public class InventoryManager : ScriptableObject
     public InventoryObject playerInventory;
     InventoryObject chestInventory;
 
-    Transform parentOfPlayerInventory;
-    Transform parentOfChestInventory;
-
-    public void Intialize(Transform parentOfPlayerInventory, Transform parentOfChestInventory)
-    {
-        this.parentOfPlayerInventory = parentOfPlayerInventory;
-        this.parentOfChestInventory = parentOfChestInventory;
-    }
+    public DraggableItem selectedItem;
 
     public void TransferItemsBetweenInventories(DraggableItem draggableItem)
     {

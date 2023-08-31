@@ -9,7 +9,7 @@ public class InventoryManager : ScriptableObject
     public InventoryObject playerInventory;
     InventoryObject chestInventory;
 
-    public DraggableItem selectedItem;
+    public Transform selectedItem;
 
     public void TransferItemsBetweenInventories(DraggableItem draggableItem)
     {
@@ -17,21 +17,36 @@ public class InventoryManager : ScriptableObject
             return;
 
         InventoryItem item = draggableItem.invItem;
-
+        Debug.Log("Yes");
         if (draggableItem.transform.parent.tag == "PlayerInventory")
         {
+            Debug.Log("Fire");
             playerInventory.RemoveItem(draggableItem);
             chestInventory.AddItem(item.item, item.amount);
             return;
         }
-
-        // If we made it through the loop then it must be in the chest
-        chestInventory.RemoveItem(draggableItem);
-        playerInventory.AddItem(item.item, item.amount);
+        else // Chest Inventory
+        {
+            Debug.Log("Water");
+            chestInventory.RemoveItem(draggableItem);
+            playerInventory.AddItem(item.item, item.amount);
+            return;
+        }
     }
 
     public void SetChestInventory(InventoryObject inventory)
     {
         chestInventory = inventory;
+    }
+
+    public void SetSelectedItem(Transform selectedItem)
+    {
+        this.selectedItem = selectedItem;
+    }
+
+    private void OnDisable()
+    {
+        selectedItem = null;
+        chestInventory = null;
     }
 }

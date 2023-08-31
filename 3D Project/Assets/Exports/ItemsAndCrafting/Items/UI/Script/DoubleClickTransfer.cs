@@ -12,6 +12,7 @@ public class DoubleClickTransfer : MonoBehaviour//, IPointerClickHandler
 
     private void ShiftClickTrigger(InputAction.CallbackContext context)
     {
+        return;
         DraggableItem item = GetComponent<DraggableItem>();
         inventoryManager.TransferItemsBetweenInventories(item);
     }

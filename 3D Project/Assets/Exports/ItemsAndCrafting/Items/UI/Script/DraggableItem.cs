@@ -52,6 +52,48 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
         text.text = invItem.amount.ToString();
     }
 
+    private void Update()
+    {
+        if (selectedItem)
+            transform.position = Input.mousePosition;
+    }
+
+    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+    {
+        if (!selectedItem) {
+            // Pick up All of Item
+            if (eventData.button == PointerEventData.InputButton.Left) {
+                // Update Method will handle the Transforming
+                selectedItem = true;
+                inventoryManager.SetSelectedItem(transform);
+                
+                parentAfterDrag = transform.parent;
+                transform.SetParent(transform.root);
+                transform.SetAsLastSibling();
+                GetComponent<Image>().raycastTarget = false;
+            }
+            // Pick up Half of Item
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                // Will need to create new Draggable
+            }
+        }
+    }
+
+    public void PlaceItem()
+    {
+        // Place all of Item
+        selectedItem = false;
+        inventoryManager.SetSelectedItem(null);
+
+        transform.SetParent(parentAfterDrag);
+        GetComponent<Image>().raycastTarget = true;
+    }
+
+
+
+
+
+/*
     public void OnBeginDrag(PointerEventData eventData)
     {
         parentAfterDrag = transform.parent;
@@ -70,42 +112,6 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
         transform.SetParent(parentAfterDrag);
         GetComponent<Image>().raycastTarget = true;
     }
+*/
 
-    private void Update()
-    {
-        if (selectedItem)
-            transform.position = Input.mousePosition;
-    }
-
-    void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-    {
-        if (!selectedItem) {
-            // Pick up All of Item
-            if (eventData.button == PointerEventData.InputButton.Left) {
-                // Update Method will handle the Transforming
-                selectedItem = true;
-                inventoryManager.selectedItem = this;
-                
-                parentAfterDrag = transform.parent;
-                transform.SetParent(transform.root);
-                transform.SetAsLastSibling();
-                GetComponent<Image>().raycastTarget = false;
-            }
-            // Pick up Half of Item
-            if (eventData.button == PointerEventData.InputButton.Right) {
-                // Will need to create new Draggable
-            }
-        }
-    }
-
-    public void PlaceItem()
-    {
-        // Place all of Item
-        selectedItem = false;
-        inventoryManager.selectedItem = null;
-
-        transform.SetParent(parentAfterDrag);
-        Debug.Log(parentAfterDrag);
-        GetComponent<Image>().raycastTarget = true;
-    }
 }

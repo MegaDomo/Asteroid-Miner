@@ -85,7 +85,6 @@ public class InventoryObject : ScriptableObject
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
             if (items[index] != null) {
-                Debug.Log(index);
                 GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
                 DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
                 draggableItem.Setup(items[index].item, items[index].amount);
@@ -100,17 +99,21 @@ public class InventoryObject : ScriptableObject
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
             if (slot.transform.childCount != 0)
-            {
-                if (slot.draggableItem == null) Debug.Log("Dragg");
-                if (slot.draggableItem.invItem == null) Debug.Log(".invItem");
                 items[index] = slot.draggableItem.invItem;
-            }
             else
                 items[index] = null;
             index++;
         }
     }
     #endregion
+
+    private void OnDisable()
+    {
+        // TODO : Save
+        inventory.Clear();
+        Array.Clear(items, 0, items.Length);
+        items = null;
+    }
 }
 
 [System.Serializable]

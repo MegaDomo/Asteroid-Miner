@@ -16,14 +16,16 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
 
     // Util Vars
     [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public DisplaySlot displaySlot;
     [HideInInspector] public InventoryItem invItem;
 
     bool selectedItem = false;
 
-    public void Setup(ItemObject item, int amount)
+    public void Setup(ItemObject item, int amount, DisplaySlot startingSlot)
     {
         invItem = new InventoryItem(item, amount);
         image.sprite = item.sprite;
+        displaySlot = startingSlot;
         UpdateTextAmount();
     }
 
@@ -66,6 +68,7 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
                 // Update Method will handle the Transforming
                 selectedItem = true;
                 inventoryManager.SetSelectedItem(transform);
+                displaySlot.draggableItem = null;
                 
                 parentAfterDrag = transform.parent;
                 transform.SetParent(transform.root);
@@ -79,11 +82,12 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
         }
     }
 
-    public void PlaceItem()
+    public void PlaceItem(DisplaySlot displaySlot)
     {
         // Place all of Item
         selectedItem = false;
         inventoryManager.SetSelectedItem(null);
+        this.displaySlot = displaySlot;
 
         transform.SetParent(parentAfterDrag);
         GetComponent<Image>().raycastTarget = true;

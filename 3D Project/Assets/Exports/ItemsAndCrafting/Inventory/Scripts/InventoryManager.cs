@@ -17,17 +17,15 @@ public class InventoryManager : ScriptableObject
             return;
 
         InventoryItem item = draggableItem.invItem;
-        Debug.Log("Yes");
+        
         if (draggableItem.transform.parent.tag == "PlayerInventory")
         {
-            Debug.Log("Fire");
             playerInventory.RemoveItem(draggableItem);
             chestInventory.AddItem(item.item, item.amount);
             return;
         }
         else // Chest Inventory
         {
-            Debug.Log("Water");
             chestInventory.RemoveItem(draggableItem);
             playerInventory.AddItem(item.item, item.amount);
             return;

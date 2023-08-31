@@ -16,9 +16,8 @@ public class DisplaySlot : MonoBehaviour, IPointerDownHandler
             {
                 draggableItem = item.GetComponent<DraggableItem>();
                 draggableItem.parentAfterDrag = transform;
-                draggableItem.PlaceItem();
+                draggableItem.PlaceItem(this);
             }
-                
         }
     }
 

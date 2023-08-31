@@ -61,7 +61,8 @@ public class InventoryObject : ScriptableObject
     {
         GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
         DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
-        draggableItem.Setup(item, amount);
+        draggableItem.Setup(item, amount, slot);
+        slot.draggableItem = draggableItem;
 
         // Recording
         items[index] = draggableItem.invItem;
@@ -70,6 +71,7 @@ public class InventoryObject : ScriptableObject
 
     public void RemoveItem(DraggableItem item)
     {
+        item.displaySlot.draggableItem = null;
         Destroy(item.gameObject);
     }
 
@@ -83,19 +85,13 @@ public class InventoryObject : ScriptableObject
                 Destroy(transform.GetChild(0).gameObject);
         }
 
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i] == null) Debug.Log("Null");
-            if (items[i] != null) Debug.Log(items[i]);
-        }
-
         // Fills DisplaySlots with stored Items from this inventory
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
             if (items[index] != null) {
                 GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
                 DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
-                draggableItem.Setup(items[index].item, items[index].amount);
+                draggableItem.Setup(items[index].item, items[index].amount, slot);
                 slot.draggableItem = draggableItem;
             }
             index++;
@@ -106,8 +102,12 @@ public class InventoryObject : ScriptableObject
     {
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
-            if (slot.transform.childCount != 0)
+            if (slot.draggableItem)
+            {
+                if (slot.draggableItem == null) Debug.Log("Drag");
+                if (slot.draggableItem.invItem == null) Debug.Log(".invItem");
                 items[index] = slot.draggableItem.invItem;
+            }
             else
                 items[index] = null;
             index++;

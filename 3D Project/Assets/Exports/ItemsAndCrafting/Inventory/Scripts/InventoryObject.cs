@@ -12,18 +12,20 @@ public class InventoryObject : ScriptableObject
     public GameObject draggableItemPrefab;
     public List<DisplaySlot> inventory = new List<DisplaySlot>();
 
-    [HideInInspector] public InventoryItem[] items;
+    [HideInInspector] public List<InventoryItem> items;
 
     public void Initialize(List<Transform> slots, string tag)
     {
         // Gets all DisplaySlots from UI
-        for (int i = 0; i < slots.Count; i++)
-        {
+        for (int i = 0; i < slots.Count; i++) {
             inventory.Add(slots[i].GetComponent<DisplaySlot>());
             slots[i].tag = tag;
         }
-            
-        items = new InventoryItem[slots.Count];
+
+        items = new List<InventoryItem>(slots.Count);
+
+        for (int i = 0; i < items.Capacity; i++)
+            items.Add(null);
     }
 
     #region Picking up an Item from World Space
@@ -81,6 +83,12 @@ public class InventoryObject : ScriptableObject
                 Destroy(transform.GetChild(0).gameObject);
         }
 
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null) Debug.Log("Null");
+            if (items[i] != null) Debug.Log(items[i]);
+        }
+
         // Fills DisplaySlots with stored Items from this inventory
         int index = 0;
         foreach (DisplaySlot slot in inventory) {
@@ -110,9 +118,8 @@ public class InventoryObject : ScriptableObject
     private void OnDisable()
     {
         // TODO : Save
-        inventory.Clear();
-        Array.Clear(items, 0, items.Length);
-        items = null;
+        inventory?.Clear();
+        items?.Clear();
     }
 }
 

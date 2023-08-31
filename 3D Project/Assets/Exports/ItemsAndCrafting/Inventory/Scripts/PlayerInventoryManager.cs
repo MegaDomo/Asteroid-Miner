@@ -43,10 +43,8 @@ public class PlayerInventoryManager : MonoBehaviour
         inventoryInput.performed += inventoryToggle.ToggleInventory;
     }
 
-    private void OnApplicationQuit()
+    private void OnDisable()
     {
-        // TODO : Save
-        inventory.inventory.Clear();
-        Array.Clear(inventory.items, 0, inventory.items.Length);
+        inventoryInput.Disable();
     }
 }

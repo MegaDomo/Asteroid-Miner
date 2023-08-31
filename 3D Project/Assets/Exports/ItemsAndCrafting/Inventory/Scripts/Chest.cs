@@ -40,12 +40,4 @@ public class Chest : MonoBehaviour
     {
         interaction.interactAction -= InteractToToggle;
     }
-
-    private void OnApplicationQuit()
-    {
-        // TODO : Save
-        inventory.inventory.Clear();
-        Array.Clear(inventory.items, 0, inventory.items.Length);
-        inventory.items = null;
-    }
 }

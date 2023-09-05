@@ -32,9 +32,25 @@ public class InventoryManager : ScriptableObject
         }
     }
 
+    public void DestroySelectedItem()
+    {
+        Destroy(selectedItem.gameObject);
+        selectedItem = null;
+    }
+
     public void SetChestInventory(InventoryObject inventory)
     {
         chestInventory = inventory;
+    }
+
+    public Transform GetSelectedItem()
+    {
+        return selectedItem;
+    }
+
+    public DraggableItem GetSelectedDraggableItem()
+    {
+        return selectedItem.GetComponent<DraggableItem>();
     }
 
     public void SetSelectedItem(Transform selectedItem)

@@ -35,10 +35,9 @@ public class InventoryObject : ScriptableObject
         for (int i = 0; i < inventory.Count; i++) {
             DisplaySlot slot = inventory[i];
             DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
-            //if (itemInSlot != null && itemInSlot.invItem.item == item) Debug.Log(item.maxStackSize + ", " + itemInSlot.invItem.amount + ", " + amount);
+            
             if (itemInSlot != null && itemInSlot.invItem.item == item && item.maxStackSize != itemInSlot.invItem.amount) {
                 int overflow = itemInSlot.AddToExistingItem(amount);
-                Debug.Log(overflow);
                 if (overflow > 0)
                     AddItem(itemInSlot.invItem.item, overflow);
                 items[i] = itemInSlot.invItem;

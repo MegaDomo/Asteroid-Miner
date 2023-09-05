@@ -37,15 +37,22 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
             return 0;
         }
 
-        Debug.Log(invItem.maxStack + ", " + (invItem.amount + amount));
+        // Overflow
         if (invItem.amount + amount > invItem.maxStack) {
-            
             int overflow = (invItem.amount + amount) - invItem.maxStack;
             int amountToAdd = invItem.maxStack - invItem.amount;
             invItem.AddToAmount(amountToAdd);
             UpdateTextAmount();
             return overflow;
         }
+
+        // Adding all of this item, needs to be Destroyed
+        if (invItem.amount + amount <= 0) {
+            displaySlot.draggableItem = null;
+            Destroy(gameObject);
+            return 0;
+        }
+
 
         invItem.AddToAmount(amount);
         UpdateTextAmount();
@@ -65,7 +72,8 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        if (!selectedItem) {
+        // Picking up an Item
+        if (inventoryManager.selectedItem == null) {
             // Pick up All of Item
             if (eventData.button == PointerEventData.InputButton.Left) {
                 // Update Method will handle the Transforming
@@ -83,8 +91,27 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
                 // Will need to create new Draggable
             }
         }
+        // This item Placing an Item on Another Item
+        else {
+            // 2 Cases. - all of selected item is stored. 
+            //          - some of selected item is stored and other part of item is still selected
+            DraggableItem heldItem = inventoryManager.GetSelectedDraggableItem();
+            // Add all of selected item into stored item
+            if (invItem.amount + heldItem.invItem.amount <= invItem.maxStack) {
+                AddToExistingItem(heldItem.invItem.amount);
+                inventoryManager.DestroySelectedItem();
+            }
+            // Add as much as possible with overflow still selected
+            else {
+                int overflow = invItem.amount + heldItem.invItem.amount - invItem.maxStack;
+                int fill = invItem.maxStack - invItem.amount;
+                AddToExistingItem(fill);
+                heldItem.AddToExistingItem(overflow - heldItem.invItem.amount);
+            }
+        }
     }
 
+    // Placing an Item on an empty Slot
     public void PlaceItem(DisplaySlot displaySlot)
     {
         // Place all of Item
@@ -95,30 +122,4 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
         transform.SetParent(parentAfterDrag);
         GetComponent<Image>().raycastTarget = true;
     }
-
-
-
-
-
-/*
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
-        transform.SetAsLastSibling();
-        GetComponent<Image>().raycastTarget = false;
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        transform.position = Input.mousePosition;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        transform.SetParent(parentAfterDrag);
-        GetComponent<Image>().raycastTarget = true;
-    }
-*/
-
 }

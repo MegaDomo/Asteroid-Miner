@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: InventoryManager
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 11400000, guid: 6bcab486e8f381d419ae3f00a6154d12, type: 2}
+  selectedItem: {fileID: 0}

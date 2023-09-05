@@ -50,6 +50,8 @@ public class InventoryManager : ScriptableObject
 
     public DraggableItem GetSelectedDraggableItem()
     {
+        if (!selectedItem)
+            return null;
         return selectedItem.GetComponent<DraggableItem>();
     }
 

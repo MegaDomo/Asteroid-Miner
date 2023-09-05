@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IPointerDownHandler
 {
     [Header("Scriptable Object References")]
     public InventoryManager inventoryManager;
@@ -74,9 +74,9 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
     {
         // Picking up an Item
         if (inventoryManager.selectedItem == null) {
-            // Pick up All of Item
+
+            // Left Click - Pick up All of Item
             if (eventData.button == PointerEventData.InputButton.Left) {
-                // Update Method will handle the Transforming
                 selectedItem = true;
                 inventoryManager.SetSelectedItem(transform);
                 displaySlot.draggableItem = null;
@@ -86,27 +86,48 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
                 transform.SetAsLastSibling();
                 GetComponent<Image>().raycastTarget = false;
             }
-            // Pick up Half of Item
+            // Right Click - Pick up Half of Item
             if (eventData.button == PointerEventData.InputButton.Right) {
                 // Will need to create new Draggable
             }
+
         }
-        // This item Placing an Item on Another Item
+
+        // Holding an Item
         else {
-            // 2 Cases. - all of selected item is stored. 
-            //          - some of selected item is stored and other part of item is still selected
             DraggableItem heldItem = inventoryManager.GetSelectedDraggableItem();
-            // Add all of selected item into stored item
-            if (invItem.amount + heldItem.invItem.amount <= invItem.maxStack) {
-                AddToExistingItem(heldItem.invItem.amount);
-                inventoryManager.DestroySelectedItem();
+            if (heldItem) Debug.Log("Good Here");
+            // Left Click - Add to Existing Item
+            if (eventData.button == PointerEventData.InputButton.Left) {
+
+                // Add All of Held Item
+                if (invItem.amount + heldItem.invItem.amount <= invItem.maxStack) {
+                    AddToExistingItem(heldItem.invItem.amount);
+                    inventoryManager.DestroySelectedItem();
+                }
+                // Add as much as possible with overflow still selected
+                else {
+                    int overflow = invItem.amount + heldItem.invItem.amount - invItem.maxStack;
+                    int fill = invItem.maxStack - invItem.amount;
+                    AddToExistingItem(fill);
+                    heldItem.AddToExistingItem(overflow - heldItem.invItem.amount);
+                }
+
             }
-            // Add as much as possible with overflow still selected
-            else {
-                int overflow = invItem.amount + heldItem.invItem.amount - invItem.maxStack;
-                int fill = invItem.maxStack - invItem.amount;
-                AddToExistingItem(fill);
-                heldItem.AddToExistingItem(overflow - heldItem.invItem.amount);
+            // Right Click - Add 1 to Existing Item
+            if (eventData.button == PointerEventData.InputButton.Right) {
+
+                // 1 Item was Held and is stored
+                if (heldItem.invItem.amount == 1 && invItem.amount != invItem.maxStack) {
+                    AddToExistingItem(1);
+                    inventoryManager.DestroySelectedItem();
+                }
+                // Add as much as possible with overflow still selected
+                else if (invItem.amount != invItem.maxStack) {
+                    AddToExistingItem(1);
+                    heldItem.AddToExistingItem(-1);
+                }
+
             }
         }
     }

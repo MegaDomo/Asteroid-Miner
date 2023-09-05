@@ -32,14 +32,17 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler//, IBeginDragHan
     // Returns any Overflow
     public int AddToExistingItem(int amount)
     {
-        if (invItem == null)
+        if (invItem == null) {
+            Debug.Log("Null Item Was Added To: " + gameObject.name);
             return 0;
+        }
 
-        
-        if (invItem.amount + amount > invItem.maxStack)
-        {
-            int overflow = invItem.maxStack - (invItem.amount + amount);
-            invItem.AddToAmount(overflow);
+        Debug.Log(invItem.maxStack + ", " + (invItem.amount + amount));
+        if (invItem.amount + amount > invItem.maxStack) {
+            
+            int overflow = (invItem.amount + amount) - invItem.maxStack;
+            int amountToAdd = invItem.maxStack - invItem.amount;
+            invItem.AddToAmount(amountToAdd);
             UpdateTextAmount();
             return overflow;
         }

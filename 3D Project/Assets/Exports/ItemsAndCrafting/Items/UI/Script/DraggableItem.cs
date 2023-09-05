@@ -10,6 +10,9 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
     [Header("Scriptable Object References")]
     public InventoryManager inventoryManager;
 
+    [Header("Unity References")]
+    public GameObject draggableItemPrefab;
+
     [Header("UI References")]
     public Image image;
     public TextMeshProUGUI text;
@@ -19,13 +22,20 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
     [HideInInspector] public DisplaySlot displaySlot;
     [HideInInspector] public InventoryItem invItem;
 
-    bool selectedItem = false;
+    [HideInInspector] public bool selectedItem = false;
 
     public void Setup(ItemObject item, int amount, DisplaySlot startingSlot)
     {
         invItem = new InventoryItem(item, amount);
         image.sprite = item.sprite;
         displaySlot = startingSlot;
+        UpdateTextAmount();
+    }
+
+    public void Setup(ItemObject item, int amount)
+    {
+        invItem = new InventoryItem(item, amount);
+        image.sprite = item.sprite;
         UpdateTextAmount();
     }
 
@@ -88,7 +98,14 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
             }
             // Right Click - Pick up Half of Item
             if (eventData.button == PointerEventData.InputButton.Right) {
-                // Will need to create new Draggable
+                if (invItem.amount == 1)
+                    return;
+                DraggableItem secondItem = Instantiate(draggableItemPrefab, transform.root).GetComponent<DraggableItem>();
+                inventoryManager.SetSelectedItem(secondItem.transform);
+                secondItem.selectedItem = true;
+                int halfCeil = Mathf.CeilToInt(invItem.amount / 2);
+                secondItem.Setup(invItem.item, halfCeil);
+                AddToExistingItem(-halfCeil);
             }
 
         }
@@ -96,7 +113,7 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
         // Holding an Item
         else {
             DraggableItem heldItem = inventoryManager.GetSelectedDraggableItem();
-            if (heldItem) Debug.Log("Good Here");
+            
             // Left Click - Add to Existing Item
             if (eventData.button == PointerEventData.InputButton.Left) {
 

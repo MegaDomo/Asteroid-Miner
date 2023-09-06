@@ -6,6 +6,8 @@ public class JimTheDestroyer : MonoBehaviour
 {
     [Header("Unity References")]
     public GameObject target;
+    public Transform shootPoint;
+    public GameObject pewPrefab;
 
     [Header("Attributes")]
     public float speed;
@@ -13,8 +15,10 @@ public class JimTheDestroyer : MonoBehaviour
     public float attackRange;
     public float countDown;
     public float rotationSpeed;
+    public float attackSpeed;
 
     private float count = 0f;
+    private float ASCount = 0f;
     private Rigidbody rb;
     private Vector3 randVec;
 
@@ -29,8 +33,8 @@ public class JimTheDestroyer : MonoBehaviour
     {
         //Debug.Log(Vector3.Distance(target.transform.position, transform.position));
 
-        if (Vector3.Distance(target.transform.position, transform.position) >= attackRange 
-            && Vector3.Distance(target.transform.position, transform.position) < aggroRange)
+        if (Vector3.Distance(target.transform.position, transform.position) > attackRange 
+            && Vector3.Distance(target.transform.position, transform.position) <= aggroRange)
         {
             Move();
         }
@@ -52,6 +56,13 @@ public class JimTheDestroyer : MonoBehaviour
 
             Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+            if (ASCount <= 0f)
+            {
+                Shoot();
+                ASCount = attackSpeed;
+            }
+            ASCount -= Time.deltaTime;
         }
     }
 
@@ -80,6 +91,15 @@ public class JimTheDestroyer : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 
         //transform.forward = dir;
+    }
+
+    private void Shoot()
+    {
+        Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z)
+            - transform.position;
+
+        GameObject clone = Instantiate(pewPrefab, shootPoint.position, transform.rotation);
+        clone.GetComponent<Pew>().Seek(dir);
     }
 
     private Vector3 GetRandomVec2d()

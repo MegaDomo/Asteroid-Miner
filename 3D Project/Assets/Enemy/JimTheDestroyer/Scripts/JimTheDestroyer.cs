@@ -12,10 +12,12 @@ public class JimTheDestroyer : MonoBehaviour
     public float aggroRange;
     public float attackRange;
     public float countDown;
+    public float rotationSpeed;
 
     private float count = 0f;
     private Rigidbody rb;
-    
+    private Vector3 randVec;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,21 +29,29 @@ public class JimTheDestroyer : MonoBehaviour
     {
         //Debug.Log(Vector3.Distance(target.transform.position, transform.position));
 
-        if (Vector3.Distance(target.transform.position, transform.position) > attackRange 
+        if (Vector3.Distance(target.transform.position, transform.position) >= attackRange 
             && Vector3.Distance(target.transform.position, transform.position) < aggroRange)
         {
             Move();
         }
-        else
+        else if (Vector3.Distance(target.transform.position, transform.position) > aggroRange)
         {
-            Vector3 randVec = GetRandomVec();
             if (count <= 0f)
             {
-                randVec = GetRandomVec();
+                randVec = GetRandomVec2d();
                 count = countDown;
             }
             Patrol(randVec);
             count -= Time.deltaTime;
+        }
+
+        if (Vector3.Distance(target.transform.position, transform.position) < attackRange)
+        {
+            Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z)
+            - transform.position;
+
+            Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
@@ -52,6 +62,11 @@ public class JimTheDestroyer : MonoBehaviour
 
         rb.AddForce(dir.normalized * speed * Time.deltaTime, ForceMode.Impulse);
 
+        Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+        //transform.forward = dir;
+
         //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
 
@@ -60,11 +75,21 @@ public class JimTheDestroyer : MonoBehaviour
         Vector3 dir = transform.position + randVec;
 
         rb.AddForce(dir.normalized * speed * Time.deltaTime, ForceMode.Impulse);
+
+        Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+        //transform.forward = dir;
     }
 
-    private Vector3 GetRandomVec()
+    private Vector3 GetRandomVec2d()
     {
         return new Vector3(Random.Range(-1f, 1f) * 1000, 0, Random.Range(-1f, 1f) * 1000);
+    }
+
+    private Vector3 GetRandomVec3d()
+    {
+        return new Vector3(Random.Range(-1f, 1f) * 1000, Random.Range(-1f, 1f) * 1000, Random.Range(-1f, 1f) * 1000);
     }
 
     private void OnDrawGizmos()

@@ -12,7 +12,7 @@ public class InventoryToggle : MonoBehaviour
     [Header("Inventory to Toggle")]
     public CanvasGroup canvasGroup;
 
-    InventoryObject currentInventory;
+    Inventory currentInventory;
 
     // For Player
     public void ToggleInventory(InputAction.CallbackContext context)
@@ -31,7 +31,7 @@ public class InventoryToggle : MonoBehaviour
         }
     }
 
-    public void ToggleInventory(InventoryObject inventoryObject)
+    public void ToggleInventory(Inventory inventory)
     {
         // Show
         if (canvasGroup.alpha == 0) {
@@ -39,8 +39,8 @@ public class InventoryToggle : MonoBehaviour
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1f;
 
-            inventoryObject.LoadContent();
-            currentInventory = inventoryObject;
+            inventory.LoadContent();
+            currentInventory = inventory;
             inventoryManager.SetChestInventory(currentInventory);
         }
         // Hide
@@ -49,7 +49,7 @@ public class InventoryToggle : MonoBehaviour
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = 0f;
 
-            inventoryObject.SaveContent(); // TODO : Better System
+            inventory.SaveContent(); // TODO : Better System
             currentInventory = null;
             inventoryManager.SetChestInventory(currentInventory);
         }

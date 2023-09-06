@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerInventoryManager : MonoBehaviour
 {
     [Header("Scriptable Object References")]
-    public InventoryObject inventory;
+    
     public InventoryManager inventoryManager;
 
     [Header("UI References")]
     public InventoryToggle inventoryToggle;
     public List<Transform> allDisplaySlots;
+
+    Inventory inventory;
 
     PlayerInput playerInput;
     InputAction inventoryInput;
@@ -28,6 +30,8 @@ public class PlayerInventoryManager : MonoBehaviour
 
     private void Start()
     {
+        inventory = GetComponent<Inventory>();
+        inventoryManager.SetPlayerInventory(inventory);
         inventory.Initialize(allDisplaySlots, "PlayerInventory");
     }
 
@@ -46,5 +50,10 @@ public class PlayerInventoryManager : MonoBehaviour
     private void OnDisable()
     {
         inventoryInput.Disable();
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Reset();
     }
 }

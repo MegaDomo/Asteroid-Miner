@@ -2,38 +2,43 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewInventorySystem", menuName = "Managers/Inventory")]
-public class InventoryObject : ScriptableObject
+public class Inventory : MonoBehaviour
 {
+    [Header("Unity References")]
+    public GameObject draggableItemPrefab;
+
     [Header("Default Contents")]
     public List<InventoryItem> itemsToSpawnWith;
 
-    [Header("Unity References")]
-    public GameObject draggableItemPrefab;
-    public List<DisplaySlot> inventory = new List<DisplaySlot>();
-
     [HideInInspector] public List<InventoryItem> items;
+
+    List<DisplaySlot> inventorySlots = new List<DisplaySlot>();
 
     public void Initialize(List<Transform> slots, string tag)
     {
         // Gets all DisplaySlots from UI
         for (int i = 0; i < slots.Count; i++) {
-            inventory.Add(slots[i].GetComponent<DisplaySlot>());
+            inventorySlots.Add(slots[i].GetComponent<DisplaySlot>());
             slots[i].tag = tag;
         }
 
         items = new List<InventoryItem>(slots.Count);
 
+        // Initializes
         for (int i = 0; i < items.Capacity; i++)
             items.Add(null);
+
+        // Fills with Preset items
+        for (int i = 0; i < itemsToSpawnWith.Count; i++)
+            items[i] = itemsToSpawnWith[i];
     }
 
     #region Picking up an Item from World Space
     public bool AddItem(ItemObject item, int amount)
     {
         // Adds to Existing Item 
-        for (int i = 0; i < inventory.Count; i++) {
-            DisplaySlot slot = inventory[i];
+        for (int i = 0; i < inventorySlots.Count; i++) {
+            DisplaySlot slot = inventorySlots[i];
             DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
             
             if (itemInSlot != null && itemInSlot.invItem.item == item && item.maxStackSize != itemInSlot.invItem.amount) {
@@ -46,8 +51,8 @@ public class InventoryObject : ScriptableObject
         }
 
         // Find Empty Slot
-        for (int i = 0; i < inventory.Count; i++) {
-            DisplaySlot slot = inventory[i];
+        for (int i = 0; i < inventorySlots.Count; i++) {
+            DisplaySlot slot = inventorySlots[i];
             DraggableItem itemInSlot = slot.GetComponentInChildren<DraggableItem>();
             if (itemInSlot == null) {
                 SpawnNewItem(i, item, amount, slot);
@@ -80,7 +85,7 @@ public class InventoryObject : ScriptableObject
     public void LoadContent()
     {
         // Clears Display Slots
-        foreach (DisplaySlot slot in inventory) {
+        foreach (DisplaySlot slot in inventorySlots) {
             Transform transform = slot.transform;
             if (transform.childCount != 0)
                 Destroy(transform.GetChild(0).gameObject);
@@ -88,7 +93,7 @@ public class InventoryObject : ScriptableObject
 
         // Fills DisplaySlots with stored Items from this inventory
         int index = 0;
-        foreach (DisplaySlot slot in inventory) {
+        foreach (DisplaySlot slot in inventorySlots) {
             if (items[index] != null) {
                 GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
                 DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
@@ -102,7 +107,7 @@ public class InventoryObject : ScriptableObject
     public void SaveContent()
     {
         int index = 0;
-        foreach (DisplaySlot slot in inventory) {
+        foreach (DisplaySlot slot in inventorySlots) {
             if (slot.draggableItem)
             {
                 if (slot.draggableItem == null) Debug.Log("Drag");
@@ -116,10 +121,10 @@ public class InventoryObject : ScriptableObject
     }
     #endregion
 
-    private void OnDisable()
+    public void Reset()
     {
         // TODO : Save
-        inventory?.Clear();
+        inventorySlots?.Clear();
         items?.Clear();
     }
 }
@@ -129,11 +134,12 @@ public class InventoryItem
 {
     public ItemObject item;
     public int amount;
-    public int maxStack;
+    [HideInInspector] public int maxStack;
     public InventoryItem(ItemObject item, int amount)
     {
         this.item = item;
         this.amount = amount;
+        if (item == null) Debug.Log("Yep");
         maxStack = item.maxStackSize;
     }
 

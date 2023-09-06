@@ -5,9 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewInventoryManager", menuName = "Managers/Inventory Manager")]
 public class InventoryManager : ScriptableObject
 {
-    [Header("Unity References")]
-    public InventoryObject playerInventory;
-    InventoryObject chestInventory;
+    Inventory playerInventory;
+    Inventory chestInventory;
 
     public Transform selectedItem;
 
@@ -32,13 +31,17 @@ public class InventoryManager : ScriptableObject
         }
     }
 
-    public void DestroySelectedItem()
+    public Inventory GetPlayerInventory()
     {
-        Destroy(selectedItem.gameObject);
-        selectedItem = null;
+        return playerInventory;
     }
 
-    public void SetChestInventory(InventoryObject inventory)
+    public void SetPlayerInventory(Inventory inventory)
+    {
+        playerInventory = inventory;
+    }
+
+    public void SetChestInventory(Inventory inventory)
     {
         chestInventory = inventory;
     }
@@ -58,6 +61,12 @@ public class InventoryManager : ScriptableObject
     public void SetSelectedItem(Transform selectedItem)
     {
         this.selectedItem = selectedItem;
+    }
+
+    public void DestroySelectedItem()
+    {
+        Destroy(selectedItem.gameObject);
+        selectedItem = null;
     }
 
     private void OnDisable()

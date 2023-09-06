@@ -171,4 +171,13 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
         transform.SetParent(parentAfterDrag);
         GetComponent<Image>().raycastTarget = true;
     }
+
+    public void PlaceOneItem(DisplaySlot displaySlot)
+    {
+        selectedItem = false;
+        this.displaySlot = displaySlot;
+
+        transform.SetParent(parentAfterDrag);
+        GetComponent<Image>().raycastTarget = true;
+    }
 }

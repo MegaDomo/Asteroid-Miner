@@ -9,33 +9,38 @@ public class DisplaySlot : MonoBehaviour, IPointerDownHandler
     public InventoryManager inventoryManager;
     [HideInInspector] public DraggableItem draggableItem;
 
+    [Header("Unity References")]
+    public GameObject draggableItemPrefab;
+
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        if (transform.childCount == 0) {
-            Transform item = inventoryManager.selectedItem;
-            if (item) {
-                draggableItem = item.GetComponent<DraggableItem>();
+        DraggableItem selectedItem = inventoryManager.GetSelectedDraggableItem();
+        if (!selectedItem && transform.childCount == 0)
+            return;
+
+        // Left Click - Add all in Empty Slot
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            draggableItem = selectedItem.GetComponent<DraggableItem>();
+            draggableItem.parentAfterDrag = transform;
+            draggableItem.PlaceItem(this);
+        }
+
+        // Right Click - Add 1 to Empty Slot
+        if (eventData.button == PointerEventData.InputButton.Right) {
+
+            // 1 Item was Held and is stored
+            if (selectedItem.invItem.amount == 1) {
+                draggableItem = selectedItem.GetComponent<DraggableItem>();
                 draggableItem.parentAfterDrag = transform;
                 draggableItem.PlaceItem(this);
             }
-        }
-
-        DraggableItem heldItem = inventoryManager.GetSelectedDraggableItem();
-        // Right Click - Add 1 to Existing Item
-        if (heldItem && eventData.button == PointerEventData.InputButton.Right) {
-
-            // 1 Item was Held and is stored
-            if (heldItem.invItem.amount == 1 && draggableItem.invItem.amount != draggableItem.invItem.maxStack) {
-                draggableItem.AddToExistingItem(1);
-                inventoryManager.DestroySelectedItem();
+            // Stores 1 from a stack
+            else {
+                CreateNewDraggableItem(selectedItem);
+                selectedItem.AddToExistingItem(-1);
             }
-            // Add as much as possible with overflow still selected
-            else if (draggableItem.invItem.amount != draggableItem.invItem.maxStack) {
-                draggableItem.AddToExistingItem(1);
-                heldItem.AddToExistingItem(-1);
-            }
-
         }
+        
     }
 
     public void Clear()
@@ -44,5 +49,14 @@ public class DisplaySlot : MonoBehaviour, IPointerDownHandler
             return;
         Destroy(draggableItem.gameObject);
         draggableItem = null;
+    }
+
+    private void CreateNewDraggableItem(DraggableItem selectedItem)
+    {
+        draggableItem = Instantiate(draggableItemPrefab, transform).GetComponent<DraggableItem>();
+        draggableItem.GetComponent<RectTransform>().sizeDelta = new Vector2(draggableItem.UIWidth, draggableItem.UIHeight);
+        draggableItem.parentAfterDrag = transform;
+        draggableItem.PlaceItem(this);
+        draggableItem.Setup(selectedItem.invItem.item, 1, this);
     }
 }

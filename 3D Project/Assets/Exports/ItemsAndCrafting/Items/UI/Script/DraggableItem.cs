@@ -12,6 +12,8 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
 
     [Header("Unity References")]
     public GameObject draggableItemPrefab;
+    public int UIWidth = 70;
+    public int UIHeight = 70;
 
     [Header("UI References")]
     public Image image;
@@ -100,34 +102,43 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
             if (eventData.button == PointerEventData.InputButton.Right) {
                 if (invItem.amount == 1)
                     return;
-                DraggableItem secondItem = Instantiate(draggableItemPrefab, transform.root).GetComponent<DraggableItem>();
-                inventoryManager.SetSelectedItem(secondItem.transform);
+                DraggableItem secondItem = Instantiate(draggableItemPrefab, displaySlot.transform).GetComponent<DraggableItem>();
+                secondItem.GetComponent<RectTransform>().sizeDelta = new Vector2(UIWidth, UIHeight);
+
                 secondItem.selectedItem = true;
+                inventoryManager.SetSelectedItem(secondItem.transform);
+
                 int halfCeil = Mathf.CeilToInt(invItem.amount / 2);
-                secondItem.Setup(invItem.item, halfCeil);
+                secondItem.Setup(invItem.item, halfCeil, displaySlot);
                 AddToExistingItem(-halfCeil);
+
+                displaySlot.draggableItem = null;
+                secondItem.parentAfterDrag = transform.parent;
+                secondItem.transform.SetParent(transform.root);
+                secondItem.transform.SetAsLastSibling();
+                secondItem.GetComponent<Image>().raycastTarget = false;
             }
 
         }
 
         // Holding an Item
         else {
-            DraggableItem heldItem = inventoryManager.GetSelectedDraggableItem();
+            DraggableItem selectedItem = inventoryManager.GetSelectedDraggableItem();
             
             // Left Click - Add to Existing Item
             if (eventData.button == PointerEventData.InputButton.Left) {
 
                 // Add All of Held Item
-                if (invItem.amount + heldItem.invItem.amount <= invItem.maxStack) {
-                    AddToExistingItem(heldItem.invItem.amount);
+                if (invItem.amount + selectedItem.invItem.amount <= invItem.maxStack) {
+                    AddToExistingItem(selectedItem.invItem.amount);
                     inventoryManager.DestroySelectedItem();
                 }
                 // Add as much as possible with overflow still selected
                 else {
-                    int overflow = invItem.amount + heldItem.invItem.amount - invItem.maxStack;
+                    int overflow = invItem.amount + selectedItem.invItem.amount - invItem.maxStack;
                     int fill = invItem.maxStack - invItem.amount;
                     AddToExistingItem(fill);
-                    heldItem.AddToExistingItem(overflow - heldItem.invItem.amount);
+                    selectedItem.AddToExistingItem(overflow - selectedItem.invItem.amount);
                 }
 
             }
@@ -135,14 +146,14 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler
             if (eventData.button == PointerEventData.InputButton.Right) {
 
                 // 1 Item was Held and is stored
-                if (heldItem.invItem.amount == 1 && invItem.amount != invItem.maxStack) {
+                if (selectedItem.invItem.amount == 1 && invItem.amount != invItem.maxStack) {
                     AddToExistingItem(1);
                     inventoryManager.DestroySelectedItem();
                 }
                 // Add as much as possible with overflow still selected
                 else if (invItem.amount != invItem.maxStack) {
                     AddToExistingItem(1);
-                    heldItem.AddToExistingItem(-1);
+                    selectedItem.AddToExistingItem(-1);
                 }
 
             }

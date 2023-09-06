@@ -116,3 +116,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 11400000, guid: 6e9143a5f11e8194b8f1df8235ef9745, type: 2}
   draggableItem: {fileID: 0}
+  draggableItemPrefab: {fileID: 4254643328083353377, guid: b9c294b1f47431f419aa6e0d2a8c43a1, type: 3}

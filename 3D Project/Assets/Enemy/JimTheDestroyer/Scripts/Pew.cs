@@ -20,6 +20,8 @@ public class Pew : MonoBehaviour
     private void Update()
     {
         rb.AddForce(dir.normalized * pewSpeed * Time.deltaTime, ForceMode.Impulse);
+
+        transform.up = dir;
     }
 
     public void Seek(Vector3 direction)

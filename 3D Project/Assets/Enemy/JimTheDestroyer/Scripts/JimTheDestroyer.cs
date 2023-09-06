@@ -26,6 +26,7 @@ public class JimTheDestroyer : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

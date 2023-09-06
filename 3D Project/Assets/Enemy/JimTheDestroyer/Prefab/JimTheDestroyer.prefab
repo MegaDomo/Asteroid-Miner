@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9d4e7833b276345b2eeee622e8baac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1319878046957758056, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
   shootPoint: {fileID: 7166983649655995415}
   pewPrefab: {fileID: 7712329333372581897, guid: 8539cec099b67344c93d6d683342aadb, type: 3}
   speed: 10

@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1319878046957758055, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 1319878046957758055, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1384,7 +1384,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004445241}
-  m_LocalRotation: {x: 0.14994714, y: 0.000000016753308, z: -0.0000000039225263, w: 0.9886941}
+  m_LocalRotation: {x: 0.14994714, y: -0.000000016753308, z: 0.0000000039225263, w: 0.9886941}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2440,6 +2440,10 @@ PrefabInstance:
     - target: {fileID: 7979141116734320728, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: m_Name
       value: LargeAsteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979141116734320728, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8985356585949202576, guid: 93f8a07aaac61db47bce27220554afd8, type: 3}
       propertyPath: m_Enabled
@@ -3550,15 +3554,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 901283842853872475, guid: 69d613cd5f1362d4f977788ca2e697c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.823803
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901283842853872475, guid: 69d613cd5f1362d4f977788ca2e697c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901283842853872475, guid: 69d613cd5f1362d4f977788ca2e697c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901283842853872475, guid: 69d613cd5f1362d4f977788ca2e697c6, type: 3}
       propertyPath: m_LocalRotation.w

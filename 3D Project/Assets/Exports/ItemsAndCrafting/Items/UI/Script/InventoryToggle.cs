@@ -39,9 +39,9 @@ public class InventoryToggle : MonoBehaviour
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1f;
 
-            inventory.LoadContent();
             currentInventory = inventory;
             inventoryManager.SetChestInventory(currentInventory);
+            inventory.LoadContent();
         }
         // Hide
         else {

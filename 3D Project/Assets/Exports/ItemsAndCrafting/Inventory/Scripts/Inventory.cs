@@ -26,8 +26,8 @@ public class Inventory : MonoBehaviour
 
         // Initializes
         for (int i = 0; i < items.Capacity; i++)
-            items.Add(null);
-
+            items.Add(new InventoryItem(null, 0));
+        
         // Fills with Preset items
         for (int i = 0; i < itemsToSpawnWith.Count; i++)
             items[i] = itemsToSpawnWith[i];
@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
         // Fills DisplaySlots with stored Items from this inventory
         int index = 0;
         foreach (DisplaySlot slot in inventorySlots) {
-            if (items[index] != null) {
+            if (items[index] != null && items[index].item != null) {
                 GameObject newItem = Instantiate(draggableItemPrefab, slot.transform);
                 DraggableItem draggableItem = newItem.GetComponent<DraggableItem>();
                 draggableItem.Setup(items[index].item, items[index].amount, slot);
@@ -109,11 +109,7 @@ public class Inventory : MonoBehaviour
         int index = 0;
         foreach (DisplaySlot slot in inventorySlots) {
             if (slot.draggableItem)
-            {
-                if (slot.draggableItem == null) Debug.Log("Drag");
-                if (slot.draggableItem.invItem == null) Debug.Log(".invItem");
                 items[index] = slot.draggableItem.invItem;
-            }
             else
                 items[index] = null;
             index++;
@@ -137,10 +133,13 @@ public class InventoryItem
     [HideInInspector] public int maxStack;
     public InventoryItem(ItemObject item, int amount)
     {
+        if (!item) return;
+
         this.item = item;
         this.amount = amount;
-        if (item == null) Debug.Log("Yep");
         maxStack = item.maxStackSize;
+
+        if (this.amount > maxStack) this.amount = maxStack;
     }
 
     public void AddToAmount(int amount)

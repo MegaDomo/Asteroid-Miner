@@ -36,29 +36,25 @@ public class Grid<T>
                 for (int x = 0; x < width; x++) {
                     for (int z = 0; z < length; z++) {
                         //Utils.CreateWorldText(GetWorldPosition(x, y, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, x.ToString() + ", " + y.ToString() + ", " + z.ToString(), 30, TextAnchor.MiddleCenter);
-                        Debug.DrawLine(GetWorldPosition(x, y, z) * cellSize, GetWorldPosition(x + 1, y, z) * cellSize, Color.white, 100f);
-                        Debug.DrawLine(GetWorldPosition(x, y, z) * cellSize, GetWorldPosition(x, y + 1, z) * cellSize, Color.white, 100f);
-                        Debug.DrawLine(GetWorldPosition(x, y, z) * cellSize, GetWorldPosition(x, y, z + 1) * cellSize, Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, y, z) * 10 *cellSize, GetWorldPosition(x + 1, y, z) * 10 * cellSize, Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, y, z) * 10 * cellSize, GetWorldPosition(x, y + 1, z) * 10 * cellSize, Color.white, 100f);
+                        Debug.DrawLine(GetWorldPosition(x, y, z) * 10 * cellSize, GetWorldPosition(x, y, z + 1) * 10 * cellSize, Color.white, 100f);
                     }
                 }
             }
 
-            for (int i = 0; i < width; i++)
-            {
+            for (int i = 0; i < width; i++) {
                 // Verticals
-                Debug.DrawLine(GetWorldPosition(i, 0, length) * cellSize, GetWorldPosition(i, height, length) * cellSize, Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(width, 0, i) * cellSize, GetWorldPosition(width, height, i) * cellSize, Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(i, 0, length) * 10 * cellSize, GetWorldPosition(i, height, length) * 10 * cellSize, Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(width, 0, i) * 10 * cellSize, GetWorldPosition(width, height, i) * 10 * cellSize, Color.white, 100f);
 
                 // Horizontals
-                Debug.DrawLine(GetWorldPosition(0, i, length) * cellSize, GetWorldPosition(width, i, length) * cellSize, Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(width, i, 0) * cellSize, GetWorldPosition(width, i, length) * cellSize, Color.white, 100f);
-            }
+                Debug.DrawLine(GetWorldPosition(0, i, length) * 10 * cellSize, GetWorldPosition(width, i, length) * 10 * cellSize, Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(width, i, 0) * 10 * cellSize, GetWorldPosition(width, i, length) * 10 * cellSize, Color.white, 100f);
 
-            for (int i = 0; i < width + 1; i++)
-            {
                 // Top Layer
-                Debug.DrawLine(GetWorldPosition(i, height, 0) * cellSize, GetWorldPosition(i, height, length) * cellSize, Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(0, height, i) * cellSize, GetWorldPosition(width, height, i) * cellSize, Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(i, height, 0) * 10 * cellSize, GetWorldPosition(i, height, length) * 10 * cellSize, Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(0, height, i) * 10 * cellSize, GetWorldPosition(width, height, i) * 10 * cellSize, Color.white, 100f);
             }
         }        
     }
@@ -120,7 +116,9 @@ public class Grid<T>
     public List<T> GetClosestNeighbors(Vector3 playerPoint, float chunkGridSize, float chunkCellSize, int x, int y, int z)
     {
         List<T> items = GetNeighbors(x, y, z);
-        Vector3 gridCenter = GetWorldPosition(x, y, z) + (new Vector3(chunkGridSize, chunkGridSize, chunkGridSize) / 2) * chunkCellSize;
+        Vector3 gridCenter = (GetWorldPosition(x, y, z) * chunkGridSize) + (new Vector3(chunkGridSize, chunkGridSize, chunkGridSize) / 2) * chunkCellSize;
+        Debug.Log("Origin Chunk: " + new Vector3(x, y, z) +
+                  "World Position: " + GetWorldPosition(x, y, z) * chunkGridSize);
         // TODO : Double Check whether gridCenter or PlayerPoint are actually comparable
         // TODO : Also check if the wrong 7 neighbors are getting set up, perhaps with <= || >=
         #region X

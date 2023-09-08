@@ -143,15 +143,17 @@ public class Chunk : MonoBehaviour
 
     private void AlertNeighbors(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
-        //chunks.GetXYZ(data.chunkOrigin, out int x, out int y, out int z);
-
         int x = (int)data.gridCoord.x;
         int y = (int)data.gridCoord.y;
         int z = (int)data.gridCoord.z;
 
-        //Debug.Log(x + ", " + y + ", " + z);
+        List<Chunk> neighbors = chunks.GetClosestNeighbors(pointOfInfluence, data.gridSize, data.cellSize, x, y, z);
+        //List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
 
-        List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
+        foreach (Chunk chunk in neighbors) {
+            //Debug.Log(chunk.data.gridCoord.x + ", " + chunk.data.gridCoord.y + ", " + chunk.data.gridCoord.z);
+        }
+
         Debug.Log(neighbors.Count);
         foreach (Chunk chunk in neighbors)
             chunk.TerraformMeshChild(pointOfInfluence, areaOfInfluenceRadius, potency);

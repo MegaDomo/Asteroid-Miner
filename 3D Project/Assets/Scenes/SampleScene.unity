@@ -2480,7 +2480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2075357922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2495,9 +2495,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8688969673277986044, guid: 69d613cd5f1362d4f977788ca2e697c6, type: 3}
   player: {fileID: 1906259064}
-  maxEnemies: 5
-  spawnRate: 5
-  spawnDistance: 10
+  cam: {fileID: 2113084425}
+  maxEnemies: 20
+  spawnRate: 1
+  spawnDistance: 50
+  minSpawnDistance: 45
 --- !u!4 &2075357923
 Transform:
   m_ObjectHideFlags: 0
@@ -2639,7 +2641,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100624944}
-  m_LocalRotation: {x: 0.113933936, y: 0.000000008442369, z: -0.0000000016556871, w: 0.9934884}
+  m_LocalRotation: {x: 0.113933936, y: -0.00000000844237, z: 0.0000000016556876, w: 0.9934884}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2832,6 +2834,11 @@ MonoBehaviour:
   - {fileID: 1004445243}
   - {fileID: 1309596190}
   - {fileID: 2100624946}
+--- !u!20 &2113084425 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1319878046076770865, guid: 1a9379b455fbf9a4b9bbafb0ad627e86, type: 3}
+  m_PrefabInstance: {fileID: 13421730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2116117079
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,10 +2,9 @@
 using UnityEditor;
 #endif
 using UnityEngine;
-using Serialize.utils;
 
 [ExecuteInEditMode]
-public class ChunkManager2 : MonoBehaviour
+public class ChunkManager3 : MonoBehaviour
 {
     [Header("Unity References")]
     public Transform meshOrigin;
@@ -54,7 +53,7 @@ public class ChunkManager2 : MonoBehaviour
 
                     clone.AddComponent<MeshFilter>();
                     clone.AddComponent<MeshRenderer>().material = material;
-                    clone.AddComponent<SerializeMesh>();
+
                     Chunk chunk = clone.AddComponent<Chunk>();
                     clone.AddComponent<ChunkReference2>().AddReference(chunk);
 
@@ -93,13 +92,14 @@ public class ChunkManager2 : MonoBehaviour
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(ChunkManager2))]
-public class ChunkManager2Editor : Editor
+public class ChunkManager3Editor : Editor
 {
-    ChunkManager2 obj;
+
+    ChunkManager3 obj;
 
     void OnSceneGUI()
     {
-        obj = (ChunkManager2)target;
+        obj = (ChunkManager3)target;
     }
 
     public override void OnInspectorGUI()

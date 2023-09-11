@@ -43,7 +43,7 @@ public class Chunk : MonoBehaviour
     {
         this.data = data;
         this.chunks = chunks;
-
+        
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);
@@ -147,8 +147,8 @@ public class Chunk : MonoBehaviour
         int y = (int)data.gridCoord.y;
         int z = (int)data.gridCoord.z;
 
-        List<Chunk> neighbors = chunks.GetClosestNeighbors(pointOfInfluence, data.gridSize, data.cellSize, x, y, z);
-        //List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
+        //List<Chunk> neighbors = chunks.GetClosestNeighbors(pointOfInfluence, data.gridSize, data.cellSize, x, y, z);
+        List<Chunk> neighbors = chunks.GetNeighbors(x, y, z);
 
         foreach (Chunk chunk in neighbors) {
             //Debug.Log(chunk.data.gridCoord.x + ", " + chunk.data.gridCoord.y + ", " + chunk.data.gridCoord.z);

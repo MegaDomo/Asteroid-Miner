@@ -29,7 +29,7 @@ public class Grid<T>
                 for (int z = 0; z < length; z++)
                     gridArray[x, y, z] = createGridObject();
 
-        bool debug = true;
+        bool debug = false;
         if (debug)
         {
             for (int y = 0; y < height; y++) {

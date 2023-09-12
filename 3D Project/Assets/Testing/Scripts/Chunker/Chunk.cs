@@ -27,7 +27,6 @@ public class Chunk : MonoBehaviour
 {
     [SerializeField] ChunkData data;
     [SerializeField] Grid<Chunk> chunks;
-    //[SerializeField] Vector3 index;
 
     Mesh mesh;
     MeshFilter meshFilter;
@@ -50,7 +49,11 @@ public class Chunk : MonoBehaviour
     {
         this.data = data;
         this.chunks = chunks;
-        
+
+        Transform parent = transform.parent;
+        this.data.chunkOrigin += parent.position;
+
+        Debug.Log(data.chunkOrigin);
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);
@@ -180,7 +183,7 @@ public class Chunk : MonoBehaviour
             for (int y = 0; y < data.gridSize; y++) {
                 for (int z = 0; z < data.gridSize; z++) {
                     Vector3 worldPos = new Vector3(x, y, z) + data.chunkOrigin;
-
+                    //pointOfInfluence += data.chunkOrigin;
                     if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius)
                     {
                         float value = grid.GetValue(x, y, z);

@@ -75,18 +75,6 @@ public class ChunkManager2 : MonoBehaviour
                 }
             }
         }
-
-        // Serializes 
-        if (false)
-        {
-            for (int x = 0; x < chunkGridSize; x++) {
-                for (int y = 0; y < chunkGridSize; y++) {
-                    for (int z = 0; z < chunkGridSize; z++) {
-                        chunks.GetGridObject(x, y, z).GetComponent<SerializeMesh>().Serialize();
-                    }
-                }
-            }
-        }
     }
 
     ChunkData CreateChunkData(Vector3 worldPos, int x, int y, int z)

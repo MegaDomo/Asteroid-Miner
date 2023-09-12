@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 3D WorldSpace Data Structure
+[System.Serializable]
 public class Grid<T>
 {
     private int width;
@@ -64,6 +65,8 @@ public class Grid<T>
         this.width = width;
         this.height = height;
         this.length = length;
+
+        gridArray = new T[width, height, length];
 
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)

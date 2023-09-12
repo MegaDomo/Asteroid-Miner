@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ChunkData
+[System.Serializable]
+public class ChunkData
 {
     // Core Details
     public Vector3 meshOrigin;
@@ -24,8 +25,9 @@ public struct ChunkData
 
 public class Chunk : MonoBehaviour
 {
-    ChunkData data;
-    Grid<Chunk> chunks;
+    [SerializeField] ChunkData data;
+    [SerializeField] Grid<Chunk> chunks;
+    //[SerializeField] Vector3 index;
 
     Mesh mesh;
     MeshFilter meshFilter;
@@ -41,10 +43,6 @@ public class Chunk : MonoBehaviour
 
     private void Start()
     {
-        AsteroidChunkManager asteroid = transform.parent.GetComponent<AsteroidChunkManager>();
-
-        //ChunkData data = asteroid.GetData().GetGridObject();
-        chunks = asteroid.GetGrid();
         Setup(data, chunks);
     }
 
@@ -52,7 +50,7 @@ public class Chunk : MonoBehaviour
     {
         this.data = data;
         this.chunks = chunks;
-        Debug.Log("Setup");
+        
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);

@@ -45,14 +45,11 @@ public class ChunkManager2 : MonoBehaviour
     public void CreateChunkGrid()
     {
         chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
-        Grid<ChunkData> data = new Grid<ChunkData>(chunkGridSize, chunkGridSize, chunkGridSize, () => new ChunkData());
-
+        
         GameObject obj = new GameObject("Asteroid");
         Transform parent = obj.transform;
         parent.position = transform.position;
-        AsteroidChunkManager asteroid = parent.gameObject.AddComponent<AsteroidChunkManager>();
-        asteroid.Setup(chunks, data);
-
+        
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
                 for (int z = 0; z < chunkGridSize; z++) {
@@ -70,7 +67,6 @@ public class ChunkManager2 : MonoBehaviour
                     ChunkData chunkData = CreateChunkData(worldPos, x, y, z);
                     chunk.Setup(chunkData, chunks);
 
-                    data.SetGridObject(x, y, z, chunkData);
                     chunks.SetGridObject(x, y, z, chunk);
 
                     chunk.FirstMarch(addCollider, addRigidBody);

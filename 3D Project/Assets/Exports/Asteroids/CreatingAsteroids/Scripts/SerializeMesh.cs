@@ -27,12 +27,12 @@ namespace Serialize.utils
         {
             if (serialized) return;
 
-            Serialize();
+            //Serialize();
         }
 
         public void Serialize()
         {
-            var mesh = GetComponent<MeshFilter>().sharedMesh;
+            var mesh = GetComponent<MeshFilter>().mesh;
 
             uv = mesh.uv;
             verticies = mesh.vertices;
@@ -70,20 +70,16 @@ namespace Serialize.utils
         {
             base.OnInspectorGUI();
 
-            if (GUILayout.Button("Rebuild"))
-            {
+            if (GUILayout.Button("Rebuild")) {
                 if (obj)
-                {
-                    obj.gameObject.GetComponent<MeshFilter>().mesh = obj.Rebuild();
-                }
+                    if (obj.gameObject.GetComponent<MeshFilter>().mesh != null)
+                        obj.gameObject.GetComponent<MeshFilter>().mesh = obj.Rebuild();
             }
 
-            if (GUILayout.Button("Serialize"))
-            {
+            if (GUILayout.Button("Serialize")) {
                 if (obj)
-                {
-                    obj.Serialize();
-                }
+                    if (obj.gameObject.GetComponent<MeshFilter>().mesh != null)
+                        obj.Serialize();
             }
         }
     }

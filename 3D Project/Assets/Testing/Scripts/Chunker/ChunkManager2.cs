@@ -12,6 +12,7 @@ public class ChunkManager2 : MonoBehaviour
     public Material material;
 
     [Header("Mesh Settings")]
+    public bool serialize = false;
     [Range(1f, 100f)]
     public float radius = 3f;
 
@@ -44,6 +45,10 @@ public class ChunkManager2 : MonoBehaviour
     {
         chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
 
+        GameObject obj = new GameObject("Asteroid");
+        Transform parent = obj.transform;
+        parent.position = transform.position;
+
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
                 for (int z = 0; z < chunkGridSize; z++) {
@@ -51,7 +56,7 @@ public class ChunkManager2 : MonoBehaviour
 
                     GameObject clone = new GameObject("Chunk: " + x.ToString() + ", " + y.ToString() + ", " + z.ToString());
                     clone.transform.position = worldPos;
-
+                    clone.transform.SetParent(parent);
                     clone.AddComponent<MeshFilter>();
                     clone.AddComponent<MeshRenderer>().material = material;
                     clone.AddComponent<SerializeMesh>();
@@ -64,6 +69,18 @@ public class ChunkManager2 : MonoBehaviour
                     chunks.SetGridObject(x, y, z, chunk);
 
                     chunk.FirstMarch(addCollider, addRigidBody);
+                }
+            }
+        }
+
+        // Serializes 
+        if (serialize)
+        {
+            for (int x = 0; x < chunkGridSize; x++) {
+                for (int y = 0; y < chunkGridSize; y++) {
+                    for (int z = 0; z < chunkGridSize; z++) {
+                        chunks.GetGridObject(x, y, z).GetComponent<SerializeMesh>().Serialize();
+                    }
                 }
             }
         }

@@ -69,12 +69,14 @@ public class ChunkManager2 : MonoBehaviour
                     chunks.SetGridObject(x, y, z, chunk);
 
                     chunk.FirstMarch(addCollider, addRigidBody);
+
+                    if (serialize) chunk.GetComponent<SerializeMesh>().Serialize();
                 }
             }
         }
 
         // Serializes 
-        if (serialize)
+        if (false)
         {
             for (int x = 0; x < chunkGridSize; x++) {
                 for (int y = 0; y < chunkGridSize; y++) {

@@ -32,7 +32,8 @@ namespace Serialize.utils
 
         public void Serialize()
         {
-            var mesh = GetComponent<MeshFilter>().mesh;
+            var mesh = GetComponent<MeshFilter>().sharedMesh;
+            if (mesh == null) return;
 
             uv = mesh.uv;
             verticies = mesh.vertices;

@@ -39,11 +39,20 @@ public class Chunk : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        AsteroidChunkManager asteroid = transform.parent.GetComponent<AsteroidChunkManager>();
+
+        //ChunkData data = asteroid.GetData().GetGridObject();
+        chunks = asteroid.GetGrid();
+        Setup(data, chunks);
+    }
+
     public void Setup(ChunkData data, Grid<Chunk> chunks)
     {
         this.data = data;
         this.chunks = chunks;
-        
+        Debug.Log("Setup");
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);

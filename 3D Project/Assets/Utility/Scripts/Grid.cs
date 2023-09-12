@@ -59,6 +59,18 @@ public class Grid<T>
         }        
     }
 
+    public Grid(int width, int height, int length, Func<T> createGridObject)
+    {
+        this.width = width;
+        this.height = height;
+        this.length = length;
+
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                for (int z = 0; z < length; z++)
+                    gridArray[x, y, z] = createGridObject();
+    }
+
     #region Utility
     public bool isCoordinatesSafe(int x, int y, int z)
     {

@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Serialize.utils;
 
+// This Script Creates Asteroids
 [ExecuteInEditMode]
 public class ChunkManager2 : MonoBehaviour
 {
@@ -38,16 +39,19 @@ public class ChunkManager2 : MonoBehaviour
 
     private void Start()
     {
-        //CreateChunkGrid();
+
     }
 
     public void CreateChunkGrid()
     {
         chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
+        Grid<ChunkData> data = new Grid<ChunkData>(chunkGridSize, chunkGridSize, chunkGridSize, () => new ChunkData());
 
         GameObject obj = new GameObject("Asteroid");
         Transform parent = obj.transform;
         parent.position = transform.position;
+        AsteroidChunkManager asteroid = parent.gameObject.AddComponent<AsteroidChunkManager>();
+        asteroid.Setup(chunks, data);
 
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
@@ -63,9 +67,10 @@ public class ChunkManager2 : MonoBehaviour
                     Chunk chunk = clone.AddComponent<Chunk>();
                     clone.AddComponent<ChunkReference2>().AddReference(chunk);
 
-                    ChunkData data = CreateChunkData(worldPos, x, y, z);
-                    chunk.Setup(data, chunks);
+                    ChunkData chunkData = CreateChunkData(worldPos, x, y, z);
+                    chunk.Setup(chunkData, chunks);
 
+                    data.SetGridObject(x, y, z, chunkData);
                     chunks.SetGridObject(x, y, z, chunk);
 
                     chunk.FirstMarch(addCollider, addRigidBody);

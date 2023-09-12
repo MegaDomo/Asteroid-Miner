@@ -35,16 +35,9 @@ public class ChunkManager2 : MonoBehaviour
     public bool addCollider;
     public bool addRigidBody;
 
-    Grid<Chunk> chunks;
-
-    private void Start()
-    {
-
-    }
-
     public void CreateChunkGrid()
     {
-        chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
+        Grid<Chunk> chunks = new Grid<Chunk>(chunkGridSize, chunkGridSize, chunkGridSize, chunkCellSize, meshOrigin.position, () => new Chunk());
         
         GameObject obj = new GameObject("Asteroid");
         Transform parent = obj.transform;
@@ -81,7 +74,7 @@ public class ChunkManager2 : MonoBehaviour
     {
         ChunkData data = new ChunkData();
 
-        data.meshOrigin = meshOrigin.position;
+        data.gridOrigin = meshOrigin.position;
         data.chunkOrigin = worldPos;
         data.gridCoord = new Vector3(x, y, z);
 

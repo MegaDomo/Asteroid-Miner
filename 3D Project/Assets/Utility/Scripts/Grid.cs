@@ -7,12 +7,12 @@ using UnityEngine;
 [System.Serializable]
 public class Grid<T>
 {
-    private int width;
-    private int height;
-    private int length;
-    private float cellSize;
-    private Vector3 origin;
-    private T[,,] gridArray;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private int length;
+    [SerializeField] private float cellSize;
+    [SerializeField] private Vector3 origin;
+    [SerializeField] private T[,,] gridArray;
 
     // Constructor
     public Grid(int width, int height, int length, float cellSize, Vector3 origin, Func<T> createGridObject)
@@ -74,7 +74,7 @@ public class Grid<T>
                     gridArray[x, y, z] = createGridObject();
     }
 
-    #region Utility
+    #region Howdy Neighbor
     public bool isCoordinatesSafe(int x, int y, int z)
     {
         if (x < 0 || y < 0 || z < 0 || x >= width || y >= height || z >= length)
@@ -225,7 +225,6 @@ public class Grid<T>
         return items;
     }
     #endregion
-
 
     #region Getters & Setters
     public T GetGridObject(int x, int y, int z)

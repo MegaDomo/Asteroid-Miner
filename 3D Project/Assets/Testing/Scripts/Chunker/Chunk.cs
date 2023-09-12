@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChunkData
 {
     // Core Details
-    public Vector3 meshOrigin;
+    public Vector3 gridOrigin;
     public Vector3 chunkOrigin;
     public Vector3 gridCoord;
 
@@ -23,6 +23,7 @@ public class ChunkData
     public float noiseTransform;
 }
 
+[System.Serializable]
 public class Chunk : MonoBehaviour
 {
     [SerializeField] ChunkData data;
@@ -43,6 +44,8 @@ public class Chunk : MonoBehaviour
     private void Start()
     {
         Setup(data, chunks);
+        Debug.Log(data.chunkOrigin);
+        Debug.Log(chunks.GetGridObject(0, 0, 0).name);
     }
 
     public void Setup(ChunkData data, Grid<Chunk> chunks)
@@ -53,15 +56,20 @@ public class Chunk : MonoBehaviour
         Transform parent = transform.parent;
         this.data.chunkOrigin += parent.position;
 
-        Debug.Log(data.chunkOrigin);
+
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);
 
+        // ==================================
+        // IMPORTANT : Serialize the MCGrid Data, otherwise it is looping through everything
+        //             and all the Serialization will be for naught!
+        // Likely need to make 2 Setup Methods on for Editor (Serialization) and one for Runtime (Reading Serialized Data)
+        // ==================================
         if (data.useNoise)
-            MCValues.AddChunkSphereValuesWithNoise(grid, data.meshOrigin, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
+            MCValues.AddChunkSphereValuesWithNoise(grid, data.gridOrigin, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
         else
-            MCValues.AddChunkSphereValues(grid, data.meshOrigin, data.chunkOrigin, data.radius);
+            MCValues.AddChunkSphereValues(grid, data.gridOrigin, data.chunkOrigin, data.radius);
     }
 
     public void FirstMarch(bool addCollider, bool addRigidBody)

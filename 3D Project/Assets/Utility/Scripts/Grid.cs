@@ -3,6 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct Node<T>
+{
+    [SerializeField] public Vector3 coord;
+    [SerializeField] public T element;
+    public Node(Vector3 coord, T element)
+    {
+        this.coord = coord;
+        this.element = element;
+    }
+}
+
 // 3D WorldSpace Data Structure
 [System.Serializable]
 public class Grid<T>
@@ -12,6 +24,8 @@ public class Grid<T>
     [SerializeField] private int length;
     [SerializeField] private float cellSize;
     [SerializeField] private Vector3 origin;
+    [SerializeField] private List<Vector3> coordinates;
+    [SerializeField] private List<T> elements;
     [SerializeField] private T[,,] gridArray;
 
     // Constructor
@@ -67,11 +81,32 @@ public class Grid<T>
         this.length = length;
 
         gridArray = new T[width, height, length];
+        coordinates = new List<Vector3>();
+        elements = new List<T>();
+        
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < length; z++) {
+                    coordinates.Add(new Vector3(x, y, z));
+                    elements.Add(createGridObject());
+                }
+            }
+        }
+            
+                
+            
+                
+/*
 
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)
                 for (int z = 0; z < length; z++)
-                    gridArray[x, y, z] = createGridObject();
+                    gridArray[x, y, z] = createGridObject();*/
+    }
+
+    public Grid()
+    {
+
     }
 
     #region Howdy Neighbor
@@ -232,12 +267,15 @@ public class Grid<T>
         if (!isCoordinatesSafe(x, y, z))
             return default(T);
 
+        //if (nodes)
+        return elements[0];
+
         return gridArray[x, y, z];
     }
 
     public Vector3 GetWorldPosition(int x, int y, int z)
     {
-        return new Vector3(x, y, z) * cellSize;
+        return new Vector3(x, y, z) * cellSize; // Shouldn't this be +Origin
     }
 
     public void GetXYZ(Vector3 worldPosition, out int x, out int y, out int z)
@@ -258,6 +296,10 @@ public class Grid<T>
     {
         if (!isCoordinatesSafe(x, y, z))
             return;
+
+
+
+        return;
         gridArray[x, y, z] = newGridObject;
     }
 

@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using System.Collections.Generic;
 using UnityEngine;
 using Serialize.utils;
 
@@ -42,6 +43,7 @@ public class ChunkManager2 : MonoBehaviour
         GameObject obj = new GameObject("Asteroid");
         Transform parent = obj.transform;
         parent.position = transform.position;
+        obj.AddComponent<AsteroidChunkManager>().Setup(chunks);
         
         for (int x = 0; x < chunkGridSize; x++) {
             for (int y = 0; y < chunkGridSize; y++) {
@@ -57,14 +59,26 @@ public class ChunkManager2 : MonoBehaviour
                     Chunk chunk = clone.AddComponent<Chunk>();
                     clone.AddComponent<ChunkReference2>().AddReference(chunk);
 
-                    ChunkData chunkData = CreateChunkData(worldPos, x, y, z);
-                    chunk.Setup(chunkData, chunks);
-
                     chunks.SetGridObject(x, y, z, chunk);
 
+                    ChunkData chunkData = CreateChunkData(worldPos, x, y, z);
+                    chunk.Setup(chunkData, chunks);
+                    chunk.SetGridIndex(new Vector3(x, y, z));
                     chunk.FirstMarch(addCollider, addRigidBody);
 
                     if (serialize) chunk.GetComponent<SerializeMesh>().Serialize();
+                }
+            }
+        }
+
+        for (int x = 0; x < chunkGridSize; x++) {
+            for (int y = 0; y < chunkGridSize; y++) {
+                for (int z = 0; z < chunkGridSize; z++) {
+                    List<Chunk> neighbors = chunks.GetNeighbors(new Vector3(x, y, z));
+                    List<Vector3> indecies = new List<Vector3>();
+                    foreach (Chunk chunk in neighbors)
+                        indecies.Add(chunk.GetGridIndex());
+                    chunks.GetGridObject(x, y, z).SetNeighbors(indecies);
                 }
             }
         }
@@ -90,6 +104,12 @@ public class ChunkManager2 : MonoBehaviour
 
         return data;
     }
+
+    public void Testing()
+    {
+        GameObject obj = new GameObject("Test Object");
+        obj.AddComponent<TestScript3Grid>().SetGrid(new Grid<Chunk>(3, 3, 3, () => new Chunk()));
+    }
 }
 
 #if UNITY_EDITOR
@@ -110,6 +130,11 @@ public class ChunkManager2Editor : Editor
         if (GUILayout.Button("Create Asteroid"))
         {
             obj.CreateChunkGrid();
+        }
+
+        if (GUILayout.Button("Editor Testing"))
+        {
+            obj.Testing();
         }
     }
 }

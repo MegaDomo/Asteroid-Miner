@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class TestScript3Grid : MonoBehaviour
 {
-    Grid<Node> grid;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Grid<Chunk> chunks;
+
+    private void Start()
     {
-        grid = new Grid<Node>(10, 10, 10, 3, Vector3.zero, () => new Node());
+        List<int> test = new List<int>();
+        test.Add(4);
+        test.Add(2);
+        test.Add(7);
+        test.Add(11);
+        //Debug.Log(test.FindIndex(test.Contains(7));
+
+        if (chunks == null) Debug.Log("Chunks Null");
+        if (chunks != null) Debug.Log("We're Good!!!");
+        Debug.Log(chunks.GetGridObject(0, 0, 0));
+    }
+
+    public void SetGrid(Grid<Chunk> test)
+    {
+        chunks = test;
     }
 }

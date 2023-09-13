@@ -27,14 +27,16 @@ public class ChunkData
 public class Chunk : MonoBehaviour
 {
     [SerializeField] ChunkData data;
-    [SerializeField] Grid<Chunk> chunks;
-
+    Grid<Chunk> chunks;
+    List<Vector3> neighbors;
     Mesh mesh;
     MeshFilter meshFilter;
     MCGrid grid;
 
     List<Vector3> vertices;
     List<int> triangles;
+
+    Vector3 gridIndex;
 
     public Chunk()
     {
@@ -43,6 +45,7 @@ public class Chunk : MonoBehaviour
 
     private void Start()
     {
+        chunks = transform.parent.GetComponent<AsteroidChunkManager>().GetGrid();
         Setup(data, chunks);
         Debug.Log(data.chunkOrigin);
         Debug.Log(chunks.GetGridObject(0, 0, 0).name);
@@ -56,7 +59,6 @@ public class Chunk : MonoBehaviour
         Transform parent = transform.parent;
         this.data.chunkOrigin += parent.position;
 
-
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);
@@ -66,6 +68,7 @@ public class Chunk : MonoBehaviour
         //             and all the Serialization will be for naught!
         // Likely need to make 2 Setup Methods on for Editor (Serialization) and one for Runtime (Reading Serialized Data)
         // ==================================
+
         if (data.useNoise)
             MCValues.AddChunkSphereValuesWithNoise(grid, data.gridOrigin, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
         else
@@ -265,6 +268,23 @@ public class Chunk : MonoBehaviour
         mesh.Clear();
         vertices = new List<Vector3>();
         triangles = new List<int>();
+    }
+    #endregion
+
+    #region Getters & Setters
+    public Vector3 GetGridIndex()
+    {
+        return gridIndex;
+    }
+
+    public void SetNeighbors(List<Vector3> neighbors)
+    {
+        this.neighbors = neighbors;
+    }
+
+    public void SetGridIndex(Vector3 gridIndex)
+    {
+        this.gridIndex = gridIndex;
     }
     #endregion
 }

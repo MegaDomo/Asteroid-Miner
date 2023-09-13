@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class AsteroidChunkManager : MonoBehaviour
 {
-    Grid<Chunk> chunks;
-    Grid<ChunkData> data;
+    [SerializeField] Grid<Chunk> chunks;
 
-    public void Setup(Grid<Chunk> chunks, Grid<ChunkData> data)
+    private void Start()
+    {
+        if (chunks == null) Debug.Log("Chunks Null");
+        if (chunks != null) Debug.Log("We're Good!!!");
+    }
+    public void Setup(Grid<Chunk> chunks)
     {
         this.chunks = chunks;
-        this.data = data;
     }
 
     public Grid<Chunk> GetGrid()
     {
         return chunks;
-    }
-
-    public Grid<ChunkData> GetData()
-    {
-        return data;
     }
 }

@@ -23,6 +23,8 @@ public class JimTheDestroyer : MonoBehaviour
     private Rigidbody rb;
     private Vector3 randVec;
     private RaycastHit hit;
+    private bool avoiding = false;
+    private bool right = false;
 
     // Start is called before the first frame update
     void Start()
@@ -76,27 +78,39 @@ public class JimTheDestroyer : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, collisionRange))
         {
-            if (hit.collider.gameObject.CompareTag("Obstacle"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
             {
-                transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+                rb.velocity = rb.velocity / 1.005f;
 
-                /*if (LeftOrRight() == 0)
+                transform.Rotate(Vector3.down * Time.deltaTime * rotationSpeed);
+                /*if (avoiding == false)
                 {
-                    transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+                    avoiding = true;
+                    if (LeftOrRight() == 0)
+                        right = true;
+                    else
+                        right = false;
                 }
+
+                if (right)
+                    transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
                 else
-                {
-                    transform.Rotate(Vector3.down * Time.deltaTime * rotationSpeed);
-                }*/
+                    transform.Rotate(Vector3.down * Time.deltaTime * rotationSpeed);*/
             }
+        }
+        if (Physics.Raycast(transform.position, transform.right, out hit, collisionRange) ||
+            Physics.Raycast(transform.position, transform.forward, out hit, collisionRange))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+                rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
         }
         else
         {
+            avoiding = false;
             Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
         }
-
-        rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
 
         //transform.forward = dir;
 
@@ -107,7 +121,7 @@ public class JimTheDestroyer : MonoBehaviour
     {
         Vector3 dir = transform.position + randVec;
 
-        rb.AddForce(dir.normalized * speed * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(dir.normalized * speed * Time.deltaTime, ForceMode.Force);
 
         Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
@@ -149,5 +163,7 @@ public class JimTheDestroyer : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.position, transform.forward * collisionRange);
+        Gizmos.DrawRay(transform.position, transform.right * collisionRange);
+        Gizmos.DrawRay(transform.position, transform.right * -collisionRange);
     }
 }

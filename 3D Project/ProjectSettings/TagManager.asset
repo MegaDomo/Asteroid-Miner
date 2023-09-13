@@ -9,6 +9,7 @@ TagManager:
   - PlayerInventory
   - ChestInventory
   - UIItem
+  - Obstacle
   layers:
   - Default
   - TransparentFX

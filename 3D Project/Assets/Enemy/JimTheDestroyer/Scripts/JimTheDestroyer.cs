@@ -16,11 +16,13 @@ public class JimTheDestroyer : MonoBehaviour
     public float countDown;
     public float rotationSpeed;
     public float attackSpeed;
+    public float collisionRange;
 
     private float count = 0f;
     private float ASCount = 0f;
     private Rigidbody rb;
     private Vector3 randVec;
+    private RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
@@ -72,10 +74,29 @@ public class JimTheDestroyer : MonoBehaviour
         Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z)
             - transform.position;
 
-        rb.AddForce(dir.normalized * speed * Time.deltaTime, ForceMode.Impulse);
+        if (Physics.Raycast(transform.position, transform.forward, out hit, collisionRange))
+        {
+            if (hit.collider.gameObject.CompareTag("Obstacle"))
+            {
+                transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
 
-        Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+                /*if (LeftOrRight() == 0)
+                {
+                    transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+                }
+                else
+                {
+                    transform.Rotate(Vector3.down * Time.deltaTime * rotationSpeed);
+                }*/
+            }
+        }
+        else
+        {
+            Quaternion toRotation = Quaternion.LookRotation(dir, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
 
         //transform.forward = dir;
 
@@ -113,12 +134,20 @@ public class JimTheDestroyer : MonoBehaviour
         return new Vector3(Random.Range(-1f, 1f) * 1000, Random.Range(-1f, 1f) * 1000, Random.Range(-1f, 1f) * 1000);
     }
 
+    private int LeftOrRight()
+    {
+        return Random.Range(0, 2);
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
-        Gizmos.color = new Color(0, 1, 0, 1);
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.forward * collisionRange);
     }
 }

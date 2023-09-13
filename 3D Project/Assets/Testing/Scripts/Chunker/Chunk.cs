@@ -188,11 +188,12 @@ public class Chunk : MonoBehaviour
         
     void AdjustPointValues(Vector3 pointOfInfluence, float areaOfInfluenceRadius, float potency)
     {
+        Debug.Log(data.chunkOrigin);
+        Debug.Log(pointOfInfluence);
         for (int x = 0; x < data.gridSize; x++) {
             for (int y = 0; y < data.gridSize; y++) {
                 for (int z = 0; z < data.gridSize; z++) {
-                    Vector3 worldPos = new Vector3(x, y, z) + data.chunkOrigin;
-                    //pointOfInfluence += data.chunkOrigin;
+                    Vector3 worldPos = new Vector3(x, y, z) + data.chunkOrigin + data.gridOrigin;
                     if ((worldPos - pointOfInfluence).magnitude < areaOfInfluenceRadius)
                     {
                         float value = grid.GetValue(x, y, z);

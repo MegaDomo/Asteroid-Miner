@@ -7,6 +7,7 @@ public class ChunkData
 {
     // Core Details
     public Vector3 gridOrigin;
+    public Vector3 gridCenter;
     public Vector3 chunkOrigin;
     public Vector3 gridCoord;
 
@@ -55,8 +56,8 @@ public class Chunk : MonoBehaviour
         this.chunks = chunks;
 
         Transform parent = transform.parent;
-        this.data.chunkOrigin += parent.position;
-
+        data.gridOrigin = parent.position;
+        
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         grid = new MCGrid(data.gridSize);
@@ -68,9 +69,9 @@ public class Chunk : MonoBehaviour
         // ==================================
 
         if (data.useNoise)
-            MCValues.AddChunkSphereValuesWithNoise(grid, data.gridOrigin, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
+            MCValues.AddChunkSphereValuesWithNoise(grid, data.gridCenter, data.chunkOrigin, data.radius, data.noiseScale, data.noiseTransform);
         else
-            MCValues.AddChunkSphereValues(grid, data.gridOrigin, data.chunkOrigin, data.radius);
+            MCValues.AddChunkSphereValues(grid, data.gridCenter, data.chunkOrigin, data.radius);
     }
 
     public void FirstMarch(bool addCollider, bool addRigidBody)

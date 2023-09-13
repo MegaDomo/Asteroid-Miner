@@ -88,7 +88,7 @@ public class ChunkManager2 : MonoBehaviour
     {
         ChunkData data = new ChunkData();
 
-        data.gridOrigin = meshOrigin.position;
+        data.gridCenter = meshOrigin.position;
         data.chunkOrigin = worldPos;
         data.gridCoord = new Vector3(x, y, z);
 

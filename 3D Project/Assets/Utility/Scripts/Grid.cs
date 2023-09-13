@@ -38,12 +38,23 @@ public class Grid<T>
         this.origin = origin;
 
         gridArray = new T[width, height, length];
+        coordinates = new List<Vector3>();
+        elements = new List<T>();
 
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int z = 0; z < length; z++) {
+                    coordinates.Add(new Vector3(x, y, z));
+                    elements.Add(createGridObject());
+                }
+            }
+        }
+/*
         for (int x = 0; x < width; x++)
             for (int y = 0; y < height; y++)
                 for (int z = 0; z < length; z++)
                     gridArray[x, y, z] = createGridObject();
-
+*/
         bool debug = false;
         if (debug)
         {
@@ -267,9 +278,8 @@ public class Grid<T>
         if (!isCoordinatesSafe(x, y, z))
             return default(T);
 
-        //if (nodes)
-        return elements[0];
-
+        int index = coordinates.IndexOf(new Vector3(x, y, z));
+        return elements[index];
         return gridArray[x, y, z];
     }
 
@@ -297,7 +307,8 @@ public class Grid<T>
         if (!isCoordinatesSafe(x, y, z))
             return;
 
-
+        int index = coordinates.IndexOf(new Vector3(x, y, z));
+        elements[index] = newGridObject;
 
         return;
         gridArray[x, y, z] = newGridObject;

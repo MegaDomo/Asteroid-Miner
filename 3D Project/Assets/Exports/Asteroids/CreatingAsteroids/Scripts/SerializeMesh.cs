@@ -51,7 +51,7 @@ namespace Serialize.utils
 
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
-
+            GetComponent<MeshCollider>().sharedMesh = mesh;
             return mesh;
         }
     }

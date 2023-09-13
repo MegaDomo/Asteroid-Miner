@@ -47,8 +47,6 @@ public class Chunk : MonoBehaviour
     {
         chunks = transform.parent.GetComponent<AsteroidChunkManager>().GetGrid();
         Setup(data, chunks);
-        Debug.Log(data.chunkOrigin);
-        Debug.Log(chunks.GetGridObject(0, 0, 0).name);
     }
 
     public void Setup(ChunkData data, Grid<Chunk> chunks)

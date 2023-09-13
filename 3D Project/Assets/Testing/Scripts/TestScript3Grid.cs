@@ -8,13 +8,7 @@ public class TestScript3Grid : MonoBehaviour
 
     private void Start()
     {
-        List<int> test = new List<int>();
-        test.Add(4);
-        test.Add(2);
-        test.Add(7);
-        test.Add(11);
-        //Debug.Log(test.FindIndex(test.Contains(7));
-
+        return;
         if (chunks == null) Debug.Log("Chunks Null");
         if (chunks != null) Debug.Log("We're Good!!!");
         Debug.Log(chunks.GetGridObject(0, 0, 0));

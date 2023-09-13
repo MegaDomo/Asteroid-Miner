@@ -22,7 +22,7 @@ public class TestScript2 : MonoBehaviour
             100f, LayerMask.GetMask("MouseTesting")))
             {
                 vec = interactHit.point;
-
+                
                 Chunk gen = interactHit.transform.GetComponent<ChunkReference2>().chunk;
                 gen.TerraformMesh(vec, areaOfInfluenceRadius, potency);
             }
